@@ -16,6 +16,7 @@ class Home extends Component {
         <p>
           <Link to="/signup/">signup</Link>
         </p>
+
       </div>
     );
   }

@@ -10,9 +10,7 @@ class RegisterMutation(graphene.Mutation):
         email = graphene.String()
         password1 = graphene.String()
         password2 = graphene.String()
-        first_name = graphene.String()
-        last_name = graphene.String()
-        image = graphene.String()
+        full_name = graphene.String()
 
     errors = graphene.List(graphene.String)
     token = graphene.String()
@@ -22,8 +20,7 @@ class RegisterMutation(graphene.Mutation):
         email = args.get('email')
         password1 = args.get('password1')
         password2 = args.get('password2')
-        first_name = args.get('first_name')
-        last_name = args.get('last_name')
+        full_name = args.get('full_name')
         errors = []
         user = None
         token = None
@@ -37,8 +34,7 @@ class RegisterMutation(graphene.Mutation):
         if not errors:
             user = User.objects.create(
                 email=email,
-                first_name=first_name,
-                last_name=last_name
+                full_name=full_name,
             )
             user.set_password(password1)
             user.save()

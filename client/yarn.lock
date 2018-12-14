@@ -805,7 +805,7 @@
   dependencies:
     "@date-io/core" "^0.0.2"
 
-"@material-ui/core@^3.4.0":
+"@material-ui/core@^3.4.0", "@material-ui/core@^3.6.2":
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-3.6.2.tgz#b1e300ebd717909ffc4c7fd456f48e568156091a"
   integrity sha512-ONWU8ZCrhzzmeh6QXbYwicZxD0wSxj32UOSmPHXReZs4RTaeXOtLVloIxh7810fIR/GkfGXa/UJIK/woSHW4/Q==
@@ -8477,6 +8477,11 @@ react-fast-compare@^2.0.1:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
+
+react-geolocation@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-geolocation/-/react-geolocation-1.0.4.tgz#493f3ff1b8f89398cad0fb1001672a9611438e3d"
+  integrity sha512-4j5vejxE5wvELp/L+024FX9xYF6lC+gc/PPPsptHGQIJtrGYpvbAEOlmApwUlBV+H+1dG8CjL339kflXxBTBcg==
 
 react-image-lightbox@5.0.0:
   version "5.0.0"

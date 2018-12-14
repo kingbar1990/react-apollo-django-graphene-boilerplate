@@ -9,3 +9,4 @@ graphene-django==2.2.0
 graphql-core==2.1
 graphql-relay==0.4.5
 django-extensions==2.1.4
+ipdb==0.11

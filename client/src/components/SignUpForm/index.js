@@ -1,57 +1,67 @@
-import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
+import React from 'react';
+import Error from './error';
 
-const SignUpForm = () => {
+export const SignUpForm = (props) => {
+  const { handleInput, register, errors } = props;
   return (
-    <MDBContainer>
-      <MDBRow>
-        <MDBCol md="6">
-          <form>
-            <p className="h5 text-center mb-4">Sign up</p>
-            <div className="grey-text">
-              <MDBInput
-                label="Your name"
-                icon="user"
-                group
-                type="text"
-                validate
-                error="wrong"
-                success="right"
-              />
-              <MDBInput
-                label="Your email"
-                icon="envelope"
-                group
-                type="email"
-                validate
-                error="wrong"
-                success="right"
-              />
-              <MDBInput
-                label="Confirm your email"
-                icon="exclamation-triangle"
-                group
-                type="text"
-                validate
-                error="wrong"
-                success="right"
-              />
-              <MDBInput
-                label="Your password"
-                icon="lock"
-                group
-                type="password"
-                validate
-              />
-            </div>
-            <div className="text-center">
-              <MDBBtn color="primary">Register</MDBBtn>
-            </div>
-          </form>
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer>
+    <div className="container-fluid">
+      <div
+        style={{ minHeight: '90vh' }}
+        className="d-flex justify-content-center align-items-center row"
+      >
+        <form onSubmit={register}>
+          <h1>Registration</h1>
+          <div className="form-group">
+            <label>Full name</label>
+            <input
+              type="text"
+              className="form-control"
+              id="fullName"
+              placeholder="Enter your full name"
+              onChange={handleInput}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="exampleInputEmail1">Email address</label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              aria-describedby="emailHelp"
+              placeholder="Enter email"
+              onChange={handleInput}
+            />
+            <small id="emailHelp" className="form-text text-muted">
+              We will never share your email with anyone else.
+            </small>
+          </div>
+          <div className="form-group">
+            <label htmlFor="password1">Password</label>
+            <input
+              type="password"
+              className="form-control"
+              id="password1"
+              placeholder="Password"
+              onChange={handleInput}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password2">Confirm your password</label>
+            <input
+              type="password"
+              className="form-control"
+              id="password2"
+              placeholder="Password"
+              onChange={handleInput}
+            />
+          </div>
+
+          <Error error={errors} />
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
-
-export default SignUpForm;
