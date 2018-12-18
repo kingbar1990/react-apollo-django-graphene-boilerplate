@@ -4,10 +4,12 @@ import { graphql } from 'react-apollo';
 
 import { SignUpForm } from '../../components/SignUpForm';
 
+
 class SignUp extends React.Component {
   constructor() {
     super();
     this.state = {
+      fullName: '',
       email: '',
       password1: '',
       password2: '',
@@ -15,28 +17,26 @@ class SignUp extends React.Component {
     };
   }
 
-  register = (e) => {
-    console.log('register');
-    console.log(this.state);
-    e.preventDefault();
+  register = (values) => {
     this.props
       .register({
         variables: {
-          email: this.state.email,
-          password1: this.state.password1,
-          password2: this.state.password2,
-          fullName: this.state.fullName,
+          fullName: values.fullName,
+          email: values.email,
+          password1: values.password1,
+          password2: values.password2,
         },
       })
       .then((response) => {
-        console.log('!!!');
+        console.log('response');
+        console.log(response);
         if (response.data.register.errors.length === 0) {
           console.log('no errors');
-
           this.props.history.push('/timetracker');
         } else {
           console.log(response.data.register.errors);
-          this.setState({ errors: response.data.register.errors });
+          console.log(response.data.register);
+          //this.setState({ errors: response.data.register.errors });
         }
       })
 
@@ -49,11 +49,13 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <SignUpForm
-        handleInput={this.handleInput}
-        register={this.register}
-        errors={this.state.errors}
-      />
+      <div className="container">
+        <SignUpForm
+          handleInput={this.handleInput}
+          register={this.register}
+          errors={this.state.errors}
+        />
+      </div>
     );
   }
 }
