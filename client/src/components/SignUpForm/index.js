@@ -28,7 +28,6 @@ export const SignUpForm = (props) => {
   const { register } = props;
   return (
   <div>
-    <h1>Signup</h1>
     <Formik
       initialValues={{
         fullName: '',
@@ -41,6 +40,9 @@ export const SignUpForm = (props) => {
     >
       {() => (
         <div className="card">
+          <div className="card-header">
+            Signup
+          </div>
           <div className="card-body">
             <Form>
               <Field name="fullName" type="text" component={ReactstrapInput} label="Name"/>
