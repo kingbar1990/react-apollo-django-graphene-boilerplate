@@ -1,46 +1,29 @@
 import graphene
+from graphene_django import DjangoObjectType
+
+from serious_django_graphene import ValidationErrors, FormMutation
 
 from .models import User
 from .schema import UserType
 from .utils import obtain_jwt
+from .forms import UserForm
 
 
-class RegisterMutation(graphene.Mutation):
-    class Arguments:
-        email = graphene.String()
-        password1 = graphene.String()
-        password2 = graphene.String()
-        full_name = graphene.String()
+class RegisterMutation(FormMutation):
+    class Meta:
+        form_class = UserForm
 
-    errors = graphene.List(graphene.String)
     token = graphene.String()
     user = graphene.Field(lambda: UserType)
 
-    def mutate(root, info, **args):
-        email = args.get('email')
-        password1 = args.get('password1')
-        password2 = args.get('password2')
-        full_name = args.get('full_name')
-        errors = []
-        user = None
-        token = None
-
-        if User.objects.filter(email=email).exists():
-            errors.append('This email is already in use')
-
-        if password1 != password2:
-            errors.append('Password confirmation is incorrect')
-
-        if not errors:
-            user = User.objects.create(
-                email=email,
-                full_name=full_name,
-            )
-            user.set_password(password1)
-            user.save()
-            token = obtain_jwt(user.id)
-
-        return RegisterMutation(errors=errors, user=user, token=token)
+    @classmethod
+    def perform_mutate(cls, form, info):
+        user = form.save()
+        token = obtain_jwt(user.id)
+        return cls(
+            error=ValidationErrors(validation_errors=[]),
+            user=user, token=token, success=True
+        )
 
 
 class LoginMutation(graphene.Mutation):

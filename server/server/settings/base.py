@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'graphene_django',
     'corsheaders',
+    'serious_django_graphene'
 ]
 
 MIDDLEWARE = [

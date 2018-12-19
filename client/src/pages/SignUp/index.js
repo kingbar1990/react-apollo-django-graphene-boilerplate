@@ -2,7 +2,7 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 
-import { SignUpForm } from '../../components/SignUpForm';
+import { SignUpForm }  from '../../components/SignUpForm';
 
 
 class SignUp extends React.Component {
@@ -13,11 +13,11 @@ class SignUp extends React.Component {
       email: '',
       password1: '',
       password2: '',
-      errors: '',
+      error: '',
     };
   }
 
-  register = (values) => {
+  register = (values, { setErrors }) => {
     this.props
       .register({
         variables: {
@@ -28,19 +28,20 @@ class SignUp extends React.Component {
         },
       })
       .then((response) => {
-        console.log('response');
-        console.log(response);
-        if (response.data.register.errors.length === 0) {
-          console.log('no errors');
+        if (response.data.register.success) {
           this.props.history.push('/timetracker');
         } else {
-          console.log(response.data.register.errors);
-          console.log(response.data.register);
-          //this.setState({ errors: response.data.register.errors });
+          let errors = {};
+          for (let error of response.data.register.error.validationErrors) {
+            let messages = "";
+            for (let message in error['messages']) {
+              messages = messages.concat(error['messages'][message]);
+            }
+            errors[error['field']] = messages;
+          }
+          setErrors(errors);
         }
       })
-
-
   };
 
   handleInput = (e) => {
@@ -53,17 +54,27 @@ class SignUp extends React.Component {
         <SignUpForm
           handleInput={this.handleInput}
           register={this.register}
-          errors={this.state.errors}
+          error={this.state.error}
         />
       </div>
     );
   }
 }
 
+
 const register = gql`
 mutation register($email: String!, $password1: String!, $password2: String!, $fullName: String!) {
   register(email: $email, password1: $password1, password2: $password2, fullName: $fullName) {
-    errors
+    error {
+      __typename
+      ... on ValidationErrors {
+        validationErrors {
+          field
+          messages
+        }
+      }
+    }
+    success
     token
     user {
       id

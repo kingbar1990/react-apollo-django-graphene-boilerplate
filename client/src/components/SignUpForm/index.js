@@ -1,9 +1,7 @@
 import React from 'react';
-//import Error from './error';
 import { Formik, Form, Field } from "formik"
 import * as Yup from 'yup';
-// eslint-disable-next-line to the line before.
-import { Button, FormGroup, Label, Input, FormText, FormFeedback } from 'reactstrap';
+import { Button } from 'reactstrap';
 import { ReactstrapInput } from "reactstrap-formik";
 
 
@@ -16,12 +14,12 @@ const SignupSchema = Yup.object().shape({
     .email('E-mail is not valid!')
     .required('E-mail is required!'),
   password1: Yup.string()
-    .min(6, 'Password has to be longer than 6 characters!')
+    .min(8, 'Password has to be longer than 8 characters!')
     .required('Password is required!'),
   password2: Yup.string()
-        .required('Password confirmation is required!')
-        .min(6, 'Password has to be longer than 6 characters!')
-  });
+    .required('Password confirmation is required!')
+    .min(8, 'Password has to be longer than 8 characters!')
+});
 
 
 export const SignUpForm = (props) => {
@@ -49,7 +47,7 @@ export const SignUpForm = (props) => {
               <Field name="email" type="email" component={ReactstrapInput} label="Email"/>
               <Field name="password1" type="password" component={ReactstrapInput} label="Password"/>
               <Field name="password2" type="password" component={ReactstrapInput} label="Password confirmation"/>
-              <Button type="submit" >Submit</Button>
+              <Button type="submit">Submit</Button>
             </Form>
           </div>
         </div>
