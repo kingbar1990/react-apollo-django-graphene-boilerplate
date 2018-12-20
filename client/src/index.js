@@ -15,6 +15,7 @@ import App from './containers/App';
 import { loadData } from './utils';
 import { TOKEN } from './constants';
 import * as serviceWorker from './serviceWorker';
+import './index.css';
 
 
 const cache = new InMemoryCache({

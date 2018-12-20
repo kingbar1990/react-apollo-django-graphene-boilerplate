@@ -30,7 +30,7 @@ class Login extends Component {
       })
       .then((response) => {
         if (!response.data.login.error) {
-          this.props.history.push('/timetracker');
+          this.props.history.push('/dashboard');
         } else {
           let errors = {};
           for (let error of response.data.login.error.validationErrors) {

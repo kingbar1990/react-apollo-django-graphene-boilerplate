@@ -30,7 +30,7 @@ class SignUp extends React.Component {
       })
       .then((response) => {
         if (response.data.register.success) {
-          this.props.history.push('/timetracker');
+          this.props.history.push('/dashboard');
         } else {
           let errors = {};
           for (let error of response.data.register.error.validationErrors) {
