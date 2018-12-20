@@ -1,31 +1,15 @@
 import React from 'react';
 import { Formik, Form, Field } from "formik"
-import * as Yup from 'yup';
 import { Button } from 'reactstrap';
 import { ReactstrapInput } from "reactstrap-formik";
 
-
-const SignupSchema = Yup.object().shape({
-  fullName: Yup.string()
-    .min(2, 'Name has to be longer than 2 characters!')
-    .max(64, 'Name has to be shorter than 64 characters!')
-    .required('Name is required!'),
-  email: Yup.string()
-    .email('E-mail is not valid!')
-    .required('E-mail is required!'),
-  password1: Yup.string()
-    .min(8, 'Password has to be longer than 8 characters!')
-    .required('Password is required!'),
-  password2: Yup.string()
-    .required('Password confirmation is required!')
-    .min(8, 'Password has to be longer than 8 characters!')
-});
+import { SignupSchema } from "./validation";
 
 
 export const SignUpForm = (props) => {
   const { register } = props;
   return (
-  <div>
+  <React.Fragment>
     <Formik
       initialValues={{
         fullName: '',
@@ -53,6 +37,6 @@ export const SignUpForm = (props) => {
         </div>
       )}
     </Formik>
-  </div>
+  </React.Fragment>
   )
 };

@@ -1,8 +1,9 @@
 import React from 'react';
-import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
+import { Container } from 'reactstrap';
 
 import { SignUpForm }  from '../../components/SignUpForm';
+import { register } from './queries';
 
 
 class SignUp extends React.Component {
@@ -50,40 +51,15 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <Container>
         <SignUpForm
           handleInput={this.handleInput}
           register={this.register}
           error={this.state.error}
         />
-      </div>
+      </Container>
     );
   }
 }
-
-
-const register = gql`
-mutation register($email: String!, $password1: String!, $password2: String!, $fullName: String!) {
-  register(email: $email, password1: $password1, password2: $password2, fullName: $fullName) {
-    error {
-      __typename
-      ... on ValidationErrors {
-        validationErrors {
-          field
-          messages
-        }
-      }
-    }
-    success
-    token
-    user {
-      id
-      email
-      fullName
-    }
-  }
-}
-`;
-
 
 export default graphql(register, { name: 'register' })(SignUp);
