@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-
+import TopNavigation from '../../components/TopNavigation';
+import SideNavigation from '../../components/SideNavigation';
+import Footer from '../../components/Footer';
 
 class Dashboard extends Component {
   render() {
     return (
-      <h1>Dashboard</h1>
+      <div className="flexible-content">
+        <TopNavigation />
+        <SideNavigation />
+        <main id="content" className="p-5">
+          <h1>Content</h1>
+        </main>
+        <Footer />
+      </div>
     );
   }
 }
