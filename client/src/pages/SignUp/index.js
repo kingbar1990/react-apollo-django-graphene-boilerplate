@@ -30,16 +30,12 @@ class SignUp extends React.Component {
       })
       .then((response) => {
         if (response.data.register.success) {
-          this.props.history.push("/dashboard");
+          this.props.history.push('/dashboard');
         } else {
           let errors = {};
-          for (let error of response.data.register.error.validationErrors) {
-            let messages = "";
-            for (let message in error["messages"]) {
-              messages = messages.concat(error["messages"][message]);
-            }
-            errors[error["field"]] = messages;
-          }
+          response.data.register.error.validationErrors.map((error) => {
+            return errors[error['field']] = error['messages'].join(' ');
+          })
           setErrors(errors);
         }
       })

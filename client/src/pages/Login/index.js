@@ -3,7 +3,6 @@ import { graphql } from "react-apollo";
 import { Container } from "reactstrap";
 
 import { LoginForm } from "../../components/LoginForm";
-import { fakeAuth } from "../../containers/App";
 import { login } from "./queries";
 
 
@@ -14,7 +13,6 @@ class Login extends Component {
       username: "",
       password: "",
       error: "",
-      redirectToReferrer: false
     };
   }
 
@@ -32,26 +30,18 @@ class Login extends Component {
       })
       .then((response) => {
         if (!response.data.login.error) {
-          fakeAuth.authenticate(() => {
-            this.setState(() => ({
-              redirectToReferrer: true
-            }))
-          })
           this.props.history.push("/dashboard");
         } else {
           let errors = {};
-          for (let error of response.data.login.error.validationErrors) {
-            let messages = "";
-            for (let message in error["messages"]) {
-              messages = messages.concat(error["messages"][message]);
+          response.data.login.error.validationErrors.map((error) => {
+            if(error["field'"] === "__all__"){
+              errors["username"] = error["messages"].join(" ");
+              errors["password"] = error["messages"].join(" ");
+            }else{
+              errors[error] = error["messages"];
             }
-            if (error["field"] === "__all__") {
-              errors["username"] = messages;
-              errors["password"] = messages;
-            } else {
-              errors[error["field"]] = messages;
-            }
-          }
+            return null;
+          })
           setErrors(errors);
         }
       })
