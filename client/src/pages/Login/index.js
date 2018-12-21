@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import { Container } from 'reactstrap';
+import React, { Component } from "react";
+import { graphql } from "react-apollo";
+import { Container } from "reactstrap";
 
-import { LoginForm } from '../../components/LoginForm';
-import { login } from './queries';
+import { LoginForm } from "../../components/LoginForm";
+import { login } from "./queries";
 
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
-      username: '',
-      password: '',
-      error: '',
+      username: "",
+      password: "",
+      error: "",
     };
   }
 
@@ -30,19 +30,19 @@ class Login extends Component {
       })
       .then((response) => {
         if (!response.data.login.error) {
-          this.props.history.push('/dashboard');
+          this.props.history.push("/dashboard");
         } else {
           let errors = {};
           for (let error of response.data.login.error.validationErrors) {
             let messages = "";
-            for (let message in error['messages']) {
-              messages = messages.concat(error['messages'][message]);
+            for (let message in error["messages"]) {
+              messages = messages.concat(error["messages"][message]);
             }
-            if (error['field'] === '__all__') {
-              errors['username'] = messages;
-              errors['password'] = messages;
+            if (error["field"] === "__all__") {
+              errors["username"] = messages;
+              errors["password"] = messages;
             } else {
-              errors[error['field']] = messages;
+              errors[error["field"]] = messages;
             }
           }
           setErrors(errors);
@@ -65,4 +65,4 @@ class Login extends Component {
   }
 }
 
-export default graphql(login, { name: 'login' })(Login);
+export default graphql(login, { name: "login" })(Login);

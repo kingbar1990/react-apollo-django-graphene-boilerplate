@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import './scss/App.css';
-import './scss/index.css';
+import "./scss/App.css";
+import "./scss/index.css";
 
 
 class Home extends Component {

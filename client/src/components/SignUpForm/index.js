@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import { Formik, Form, Field } from "formik"
-import { Button } from 'reactstrap';
+import { Button } from "reactstrap";
 import { ReactstrapInput } from "reactstrap-formik";
 
 import { SignupSchema } from "./validation";
@@ -12,10 +12,10 @@ export const SignUpForm = (props) => {
   <React.Fragment>
     <Formik
       initialValues={{
-        fullName: '',
-        email: '',
-        password1: '',
-        password2: '',
+        fullName: "",
+        email: "",
+        password1: "",
+        password2: "",
       }}
       validationSchema={SignupSchema}
       onSubmit={register}

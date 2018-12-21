@@ -1,21 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom'
-import { HttpLink } from 'apollo-link-http';
-import ApolloClient from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloProvider } from 'react-apollo';
-import { setContext } from 'apollo-link-context';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom"
+import { HttpLink } from "apollo-link-http";
+import ApolloClient from "apollo-client";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { ApolloProvider } from "react-apollo";
+import { setContext } from "apollo-link-context";
 
-import 'font-awesome/css/font-awesome.min.css';
-import 'bootstrap-css-only/css/bootstrap.min.css';
-import 'mdbreact/dist/css/mdb.css';
+import "font-awesome/css/font-awesome.min.css";
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
 
-import App from './containers/App';
-import { loadData } from './utils';
-import { TOKEN } from './constants';
-import * as serviceWorker from './serviceWorker';
-import './index.css';
+import App from "./containers/App";
+import { loadData } from "./utils";
+import { TOKEN } from "./constants";
+import * as serviceWorker from "./serviceWorker";
+import "./index.css";
 
 
 const cache = new InMemoryCache({
@@ -23,7 +23,7 @@ const cache = new InMemoryCache({
 });
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:8000/graphql/',
+  uri: "http://localhost:8000/graphql/",
 });
 
 const authMiddleware = setContext(() => ({
@@ -44,7 +44,7 @@ ReactDOM.render(
     </BrowserRouter>
   </ApolloProvider>,
 
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

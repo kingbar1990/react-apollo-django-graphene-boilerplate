@@ -1,10 +1,10 @@
-import React from 'react';
-import { Route, withRouter } from 'react-router';
+import React from "react";
+import { Route, withRouter } from "react-router";
 
-import Home from '../../pages/Home';
-import SignUp from '../../pages/SignUp';
-import Login from '../../pages/Login';
-import Dashboard from '../../pages/Dashboard';
+import Home from "../../pages/Home";
+import SignUp from "../../pages/SignUp";
+import Login from "../../pages/Login";
+import Dashboard from "../../pages/Dashboard";
 
 
 const App = () => (

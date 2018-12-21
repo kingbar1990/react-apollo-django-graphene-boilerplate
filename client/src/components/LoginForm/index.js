@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import { Formik, Form, Field } from "formik";
-import { Button } from 'reactstrap';
+import { Button } from "reactstrap";
 import { ReactstrapInput } from "reactstrap-formik";
 
 import { LoginSchema } from "./validation";
@@ -12,8 +12,8 @@ export const LoginForm = (props) => {
   <div>
     <Formik
       initialValues={{
-        username: '',
-        password: '',
+        username: "",
+        password: "",
       }}
       validationSchema={LoginSchema}
       onSubmit={login}
