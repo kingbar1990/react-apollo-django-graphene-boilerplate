@@ -3,6 +3,7 @@ import { graphql } from "react-apollo";
 import { Container } from "reactstrap";
 
 import { LoginForm } from "../../components/LoginForm";
+import { fakeAuth } from "../../containers/App";
 import { login } from "./queries";
 
 
@@ -13,6 +14,7 @@ class Login extends Component {
       username: "",
       password: "",
       error: "",
+      redirectToReferrer: false
     };
   }
 
@@ -30,6 +32,11 @@ class Login extends Component {
       })
       .then((response) => {
         if (!response.data.login.error) {
+          fakeAuth.authenticate(() => {
+            this.setState(() => ({
+              redirectToReferrer: true
+            }))
+          })
           this.props.history.push("/dashboard");
         } else {
           let errors = {};
