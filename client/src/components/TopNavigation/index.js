@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink, Fa } from "mdbreact";
 
+import { AUTH_TOKEN } from "../../constants";
+
+
 class TopNavigation extends Component {
   constructor(props) {
     super(props);
@@ -56,7 +59,18 @@ class TopNavigation extends Component {
               <a className="border border-light rounded mr-1 nav-link Ripple-parent" rel="noopener noreferrer" href="https://github.com/mdbootstrap/React-Bootstrap-with-Material-Design" target="_blank"><Fa icon="github" className="mr-2"/>MDB GitHub</a>
             </NavItem>
             <NavItem>
-              <a className="border border-light rounded mr-1 nav-link Ripple-parent" rel="noopener noreferrer" href="https://mdbootstrap.com/products/react-ui-kit/" target="_blank"><Fa icon="github" className="mr-2"/>Go Pro</a>
+              <a
+                className="border border-light rounded mr-1 nav-link Ripple-parent"
+                rel="noopener noreferrer"
+                href="">
+                <Fa icon="github"
+                className="mr-2"
+                onClick={() => {
+                  localStorage.removeItem(AUTH_TOKEN)
+                  this.props.history.push(`/`)
+                }}
+              />Log out</a>
+
             </NavItem>
           </NavbarNav>
         </Collapse>
