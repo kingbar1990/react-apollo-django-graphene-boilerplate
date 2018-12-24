@@ -4,6 +4,7 @@ import { Container } from "reactstrap";
 
 import { LoginForm } from "../../components/LoginForm";
 import { login } from "./queries";
+import { AUTH_TOKEN } from "../../constants";
 
 
 class Login extends Component {
@@ -30,6 +31,7 @@ class Login extends Component {
       })
       .then((response) => {
         if (!response.data.login.error) {
+          localStorage.setItem(AUTH_TOKEN, response.data.login.token);
           this.props.history.push("/dashboard");
         } else {
           let errors = {};

@@ -5,25 +5,15 @@ import Home from "../../pages/Home";
 import SignUp from "../../pages/SignUp";
 import Login from "../../pages/Login";
 import Dashboard from "../../pages/Dashboard";
+import { AUTH_TOKEN } from "../../constants";
 
-export const fakeAuth = {
-  isAuthenticated: false,
-  authenticate(cb) {
-    this.isAuthenticated = true
-    setTimeout(cb, 100)
-  },
-  signout(cb) {
-    this.isAuthenticated = false
-    setTimeout(cb, 100)
-  }
-}
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
-    fakeAuth.isAuthenticated === true
+    localStorage.getItem(AUTH_TOKEN) !== null
       ? <Component {...props} />
       : <Redirect to={{
-          pathname: '/login',
+          pathname: "/login",
           state: { from: props.location }
         }} />
   )} />

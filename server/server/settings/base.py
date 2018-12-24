@@ -58,7 +58,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-
 ]
 
 ROOT_URLCONF = 'server.urls'
@@ -144,9 +143,15 @@ GRAPHENE = {
     'SCHEMA': 'server.schema.schema',  # Where your Graphene schema lives
     'MIDDLEWARE': [
         'server.middleware.AuthorizationMiddleware',
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
     ]
 }
 
 # JWT
 JWT_EXPIRATION_DELTA = datetime.timedelta(days=1)
 JWT_ALGORITHM = 'HS256'
+
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]

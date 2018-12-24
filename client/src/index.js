@@ -12,8 +12,7 @@ import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 
 import App from "./containers/App";
-import { loadData } from "./utils";
-import { TOKEN } from "./constants";
+import { AUTH_TOKEN } from "./constants";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
 
@@ -26,14 +25,20 @@ const httpLink = new HttpLink({
   uri: "http://localhost:8000/graphql/",
 });
 
-const authMiddleware = setContext(() => ({
-  headers: {
-    Authorization: `Bearer ${loadData(TOKEN)}`,
-  },
-}));
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem(AUTH_TOKEN);
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
+  }
+});
 
 const client = new ApolloClient({
-  link: authMiddleware.concat(httpLink),
+  link: authLink.concat(httpLink),
   cache: cache.restore(window.__APOLLO_STATE__ || {}),
 });
 
