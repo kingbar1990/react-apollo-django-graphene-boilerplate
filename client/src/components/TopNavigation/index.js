@@ -1,30 +1,43 @@
 import React, { Component } from "react";
-import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink, Fa } from "mdbreact";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarNav,
+  NavbarToggler,
+  Collapse,
+  NavItem,
+  NavLink,
+  Fa
+} from "mdbreact";
 
 import { AUTH_TOKEN } from "../../constants";
-
 
 class TopNavigation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        collapse: false,
+      collapse: false
     };
-    this.onClick = this.onClick.bind(this);
-    this.toggle = this.toggle.bind(this);
   }
 
-  onClick(){
+  onClick = () => {
     this.setState({
-      collapse: !this.state.collapse,
+      collapse: !this.state.collapse
     });
-  }
+  };
 
-  toggle() {
+  toggle = () => {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
     });
-  }
+  };
+
+  handleLogout = () => {
+    localStorage.removeItem(AUTH_TOKEN);
+    localStorage.removeItem("isAuth");
+
+    window.location.href = "/login";
+  };
 
   render() {
     return (
@@ -32,48 +45,83 @@ class TopNavigation extends Component {
         <NavbarBrand href="/">
           <strong>MDB</strong>
         </NavbarBrand>
-        <NavbarToggler onClick = { this.onClick } />
-        <Collapse isOpen = { this.state.collapse } navbar>
+        <NavbarToggler onClick={this.onClick} />
+        <Collapse isOpen={this.state.collapse} navbar>
           <NavbarNav left>
             <NavItem active>
               <NavLink to="#">Home</NavLink>
             </NavItem>
             <NavItem>
-              <a rel="noopener noreferrer" className="nav-link Ripple-parent" href="https://mdbootstrap.com/docs/react/" target="_blank">About MDB</a>
+              <a
+                rel="noopener noreferrer"
+                className="nav-link Ripple-parent"
+                href="https://mdbootstrap.com/docs/react/"
+                target="_blank"
+              >
+                About MDB
+              </a>
             </NavItem>
             <NavItem>
-              <a rel="noopener noreferrer" className="nav-link Ripple-parent" href="https://mdbootstrap.com/docs/react/getting-started/download/" target="_blank">Free download</a>
+              <a
+                rel="noopener noreferrer"
+                className="nav-link Ripple-parent"
+                href="https://mdbootstrap.com/docs/react/getting-started/download/"
+                target="_blank"
+              >
+                Free download
+              </a>
             </NavItem>
             <NavItem>
-              <a rel="noopener noreferrer"  className="nav-link Ripple-parent" href="https://mdbootstrap.com/bootstrap-tutorial/" target="_blank">Free tutorials</a>
+              <a
+                rel="noopener noreferrer"
+                className="nav-link Ripple-parent"
+                href="https://mdbootstrap.com/bootstrap-tutorial/"
+                target="_blank"
+              >
+                Free tutorials
+              </a>
             </NavItem>
           </NavbarNav>
           <NavbarNav right>
             <NavItem>
-              <a className="nav-link navbar-link" rel="noopener noreferrer" target="_blank" href="https://pl-pl.facebook.com/mdbootstrap/"><Fa icon="facebook" /></a>
+              <a
+                className="nav-link navbar-link"
+                rel="noopener noreferrer"
+                target="_blank"
+                href="https://pl-pl.facebook.com/mdbootstrap/"
+              >
+                <Fa icon="facebook" />
+              </a>
             </NavItem>
             <NavItem>
-              <a className="nav-link navbar-link" rel="noopener noreferrer" target="_blank" href="https://twitter.com/mdbootstrap"><Fa icon="twitter" /></a>
+              <a
+                className="nav-link navbar-link"
+                rel="noopener noreferrer"
+                target="_blank"
+                href="https://twitter.com/mdbootstrap"
+              >
+                <Fa icon="twitter" />
+              </a>
             </NavItem>
             <NavItem>
-              <a className="border border-light rounded mr-1 nav-link Ripple-parent" rel="noopener noreferrer" href="https://github.com/mdbootstrap/React-Bootstrap-with-Material-Design" target="_blank"><Fa icon="github" className="mr-2"/>MDB GitHub</a>
+              <a
+                className="border border-light rounded mr-1 nav-link Ripple-parent"
+                rel="noopener noreferrer"
+                href="https://github.com/mdbootstrap/React-Bootstrap-with-Material-Design"
+                target="_blank"
+              >
+                <Fa icon="github" className="mr-2" />
+                MDB GitHub
+              </a>
             </NavItem>
-            <NavItem
-              onClick={() => {
-                console.log('!!');
-                localStorage.removeItem(AUTH_TOKEN);
-                //this.props.history.push(`/`);
-                window.location.href = "/";
-              }}>
+            <NavItem onClick={this.handleLogout}>
               <div
                 className="border border-light rounded mr-1 nav-link Ripple-parent"
                 rel="noopener noreferrer"
-                >
-                <Fa icon="github"
-                className="mr-2"
-
-              />Log out</div>
-
+              >
+                <Fa icon="github" className="mr-2" />
+                Log out
+              </div>
             </NavItem>
           </NavbarNav>
         </Collapse>

@@ -6,18 +6,17 @@ import { LoginForm } from "../../components/LoginForm";
 import { login } from "./queries";
 import { AUTH_TOKEN } from "../../constants";
 
-
 class Login extends Component {
   constructor() {
     super();
     this.state = {
       username: "",
       password: "",
-      error: "",
+      error: ""
     };
   }
 
-  handleInput = (e) => {
+  handleInput = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
 
@@ -26,27 +25,30 @@ class Login extends Component {
       .login({
         variables: {
           username: values.username,
-          password: values.password,
-        },
+          password: values.password
+        }
       })
-      .then((response) => {
+      .then(response => {
         if (!response.data.login.error) {
-          localStorage.setItem(AUTH_TOKEN, response.data.login.token);
+          const token = response.data.login.token;
+
+          localStorage.setItem(AUTH_TOKEN, token);
+          localStorage.setItem("isAuth", true);
           this.props.history.push("/dashboard");
         } else {
           let errors = {};
-          response.data.login.error.validationErrors.map((error) => {
-            if(error["field"] === "__all__"){
+          response.data.login.error.validationErrors.map(error => {
+            if (error["field"] === "__all__") {
               errors["username"] = error["messages"].join(" ");
               errors["password"] = error["messages"].join(" ");
-            }else{
+            } else {
               errors[error] = error["messages"];
             }
             return null;
-          })
+          });
           setErrors(errors);
         }
-      })
+      });
   };
 
   render() {
