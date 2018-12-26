@@ -30,8 +30,12 @@ class Command(BaseCommand):
         )
 
         try:
-            s3.meta.client.upload_file(settings.BACKUP_DIR_PATH+file_name, settings.AWS_BACKUP_BUCKET_NAME, file_name,
-                                       Config=config)
+            s3.meta.client.upload_file(
+                settings.BACKUP_DIR_PATH + file_name,
+                settings.AWS_BACKUP_BUCKET_NAME,
+                file_name,
+                Config=config
+            )
             res = file_name + ' success uploaded to bucket'
         except Exception:
             res = 'Something wrong with ' + file_name + ' uploading'

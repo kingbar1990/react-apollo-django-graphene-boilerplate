@@ -58,18 +58,21 @@ class TopNavigation extends Component {
             <NavItem>
               <a className="border border-light rounded mr-1 nav-link Ripple-parent" rel="noopener noreferrer" href="https://github.com/mdbootstrap/React-Bootstrap-with-Material-Design" target="_blank"><Fa icon="github" className="mr-2"/>MDB GitHub</a>
             </NavItem>
-            <NavItem>
-              <a
+            <NavItem
+              onClick={() => {
+                console.log('!!');
+                localStorage.removeItem(AUTH_TOKEN);
+                //this.props.history.push(`/`);
+                window.location.href = "/";
+              }}>
+              <div
                 className="border border-light rounded mr-1 nav-link Ripple-parent"
                 rel="noopener noreferrer"
-                href="">
+                >
                 <Fa icon="github"
                 className="mr-2"
-                onClick={() => {
-                  localStorage.removeItem(AUTH_TOKEN)
-                  this.props.history.push(`/`)
-                }}
-              />Log out</a>
+
+              />Log out</div>
 
             </NavItem>
           </NavbarNav>

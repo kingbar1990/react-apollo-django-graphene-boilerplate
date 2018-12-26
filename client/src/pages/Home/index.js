@@ -10,13 +10,9 @@ class Home extends Component {
     return (
       <div className="App">
         Home Page
-        <p>
-          <Link to="/login/">login</Link>
-        </p>
-        <p>
-          <Link to="/signup/">signup</Link>
-        </p>
-
+        <p><Link to="/login/">login</Link></p>
+        <p><Link to="/signup/">signup</Link></p>
+        <p><Link to="/dashboard/">dashboard</Link></p>
       </div>
     );
   }

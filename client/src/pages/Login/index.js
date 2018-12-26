@@ -36,7 +36,7 @@ class Login extends Component {
         } else {
           let errors = {};
           response.data.login.error.validationErrors.map((error) => {
-            if(error["field'"] === "__all__"){
+            if(error["field"] === "__all__"){
               errors["username"] = error["messages"].join(" ");
               errors["password"] = error["messages"].join(" ");
             }else{
