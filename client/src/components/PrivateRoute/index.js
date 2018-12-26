@@ -2,9 +2,9 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
 export default class PrivateRoute extends React.Component {
-  componentDidMount() {
+  async componentDidMount() {
     if (localStorage.getItem("token")) {
-      this.props
+      await this.props
         .verifyToken({
           variables: {
             token: localStorage.getItem("token")
@@ -15,6 +15,9 @@ export default class PrivateRoute extends React.Component {
             "isAuth",
             Boolean(res.data.verifyToken.payload.user_id)
           );
+        })
+        .catch(e => {
+          if (e.message) window.location.href = "/login";
         });
     }
   }
