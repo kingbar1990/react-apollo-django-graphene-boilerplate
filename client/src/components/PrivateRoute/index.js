@@ -4,21 +4,16 @@ import { Route, Redirect } from "react-router-dom";
 export default class PrivateRoute extends React.Component {
   async componentDidMount() {
     if (localStorage.getItem("token")) {
-      await this.props
-        .verifyToken({
+      try {
+        const response = await this.props.verifyToken({
           variables: {
             token: localStorage.getItem("token")
           }
-        })
-        .then(res => {
-          localStorage.setItem(
-            "isAuth",
-            Boolean(res.data.verifyToken.payload.user_id)
-          );
-        })
-        .catch(e => {
-          if (e.message) window.location.href = "/login";
         });
+        return response;
+      } catch (error) {
+        if (error.message) window.location.href = "/login";
+      }
     }
   }
   render() {
