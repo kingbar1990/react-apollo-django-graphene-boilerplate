@@ -51,12 +51,16 @@ const devTools =
 
 const store = createStore(rootReducer, devTools);
 
-const token = localStorage.getItem("token")
-  ? JSON.parse(localStorage.getItem("token")).token
-  : false;
+const token = window.localStorage.getItem("token");
+let data = "";
+try {
+  data = token ? JSON.parse(token).token : false;
+} catch (error) {
+  // ignore
+}
 
 try {
-  if (jwtDecode(token)) {
+  if (jwtDecode(data)) {
     store.dispatch(loginAction(true));
   } else {
     store.dispatch(loginAction(false));
