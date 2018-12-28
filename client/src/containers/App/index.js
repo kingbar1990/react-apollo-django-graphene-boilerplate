@@ -1,14 +1,13 @@
 import React from "react";
-import { Switch, Route } from "react-router";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { withRouter, Switch, Route } from "react-router";
 
 import Home from "../../pages/Home";
 import SignUp from "../../pages/SignUp";
 import Login from "../../pages/Login";
 import Dashboard from "../../pages/Dashboard";
 import PrivateRoute from "../../components/PrivateRoute";
-
-import { verifyToken } from "./queries";
-import { graphql } from "react-apollo";
 
 class App extends React.Component {
   render() {
@@ -22,7 +21,7 @@ class App extends React.Component {
             exact
             path="/dashboard"
             component={Dashboard}
-            verifyToken={this.props.verifyToken}
+            isAuth={this.props.isAuth}
           />
         </Switch>
       </div>
@@ -30,4 +29,14 @@ class App extends React.Component {
   }
 }
 
-export default graphql(verifyToken, { name: "verifyToken" })(App);
+const mapStateToProps = state => ({
+  isAuth: state.auth.isAuthenticated
+});
+
+export default compose(
+  withRouter,
+  connect(
+    mapStateToProps,
+    null
+  )
+)(App);

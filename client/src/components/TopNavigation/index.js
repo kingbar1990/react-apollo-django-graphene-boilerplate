@@ -10,7 +10,7 @@ import {
   Fa
 } from "mdbreact";
 
-import { AUTH_TOKEN } from "../../constants";
+import { TOKEN } from "../../constants";
 
 class TopNavigation extends Component {
   constructor(props) {
@@ -33,9 +33,7 @@ class TopNavigation extends Component {
   };
 
   handleLogout = () => {
-    localStorage.removeItem(AUTH_TOKEN);
-    localStorage.removeItem("isAuth");
-
+    localStorage.removeItem(TOKEN);
     window.location.href = "/login";
   };
 

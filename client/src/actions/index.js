@@ -1,19 +1,19 @@
-import { LOGIN_SUCCESS, LOGOUT_SUCCESS, TOKEN } from "../constants";
+import * as actions from "../constants";
 import { saveData } from "../utils";
 
-export const loginAction = user => ({
-  type: LOGIN_SUCCESS,
-  payload: user,
+export const loginAction = isAuth => ({
+  type: actions.LOGIN_SUCCESS,
+  isAuth: isAuth
 });
 
-export const login = (token, user) => (dispatch) => {
-  saveData(TOKEN, token);
-  dispatch(loginAction(user));
+export const islogin = (token, user) => {
+  saveData(actions.TOKEN, token);
+  return loginAction(user);
 };
 
-export const logout = () => dispatch =>
-  new Promise((resolve) => {
-    window.localStorage.removeItem(TOKEN);
-    dispatch({ type: LOGOUT_SUCCESS });
-    resolve();
-  });
+export const logout = () => {
+  window.localStorage.removeItem(actions.TOKEN);
+  return {
+    type: actions.LOGOUT_SUCCESS
+  };
+};

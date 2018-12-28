@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import { graphql } from "react-apollo";
+import { graphql, compose } from "react-apollo";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import { islogin } from "../../actions";
 import { Container } from "reactstrap";
 
 import { LoginForm } from "../../components/LoginForm";
 import { login } from "./queries";
-import { AUTH_TOKEN } from "../../constants";
 
 class Login extends Component {
   constructor() {
@@ -32,8 +35,7 @@ class Login extends Component {
         if (!response.data.login.error) {
           const token = response.data.login.token;
 
-          localStorage.setItem(AUTH_TOKEN, token);
-          localStorage.setItem("isAuth", true);
+          this.props.islogin(token, true);
           this.props.history.push("/dashboard");
         } else {
           let errors = {};
@@ -66,4 +68,18 @@ class Login extends Component {
   }
 }
 
-export default graphql(login, { name: "login" })(Login);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      islogin
+    },
+    dispatch
+  );
+
+export default compose(
+  connect(
+    null,
+    mapDispatchToProps
+  ),
+  graphql(login, { name: "login" })
+)(Login);

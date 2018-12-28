@@ -1,7 +1,10 @@
 import React from "react";
-import { graphql } from "react-apollo";
+import { graphql, compose } from "react-apollo";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import { islogin } from "../../actions";
 import { Container } from "reactstrap";
-import { AUTH_TOKEN } from "../../constants";
 
 import { SignUpForm } from "../../components/SignUpForm";
 import { register } from "./queries";
@@ -32,8 +35,7 @@ class SignUp extends React.Component {
         if (response.data.register.success) {
           const token = response.data.register.token;
 
-          localStorage.setItem(AUTH_TOKEN, token);
-          localStorage.setItem("isAuth", true);
+          this.props.islogin(token, true);
           this.props.history.push("/dashboard");
         } else {
           let errors = {};
@@ -62,4 +64,18 @@ class SignUp extends React.Component {
   }
 }
 
-export default graphql(register, { name: "register" })(SignUp);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      islogin
+    },
+    dispatch
+  );
+
+export default compose(
+  connect(
+    null,
+    mapDispatchToProps
+  ),
+  graphql(register, { name: "register" })
+)(SignUp);
