@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # local
     'accounts',
+    'core',
 
     # third-party
     'django_extensions',

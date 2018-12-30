@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TopNavigation from "../../components/TopNavigation";
 import SideNavigation from "../../components/SideNavigation";
 import Footer from "../../components/Footer";
+import Content from "../../containers/DashboardContent";
 
 
 class Dashboard extends Component {
@@ -11,7 +12,7 @@ class Dashboard extends Component {
         <TopNavigation />
         <SideNavigation />
         <main id="content" className="p-5">
-          <h1>Content</h1>
+          <Content />
         </main>
         <Footer />
       </div>
