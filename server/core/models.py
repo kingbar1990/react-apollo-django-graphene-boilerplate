@@ -3,13 +3,10 @@ from django.contrib.auth import get_user_model
 
 
 class Task(models.Model):
-    ToDo = 0
-    InProgress = 1
-    Done = 2
     STATUS_CHOICES = (
-        (ToDo, 'ToDo'),
-        (InProgress, 'InProgress'),
-        (Done, 'Done'),
+        (0, 'ToDo'),
+        (1, 'InProgress'),
+        (2, 'Done'),
     )
     name = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)

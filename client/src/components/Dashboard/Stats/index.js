@@ -1,7 +1,8 @@
 import React from 'react';
 import {MDBCard, MDBCardTitle, MDBCardText, MDBContainer} from "mdbreact";
-import {compose, graphql} from "react-apollo/index";
-import {getTasks, getUsers} from "../../../queries";
+import {graphql, compose} from "react-apollo";
+import {getTasks, getUsers} from "../../queries";
+import {Pie} from "react-chartjs-2";
 
 
 class Stat extends React.Component {
@@ -13,6 +14,32 @@ class Stat extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.setState({
+            dataPie: {
+                labels: ['In progress', 'Done', 'To Do'],
+                datasets: [
+                    {
+                        data: [this.props.tasks.tasks && this.props.tasks.tasks.filter(task => task.status === 0),
+                            this.props.tasks.tasks && this.props.tasks.tasks.filter(task => task.status === 1),
+                            this.props.tasks.tasks && this.props.tasks.tasks.filter(task => task.status === 2)],
+                        backgroundColor: [
+                            "#F7464A",
+                            "#46BFBD",
+                            "#FDB45C",
+                        ],
+                        hoverBackgroundColor: [
+                            "#FF5A5E",
+                            "#5AD3D1",
+                            "#FFC870",
+                        ]
+                    }
+                ]
+            }
+        })
+    }
+
+
     render() {
         console.log(this.props)
         return (
@@ -21,10 +48,12 @@ class Stat extends React.Component {
                          style={{width: "22rem", marginTop: "1rem"}}>
                     <MDBCardTitle>{this.state.type}</MDBCardTitle>
                     <MDBCardText>
+                        <Pie data={this.state.dataPie}
+                             options={{responsive: true}}/>
                         {this.state.type === 'tasks' ? (
-                            <h1>{this.props.data.tasks && this.props.data.tasks.length}</h1>
+                            this.props.tasks.tasks && this.props.tasks.tasks.length
                         ) : (
-                            <h1>this.props.data.tasks.length</h1>
+                            this.props.users.users && this.props.users.users.length
                         )
                         }
                     </MDBCardText>
@@ -35,6 +64,6 @@ class Stat extends React.Component {
 }
 
 export default compose(
-    // graphql(getUsers, 'users'),
-    graphql(getTasks, 'tasks'),
+    graphql(getUsers, {name: 'users'}),
+    graphql(getTasks, {name: 'tasks'}),
 )(Stat)

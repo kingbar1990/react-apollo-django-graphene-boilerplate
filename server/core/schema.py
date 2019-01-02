@@ -4,9 +4,14 @@ from graphene_django.types import DjangoObjectType
 from .models import Task
 
 
+class Status(graphene.Interface):
+    status = graphene.Int()
+
+
 class TaskType(DjangoObjectType):
     class Meta:
         model = Task
+        interfaces = (Status,)
 
 
 class Query:
