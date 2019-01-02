@@ -1,13 +1,16 @@
 import React from "react";
-import ReactTable from 'react-table'
+import DashboardBlock from "../../components/DashboardBlock";
 
 
 class Content extends React.Component {
   render() {
     return (
-      <h1>Put React Table here</h1>
+      <React.Fragment>
+        <DashboardBlock type={'users'} />
+        <DashboardBlock type={'tasks'} />
+      </React.Fragment>
     )
   }
 }
 
-export default Content
+export default Content;
