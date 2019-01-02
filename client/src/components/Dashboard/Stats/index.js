@@ -1,7 +1,7 @@
 import React from 'react';
 import {MDBCard, MDBCardTitle, MDBCardText, MDBContainer} from "mdbreact";
 import {graphql, compose} from "react-apollo";
-import {getTasks, getUsers} from "../../queries";
+import {getTasks, getUsers} from "../../../queries";
 import {Pie} from "react-chartjs-2";
 
 
