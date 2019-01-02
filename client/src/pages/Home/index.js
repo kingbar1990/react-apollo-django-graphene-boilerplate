@@ -9,7 +9,7 @@ class Home extends Component {
   render() {
     return (
       <div className="App">
-        Home Page
+        <h1>Home Page</h1>
         <p><Link to="/login/">login</Link></p>
         <p><Link to="/signup/">signup</Link></p>
         <p><Link to="/dashboard/">dashboard</Link></p>

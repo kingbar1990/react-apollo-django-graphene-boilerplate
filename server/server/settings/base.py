@@ -88,14 +88,13 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DATABASE_NAME', 'tracker'),
-        'USER': os.environ.get('DATABASE_USER', 'tracker'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'tracker'),
+        'NAME': os.environ.get('DATABASE_NAME', 'boilerplate'),
+        'USER': os.environ.get('DATABASE_USER', 'boilerplate'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'boilerplate'),
         'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
         'PORT': os.environ.get('DATABASE_PORT', 5432),
     }
 }
-
 
 
 # Password validation
@@ -132,21 +131,21 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-
 STATIC_URL = '/static/'
 
 
 # Custom User model
 AUTH_USER_MODEL = 'accounts.User'
 
+
 # Graphene Schema
 GRAPHENE = {
     'SCHEMA': 'server.schema.schema',  # Where your Graphene schema lives
     'MIDDLEWARE': [
-        'server.middleware.AuthorizationMiddleware',
         'graphql_jwt.middleware.JSONWebTokenMiddleware',
     ]
 }
+
 
 # JWT
 JWT_EXPIRATION_DELTA = datetime.timedelta(days=1)
