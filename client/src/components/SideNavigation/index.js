@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import { ListGroup, ListGroupItem, Fa } from "mdbreact";
 import { NavLink } from "react-router-dom";
 
+import logo from "../../assets/logo.svg";
+
+
 class TopNavigation extends Component {
   render() {
     return (
       <div className="sidebar-fixed position-fixed">
         <a href="#!" className="logo-wrapper waves-effect">
-          <img alt="MDB React Logo" className="img-fluid" src=""/>
+          <img alt="MDB React Logo" className="img-fluid" src={logo}/>
         </a>
         <ListGroup className="list-group-flush">
           <NavLink exact={true} to="/" activeClassName="activeClass">

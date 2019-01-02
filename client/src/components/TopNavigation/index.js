@@ -41,7 +41,7 @@ class TopNavigation extends Component {
     return (
       <Navbar className="flexible-navbar" light expand="md" scrolling>
         <NavbarBrand href="/">
-          <strong>MDB</strong>
+          <strong>Landing</strong>
         </NavbarBrand>
         <NavbarToggler onClick={this.onClick} />
         <Collapse isOpen={this.state.collapse} navbar>
@@ -53,30 +53,10 @@ class TopNavigation extends Component {
               <a
                 rel="noopener noreferrer"
                 className="nav-link Ripple-parent"
-                href="https://mdbootstrap.com/docs/react/"
+                href="https://www.rocklab.io"
                 target="_blank"
               >
-                About MDB
-              </a>
-            </NavItem>
-            <NavItem>
-              <a
-                rel="noopener noreferrer"
-                className="nav-link Ripple-parent"
-                href="https://mdbootstrap.com/docs/react/getting-started/download/"
-                target="_blank"
-              >
-                Free download
-              </a>
-            </NavItem>
-            <NavItem>
-              <a
-                rel="noopener noreferrer"
-                className="nav-link Ripple-parent"
-                href="https://mdbootstrap.com/bootstrap-tutorial/"
-                target="_blank"
-              >
-                Free tutorials
+                About <b>RockLab company</b>
               </a>
             </NavItem>
           </NavbarNav>
@@ -109,15 +89,16 @@ class TopNavigation extends Component {
                 target="_blank"
               >
                 <Fa icon="github" className="mr-2" />
-                MDB GitHub
+                RockLab GitHub
               </a>
             </NavItem>
             <NavItem onClick={this.handleLogout}>
               <div
+                id="btn-logout"
                 className="border border-light rounded mr-1 nav-link Ripple-parent"
                 rel="noopener noreferrer"
               >
-                <Fa icon="github" className="mr-2" />
+                <Fa icon="sign-out" className="mr-2" />
                 Log out
               </div>
             </NavItem>

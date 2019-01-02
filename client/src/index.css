@@ -51,7 +51,7 @@ main {
 
 #content{
   margin-left: 270px;
-}    
+}
 
 
 .sidebar-fixed .logo-wrapper img{
@@ -196,13 +196,13 @@ main {
   .page-footer{
     margin-left: 0px;
   }
-  
+
   .card.cascading-admin-card {
     margin-top: 2.5rem;
-  } 
+  }
 }
 
-@media (max-width: 576px) { 
+@media (max-width: 576px) {
   .card.cascading-admin-card {
     margin-top: 2.5rem;
   }
@@ -212,6 +212,6 @@ main {
   }
 }
 
-
-
-
+#btn-logout {
+  cursor: pointer;
+}
