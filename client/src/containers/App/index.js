@@ -8,6 +8,9 @@ import SignUp from "../../pages/SignUp";
 import Login from "../../pages/Login";
 import Dashboard from "../../pages/Dashboard";
 import PrivateRoute from "../../components/PrivateRoute";
+import Tasks from "../../pages/Dashboard/Tasks";
+import Profile from "../../pages/Dashboard/Profile";
+
 
 class App extends React.Component {
   render() {
@@ -21,6 +24,18 @@ class App extends React.Component {
             exact
             path="/dashboard"
             component={Dashboard}
+            isAuth={this.props.isAuth}
+          />
+          <PrivateRoute
+            exact
+            path="/dashboard/tasks"
+            component={Tasks}
+            isAuth={this.props.isAuth}
+          />
+          <PrivateRoute
+            exact
+            path="/dashboard/profile"
+            component={Profile}
             isAuth={this.props.isAuth}
           />
         </Switch>

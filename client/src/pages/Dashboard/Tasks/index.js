@@ -2,11 +2,14 @@ import React from "react";
 import ReactTable from 'react-table'
 import "react-table/react-table.css";
 
+import Dashboard from "../../../containers/Dashboard";
 
-class Content extends React.Component {
+
+
+class Tasks extends React.Component {
   render() {
     return (
-      <div>
+      <Dashboard>
         <ReactTable
           //data={data}
           columns={[
@@ -53,10 +56,10 @@ class Content extends React.Component {
           defaultPageSize={10}
           className="-striped -highlight"
         />
-        <br />
-      </div>
+      </Dashboard>
+
     );
   }
 }
 
-export default Content
+export default Tasks;

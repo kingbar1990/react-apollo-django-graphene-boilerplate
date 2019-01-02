@@ -3,9 +3,9 @@ from django.contrib.auth import get_user_model
 
 
 class Task(models.Model):
-    ToDo = '0'
-    InProgress = '1'
-    Done = '2'
+    ToDo = 0
+    InProgress = 1
+    Done = 2
     STATUS_CHOICES = (
         (ToDo, 'ToDo'),
         (InProgress, 'InProgress'),
@@ -22,3 +22,6 @@ class Task(models.Model):
         null=True, blank=True,
         on_delete=models.CASCADE
     )
+
+    def __str__(self):
+        return self.name

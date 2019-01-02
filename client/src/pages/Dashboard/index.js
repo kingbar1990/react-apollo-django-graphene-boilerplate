@@ -1,23 +1,22 @@
-import React, { Component } from "react";
-import TopNavigation from "../../components/TopNavigation";
-import SideNavigation from "../../components/SideNavigation";
-import Footer from "../../components/Footer";
-import Content from "../../containers/DashboardContent";
+import React from "react";
+import ReactTable from 'react-table'
+import "react-table/react-table.css";
+
+import Dashboard from "../../containers/Dashboard";
+import Stat from "../../components/Dashboard/Stats";
 
 
-class Dashboard extends Component {
+class Main extends React.Component {
   render() {
     return (
-      <div className="flexible-content">
-        <TopNavigation />
-        <SideNavigation />
-        <main id="content" className="p-5">
-          <Content />
-        </main>
-        <Footer />
-      </div>
+      <Dashboard>
+        <React.Fragment>
+          <Stat type={'users'} />
+          <Stat type={'tasks'} />
+        </React.Fragment>
+      </Dashboard>
     );
   }
 }
 
-export default Dashboard;
+export default Main;

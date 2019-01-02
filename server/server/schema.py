@@ -3,10 +3,11 @@ import graphql_jwt
 
 from accounts.mutations import LoginMutation, RegisterMutation
 from accounts.schema import Query as AccountsQuery
+from core.schema import Query as CoreQuery
 from accounts.mutations import Mutation as AuthMutation
 
 
-class Query(AccountsQuery, graphene.ObjectType):
+class Query(AccountsQuery, CoreQuery, graphene.ObjectType):
     pass
 
 
