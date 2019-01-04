@@ -1,6 +1,7 @@
 import os
 import datetime
 
+# import boto3
 from fabric import Connection
 from invocations.console import confirm
 from invoke import task
@@ -29,13 +30,15 @@ PROD_SERVER_HOST = 'localhost:8000'
 STAGE_BRANCH_NAME = 'dev'
 """------------------------------"""
 
-""" Set this parameters in env file"""
+""" 
+# Required for pushing dumps to AWS S3 bucket
+# Set this parameters in env file
 
 AWS_ID = os.environ.get('AWS_ID')  # aws-public-key
 AWS_KEY = os.environ.get('AWS_KEY')  # aws-secret-key
 AWS_REGION_NAME = os.environ.get('AWS_REGION_NAME')  # ap-southeast-2
 AWS_BACKUP_BUCKET_NAME = os.environ.get('AWS_BACKUP_BUCKET_NAME')  # backups-bucket
-"""------------------------------"""
+"""
 
 server = ''
 current_time = datetime.datetime.now().strftime("%d-%m-%Y")
@@ -117,6 +120,65 @@ def create_dump(server, PROJECT_PATH):
                     DOCKER_DATABASE_CONTAINER_NAME, DATABASE_NAME,
                     DATABASE_USER_NAME, current_time))
 
+
+"""
+# Requaire AWS constants in env file and boto3 library installed
+
+
+def add_file_to_bucket(file_name):
+    gb_size_in_byte = 1024 ** 3
+
+    s3 = boto3.resource(
+        's3',
+        aws_access_key_id=AWS_ID,
+        aws_secret_access_key=AWS_KEY,
+        region_name=AWS_REGION_NAME
+    )
+
+    config = boto3.s3.transfer.TransferConfig(
+        multipart_threshold=5 * gb_size_in_byte,
+        multipart_chunksize=gb_size_in_byte
+    )
+
+    s3.meta.client.upload_file(
+        file_name,
+        AWS_BACKUP_BUCKET_NAME,
+        file_name,
+        Config=config
+    )
+
+
+def add_to_bucket(server, PROJECT_PATH):
+    file_name = '{}.sql'.format(current_time)
+    with server.cd(PROJECT_PATH):
+        if os.path.exists(file_name) and os.path.exists(file_name):
+            add_to_bucket(file_name)
+        else:
+            print('Cant find dump file in directory')
+
+
+@task
+def push_dump(server):
+    if confirm('Push dump at prod?'):
+        server = Connection(PROD_SERVER_HOST)
+        PROJECT_PATH = PROD_PROJECT_PATH
+        print("Pushing from Production server")
+
+    elif confirm('Push dump at stage?'):
+        server = Connection(STAGE_SERVER_HOST)
+        PROJECT_PATH = STAGE_PROJECT_PATH
+        print("Pushing from Stage server")
+
+    else:
+        server = Connection(DEV_SERVER_HOST)
+        PROJECT_PATH = DEV_PROJECT_PATH
+        print("Pushing from Local server")
+
+    try:
+        add_to_bucket(server, PROJECT_PATH)
+    except Exception as e:
+        print('Something was wrong: {}'.format(e))
+"""
 
 @task
 def restart_stage_server(server):
