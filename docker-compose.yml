@@ -34,6 +34,20 @@ services:
       volumes:
           - ./server/:/var/www/server
           - ./client/:/var/www/client/version: "3"
+  redis:
+      image: redis:latest
+      container_name: redis
+
+  celery:
+      build: ./server/
+      container_name: celery
+      volumes:
+        - ./server/:/var/www/server
+      command: celery -A alportal worker -B --loglevel=info -n worker1%h
+      depends_on:
+        - redis
+      env_file:
+        - .env
 
 services:
   server:
@@ -69,3 +83,16 @@ services:
       volumes:
           - ./server/:/var/www/server
           - ./client/:/var/www/client/
+  redis:
+      image: redis:latest
+      container_name: redis
+  celery:
+      build: ./server/
+      container_name: celery
+      volumes:
+        - ./server/:/var/www/server
+      command: celery -A alportal worker -B --loglevel=info -n worker1%h
+      depends_on:
+        - redis
+      env_file:
+        - .env
