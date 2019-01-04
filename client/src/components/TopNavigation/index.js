@@ -33,7 +33,7 @@ class TopNavigation extends Component {
   };
 
   handleLogout = () => {
-    localStorage.removeItem(TOKEN);
+    sessionStorage.removeItem(TOKEN);
     window.location.href = "/login";
   };
 

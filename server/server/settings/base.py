@@ -161,3 +161,7 @@ GRAPHQL_JWT = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=5),
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
 }
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Strict'

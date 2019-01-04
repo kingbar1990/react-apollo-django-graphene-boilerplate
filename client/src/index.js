@@ -31,7 +31,7 @@ const httpLink = new HttpLink({
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const token = localStorage.getItem(TOKEN);
+  const token = sessionStorage.getItem(TOKEN);
   // return the headers to the context so httpLink can read them
   return {
     headers: {
@@ -50,8 +50,8 @@ const devTools =
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
 const store = createStore(rootReducer, devTools);
+const token = window.sessionStorage.getItem("token");
 
-const token = window.localStorage.getItem("token");
 let data = "";
 try {
   data = token ? JSON.parse(token).token : false;

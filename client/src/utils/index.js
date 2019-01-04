@@ -1,11 +1,11 @@
 /*eslint-disable*/
 export const loadData = key => {
-  const data = JSON.parse(window.localStorage.getItem(key));
+  const data = JSON.parse(window.sessionStorage.getItem(key));
   if (data) {
     const timeDiff = Math.abs(data.timestamp - new Date().getTime());
     const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
     if (diffDays > 1) {
-      window.localStorage.removeItem("token");
+      window.sessionStorage.removeItem("token");
       return "";
     }
 
@@ -18,5 +18,5 @@ export const loadData = key => {
 export const saveData = (key, value) => {
   const timestamp = +new Date();
   const data = JSON.stringify({ token: value, timestamp });
-  window.localStorage.setItem(key, data);
+  window.sessionStorage.setItem(key, data);
 };
