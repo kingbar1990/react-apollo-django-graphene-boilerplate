@@ -33,3 +33,5 @@ coverage/
 celerybeat-schedule
 .env
 .pem
+.idea/vcs.xml
+.idea/workspace.xml
