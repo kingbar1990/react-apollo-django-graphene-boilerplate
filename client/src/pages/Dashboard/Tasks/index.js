@@ -1,65 +1,32 @@
 import React from "react";
-import ReactTable from 'react-table'
-import "react-table/react-table.css";
+import { graphql, compose } from "react-apollo";
+import ReactTable from "react-table";
+
+import { getTasks } from '../../../queries';
+import { tasksColumns } from '../../../utils/data';
 
 import Dashboard from "../../../containers/Dashboard";
 
-
+import "react-table/react-table.css";
 
 class Tasks extends React.Component {
   render() {
     return (
       <Dashboard>
         <ReactTable
-          //data={data}
-          columns={[
-            {
-              Header: "General",
-              columns: [
-                {
-                  Header: "Title",
-                  accessor: "title"
-                },
-                {
-                  Header: "Description",
-                  id: "description"
-                }
-              ]
-            },
-            {
-              Header: "Info",
-              columns: [
-                {
-                  Header: "Status",
-                  accessor: "status"
-                },
-                {
-                  Header: "Due date",
-                  accessor: "dueDate"
-                },
-                {
-                  Header: "Estimated time",
-                  accessor: "estimatedTime"
-                }
-              ]
-            },
-            {
-              Header: 'Responsibility',
-              columns: [
-                {
-                  Header: "Assigned to",
-                  accessor: "assignedTo"
-                }
-              ]
-            }
-          ]}
+          data={this.props.tasks.tasks}
+          columns={tasksColumns}
           defaultPageSize={10}
           className="-striped -highlight"
         />
       </Dashboard>
-
     );
   }
 }
 
-export default Tasks;
+export default compose(
+  graphql(getTasks, {
+    options: { fetchPolicy: "no-cache" },
+    name: "tasks"
+  })
+)(Tasks);

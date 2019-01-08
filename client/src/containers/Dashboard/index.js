@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import TopNavigation from "../../components/TopNavigation";
 import SideNavigation from "../../components/SideNavigation";
 import Footer from "../../components/Footer";
@@ -6,7 +7,7 @@ import Footer from "../../components/Footer";
 
 class Dashboard extends Component {
   render() {
-    const { classes, children, ...rest } = this.props;
+    const { classes, children } = this.props;
     return (
       <div className="flexible-content">
         <TopNavigation />

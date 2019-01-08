@@ -7,7 +7,7 @@ import { islogin } from "../../actions";
 import { Container } from "reactstrap";
 
 import { LoginForm } from "../../components/LoginForm";
-import { login } from "./queries";
+import { login } from "../../queries";
 
 class Login extends Component {
   constructor() {

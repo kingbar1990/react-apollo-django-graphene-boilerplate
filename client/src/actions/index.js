@@ -12,7 +12,7 @@ export const islogin = (token, user) => {
 };
 
 export const logout = () => {
-  window.sessionStorage.removeItem(actions.TOKEN);
+  window.localStorage.removeItem(actions.TOKEN);
   return {
     type: actions.LOGOUT_SUCCESS
   };

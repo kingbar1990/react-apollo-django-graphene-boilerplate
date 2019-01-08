@@ -7,7 +7,7 @@ import { islogin } from "../../actions";
 import { Container } from "reactstrap";
 
 import { SignUpForm } from "../../components/SignUpForm";
-import { register } from "./queries";
+import { register } from "../../queries";
 
 class SignUp extends React.Component {
   constructor() {
