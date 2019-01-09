@@ -1,26 +1,36 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const register = gql`
-mutation register($email: String!, $password1: String!, $password2: String!, $fullName: String!) {
-  register(email: $email, password1: $password1, password2: $password2, fullName: $fullName) {
-    error {
-      __typename
-      ... on ValidationErrors {
-        validationErrors {
-          field
-          messages
+  mutation register(
+    $email: String!
+    $password1: String!
+    $password2: String!
+    $fullName: String!
+  ) {
+    register(
+      email: $email
+      password1: $password1
+      password2: $password2
+      fullName: $fullName
+    ) {
+      error {
+        __typename
+        ... on ValidationErrors {
+          validationErrors {
+            field
+            messages
+          }
         }
       }
-    }
-    success
-    token
-    user {
-      id
-      email
-      fullName
+      success
+      token
+      user {
+        id
+        email
+        fullName
+      }
     }
   }
-}
 `;
 
 export const login = gql`
@@ -47,22 +57,26 @@ export const login = gql`
 
 export const getUsers = gql`
   query getUsers {
-      users {
-          id
-          fullName
-          email
-      }
- }
-`
+    users {
+      id
+      fullName
+      email
+    }
+  }
+`;
 
 export const getTasks = gql`
   query getTasks {
-      tasks {
-           name
-           description
-           status
-           dueDate
-           estimatedTime
+    tasks {
+      id
+      name
+      description
+      status
+      dueDate
+      estimatedTime
+      assignedTo {
+        fullName
       }
- }
-`
+    }
+  }
+`;
