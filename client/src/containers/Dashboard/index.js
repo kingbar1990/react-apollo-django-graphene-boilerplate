@@ -7,7 +7,7 @@ import Footer from "../../components/Footer";
 
 class Dashboard extends Component {
   render() {
-    const { classes, children } = this.props;
+    const { children } = this.props;
     return (
       <div className="flexible-content">
         <TopNavigation />

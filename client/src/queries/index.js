@@ -55,6 +55,14 @@ export const login = gql`
   }
 `;
 
+export const verifyToken = gql`
+  mutation verifyToken($token: String!) {
+    verifyToken(token: $token) {
+      payload
+    }
+  }
+`;
+
 export const getUsers = gql`
   query getUsers {
     users {
@@ -80,3 +88,11 @@ export const getTasks = gql`
     }
   }
 `;
+export const profile = gql`
+query me {
+  me {
+    fullName
+  }
+}
+
+`
