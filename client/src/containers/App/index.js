@@ -10,36 +10,36 @@ import Dashboard from "../../pages/Dashboard";
 import PrivateRoute from "../../components/PrivateRoute";
 import Tasks from "../../pages/Dashboard/Tasks";
 import Profile from "../../pages/Dashboard/Profile";
-import PageNotFound from '../../components/PageNotFound';
+import PageNotFound from "../../components/PageNotFound";
 
 class App extends Component {
   render() {
     return (
       <div className="flexible-content">
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/login" component={Login} />
-            <PrivateRoute
-              exact
-              path="/dashboard"
-              component={Dashboard}
-              isAuth={this.props.isAuth}
-            />
-            <PrivateRoute
-              exact
-              path="/dashboard/tasks"
-              component={Tasks}
-              isAuth={this.props.isAuth}
-            />
-            <PrivateRoute
-              exact
-              path="/dashboard/profile"
-              component={Profile}
-              isAuth={this.props.isAuth}
-            />
-            <Route component={PageNotFound} />
-          </Switch>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/login" component={Login} />
+          <PrivateRoute
+            exact
+            path="/dashboard"
+            component={Dashboard}
+            isAuth={this.props.isAuth}
+          />
+          <PrivateRoute
+            exact
+            path="/dashboard/tasks"
+            component={Tasks}
+            isAuth={this.props.isAuth}
+          />
+          <PrivateRoute
+            exact
+            path="/dashboard/profile"
+            component={Profile}
+            isAuth={this.props.isAuth}
+          />
+          <Route component={PageNotFound} />
+        </Switch>
       </div>
     );
   }

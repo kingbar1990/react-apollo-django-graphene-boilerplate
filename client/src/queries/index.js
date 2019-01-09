@@ -88,11 +88,19 @@ export const getTasks = gql`
     }
   }
 `;
-export const profile = gql`
-query me {
-  me {
-    fullName
-  }
-}
 
+export const deleteTask = gql`
+  mutation deleteTask($taskId: String) {
+    deleteTask(taskId: $taskId) {
+      success
+    }
+  }
+`
+
+export const profile = gql`
+  query me {
+    me {
+      fullName
+    }
+  }
 `

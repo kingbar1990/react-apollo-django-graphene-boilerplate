@@ -9,7 +9,6 @@ from .schema import UserType
 from .utils import obtain_jwt
 from .forms import UserForm
 
-
 class RegisterMutation(FormMutation):
     class Meta:
         form_class = UserForm
@@ -39,8 +38,3 @@ class LoginMutation(FormMutation):
         user = form.get_user()
         token = obtain_jwt(user.id)
         return cls(user=user, token=token)
-
-
-class Mutation(graphene.ObjectType):
-    register_mutation = RegisterMutation.Field()
-    login_mutation = LoginMutation.Field()
