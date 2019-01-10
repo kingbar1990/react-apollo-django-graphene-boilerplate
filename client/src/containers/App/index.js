@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { withRouter, Switch, Route } from "react-router";
 
+import * as path from '../../constants/routes';
+
 import Home from "../../pages/Home";
 import SignUp from "../../pages/SignUp";
 import Login from "../../pages/Login";
@@ -17,24 +19,24 @@ class App extends Component {
     return (
       <div className="flexible-content">
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/signup" component={SignUp} />
-          <Route exact path="/login" component={Login} />
+          <Route exact path={path.HOME} component={Home} />
+          <Route exact path={path.SIGN_UP} component={SignUp} />
+          <Route exact path={path.SIGN_IN} component={Login} />
           <PrivateRoute
             exact
-            path="/dashboard"
+            path={path.DASHBOARD}
             component={Dashboard}
             isAuth={this.props.isAuth}
           />
           <PrivateRoute
             exact
-            path="/dashboard/tasks"
+            path={path.TASKS}
             component={Tasks}
             isAuth={this.props.isAuth}
           />
           <PrivateRoute
             exact
-            path="/dashboard/profile"
+            path={path.PROFILE}
             component={Profile}
             isAuth={this.props.isAuth}
           />

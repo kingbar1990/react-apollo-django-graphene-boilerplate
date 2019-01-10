@@ -7,7 +7,6 @@ import Dashboard from "../../../containers/Dashboard";
 
 class Profile extends React.Component {
   render() {
-    console.log(this.props.meProfile)
     return (
       <Dashboard>
         <h1>Profile page</h1>

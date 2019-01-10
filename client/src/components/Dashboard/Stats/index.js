@@ -14,8 +14,15 @@ class Stat extends React.Component {
   }
 
   render() {
+    const stylesOnCard = { width: "22rem", marginTop: "1rem" };
     if (this.props.tasks.loading) {
-      return <div className="loader" />;
+      return (
+        <MDBContainer>
+          <MDBCardTitle style={stylesOnCard}>
+            <div className="loader" style={{ margin: 'auto' }} />
+          </MDBCardTitle>
+        </MDBContainer>
+      )
     }
     const { users } = this.props.users;
     const { tasks } = this.props.tasks;
@@ -33,16 +40,15 @@ class Stat extends React.Component {
         }
       ]
     };
-    const stylesOnCard = { width: "22rem", marginTop: "1rem" };
     const { type } = this.state;
     
     return (
       <MDBContainer>
         <MDBCard className="card-body" style={stylesOnCard}>
-          <MDBCardTitle>Users: {users.length}</MDBCardTitle>
+          <h3>Users: {users.length}</h3>
         </MDBCard>
         <MDBCard className="card-body" style={stylesOnCard}>
-          <MDBCardTitle>{type}</MDBCardTitle>
+        <h3>{type}</h3>
           <MDBCardText>
             {type === "Tasks"
               ? tasks.length && (

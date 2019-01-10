@@ -3,6 +3,7 @@ import { graphql, compose } from "react-apollo";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
+import * as path from '../../constants/routes';
 import { islogin } from "../../actions";
 import { Container } from "reactstrap";
 
@@ -36,7 +37,7 @@ class Login extends Component {
           const token = response.data.login.token;
 
           this.props.islogin(token, true);
-          this.props.history.push("/dashboard");
+          this.props.history.push(path.DASHBOARD);
         } else {
           let errors = {};
           response.data.login.error.validationErrors.map(error => {
