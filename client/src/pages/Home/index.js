@@ -7,7 +7,7 @@ import "./scss/App.css";
 import "./scss/index.css";
 
 
-class Home extends Component {
+export default class Home extends Component {
   render() {
     return (
       <div className="App">
@@ -19,5 +19,3 @@ class Home extends Component {
     );
   }
 }
-
-export default Home;
