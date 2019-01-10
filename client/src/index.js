@@ -52,12 +52,10 @@ const devTools =
 const store = createStore(rootReducer, devTools);
 const token = window.localStorage.getItem("token");
 
-let data = "";
+let data;
 try {
   data = token ? JSON.parse(token).token : false;
-} catch (error) {
-  // ignore
-}
+} catch (error) {}
 
 try {
   if (jwtDecode(data)) {
@@ -65,9 +63,7 @@ try {
   } else {
     store.dispatch(loginAction(false));
   }
-} catch (error) {
-  console.log(error.message);
-}
+} catch (error) {}
 
 ReactDOM.render(
   <Provider store={store}>

@@ -20,7 +20,7 @@ class GetTasks extends React.Component {
           if (data.tasks.length) {
             return (
               <MDBCard className="card-body" style={stylesOnCard}>
-                <h3>Tasks {data.tasks.length}</h3>
+                <h3>Tasks: {data.tasks.length}</h3>
                 <MDBCardText>
                   <Pie
                     data={{
