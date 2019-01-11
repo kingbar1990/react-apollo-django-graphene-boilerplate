@@ -34,3 +34,4 @@ celerybeat-schedule
 .env
 .pem
 .idea/
+.eslintrc

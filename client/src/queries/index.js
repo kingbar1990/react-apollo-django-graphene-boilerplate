@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-export const register = gql`
+export const register = gql `
   mutation register(
     $email: String!
     $password1: String!
@@ -33,7 +33,7 @@ export const register = gql`
   }
 `;
 
-export const login = gql`
+export const login = gql `
   mutation login($username: String!, $password: String!) {
     login(username: $username, password: $password) {
       error {
@@ -55,7 +55,7 @@ export const login = gql`
   }
 `;
 
-export const verifyToken = gql`
+export const verifyToken = gql `
   mutation verifyToken($token: String!) {
     verifyToken(token: $token) {
       payload
@@ -63,7 +63,7 @@ export const verifyToken = gql`
   }
 `;
 
-export const getUsers = gql`
+export const getUsers = gql `
   query getUsers {
     users {
       id
@@ -73,13 +73,13 @@ export const getUsers = gql`
   }
 `;
 
-export const getTasks = gql`
+export const getTasks = gql `
   query getTasks {
     tasks {
       id
       name
       description
-      status
+      status 
       dueDate
       estimatedTime
       assignedTo {
@@ -89,7 +89,42 @@ export const getTasks = gql`
   }
 `;
 
-export const deleteTask = gql`
+export const createTask = gql `
+  mutation createTask(
+    $taskId: Int!
+    $name: String!
+    $description: String
+    $status: String!
+    $dueDate: Date
+    $assignedTo: ID
+    $estimateTime: Int!
+  ) {
+    createTask(taskId: $taskId, name: $name, description: $description, status: $status, dueDate: $dueDate,  estimateTime: $estimateTime, assignedTo: $assignedTo) {
+      error {
+        __typename
+        ... on ValidationErrors {
+          validationErrors {
+            field
+            messages
+          }
+        }
+      }
+      task {
+        id
+        name
+        description
+        status
+        dueDate
+        estimatedTime
+        assignedTo {
+          id
+        }
+      }
+    }
+  }
+`
+
+export const deleteTask = gql `
   mutation deleteTask($taskId: String) {
     deleteTask(taskId: $taskId) {
       success
@@ -97,7 +132,7 @@ export const deleteTask = gql`
   }
 `
 
-export const profile = gql`
+export const profile = gql `
   query me {
     me {
       fullName

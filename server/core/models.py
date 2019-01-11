@@ -12,7 +12,7 @@ class Task(models.Model):
     description = models.TextField(null=True, blank=True)
     status = models.SmallIntegerField(choices=STATUS_CHOICES)
     due_date = models.DateField(null=True, blank=True)
-    estimated_time = models.SmallIntegerField()
+    estimated_time = models.SmallIntegerField(null=True, blank=True)
     assigned_to = models.ForeignKey(
         get_user_model(),
         related_name="tasks",
