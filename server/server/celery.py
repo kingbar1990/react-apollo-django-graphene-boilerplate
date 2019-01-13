@@ -13,7 +13,6 @@ os.environ.setdefault(
 )
 
 app = Celery('server')
-# app.conf.result_backend = 'redis://redis:6379/0'
 app.conf.broker_url = 'redis://redis:6379/0'
 app.config_from_object('django.conf:settings')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)

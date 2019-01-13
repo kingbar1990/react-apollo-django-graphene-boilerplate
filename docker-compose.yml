@@ -13,6 +13,8 @@ services:
       command: python manage.py runserver 0.0.0.0:8000
       environment:
           - DJANGO_SETTINGS_MODULE=server.settings.dev
+          - PGHOST=database
+          - REDIS_HOST=redis
       env_file:
           - .env
       depends_on:
@@ -42,6 +44,9 @@ services:
       container_name: redis
       ports:
         - '6379:6379'
+      privileged: true
+      sysctls:
+        net.core.somaxconn: '511'
 
   celery:
         build:
@@ -54,6 +59,8 @@ services:
         command: /bin/bash -c "celery -A server worker --loglevel=info"
         depends_on:
             - redis
+            - database
         environment:
+            - DJANGO_SETTINGS_MODULE=server.settings.dev
             - PGHOST=database
             - REDIS_HOST=redis
