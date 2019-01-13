@@ -160,4 +160,5 @@ GRAPHQL_JWT = {
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=5),
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    'JWT_ALLOW_ARGUMENT': True,
 }

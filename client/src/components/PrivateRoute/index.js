@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import * as path from '../../constants/routes';
 
 export default class PrivateRoute extends React.PureComponent {
   render() {
@@ -8,7 +9,7 @@ export default class PrivateRoute extends React.PureComponent {
       <Route
         {...rest}
         render={props =>
-          isAuth ? <Component {...props} /> : <Redirect to="/login" />
+          isAuth ? <Component {...props} /> : <Redirect to={path.SIGN_IN} />
         }
       />
     );
