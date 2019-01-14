@@ -1,6 +1,6 @@
 import React from "react";
 import { Query } from "react-apollo";
-import { getUsers } from '../../queries'
+import { getUsers } from "../../queries";
 import { Formik, Form, Field } from "formik";
 import { ReactstrapInput } from "reactstrap-formik";
 
@@ -12,7 +12,12 @@ const CreateTask = ({ isActive, closeModal, submitForm }) => {
   return (
     <Container>
       <Modal isOpen={isActive} centered>
-        <ModalHeader>Create task</ModalHeader>
+        <ModalHeader>
+          Create task
+          <Button onClick={closeModal} color="secondary">
+            No
+          </Button>
+        </ModalHeader>
         <Formik
           initialValues={{
             title: "",
@@ -52,8 +57,7 @@ const CreateTask = ({ isActive, closeModal, submitForm }) => {
                     <label>Due date</label>
                     <DatePicker />
                   </div>
-                  <Query 
-                    query={getUsers}>
+                  <Query query={getUsers}>
                     {({ loading, error, data }) => {
                       if (loading) return "Loading...";
                       if (error) return `Error! ${error.message}`;
@@ -63,11 +67,13 @@ const CreateTask = ({ isActive, closeModal, submitForm }) => {
                           name="status"
                           className="browser-default custom-select position-relative form-group"
                         >
-                          {data.users.map((user) => 
-                            <option key={user.id} value={user.id}>{user.fullName}</option>
-                          )}
+                          {data.users.map(user => (
+                            <option key={user.id} value={user.id}>
+                              {user.fullName}
+                            </option>
+                          ))}
                         </select>
-                      )
+                      );
                     }}
                   </Query>
                   <Field
@@ -76,11 +82,8 @@ const CreateTask = ({ isActive, closeModal, submitForm }) => {
                     component={ReactstrapInput}
                     label="Estimate Time"
                   />
-                  <Button onClick={closeModal} color="secondary">
-                    No
-                  </Button>
                   <Button color="primary" type="submit">
-                    Yes
+                    Save
                   </Button>
                 </Form>
               </div>

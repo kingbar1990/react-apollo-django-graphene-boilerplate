@@ -2,12 +2,16 @@ import React from "react";
 import { graphql, compose } from "react-apollo";
 import { getTasks, deleteTask, createTask } from "../../../queries";
 import ReactTable from "react-table";
+import IosAddCircleOutline from 'react-ionicons/lib/IosAddCircleOutline'
+import IosRemoveCircleOutline from 'react-ionicons/lib/IosRemoveCircleOutline';
+import IosCreateOutline from 'react-ionicons/lib/IosCreateOutline';
 
 import Dashboard from "../../../containers/Dashboard";
 import ModalDelete from "../../../components/Tasks/ModalDelete";
 import ModalCreate from "../../../components/Tasks/CreateTask";
 
 import "react-table/react-table.css";
+import "../../../index.css"
 
 class Tasks extends React.Component {
   constructor(props) {
@@ -137,23 +141,22 @@ class Tasks extends React.Component {
               Header: "Actions",
               Cell: row => (
                 <div>
-                  <button>Edit</button>
-                  <button
+                  <IosCreateOutline fontSize="30px" color="#007bff"/>
+                  <IosRemoveCircleOutline 
                     onClick={() =>
                       this.handleSwitchModalDelete(row.original.id)
                     }
-                  >
-                    Delete
-                  </button>
+                    fontSize="30px" color="#007bff"
+                  />
                 </div>
               )
             }
           ]}
           loading={tasks.loading}
           defaultPageSize={10}
-          className="-striped -highlight"
+          className="-striped -highlight table"
         />
-        <button onClick={this.handleSwitchModalCreate}>Create new task</button>
+        <IosAddCircleOutline onClick={this.handleSwitchModalCreate} fontSize="30px" color="#007bff" />
       </Dashboard>
     );
   }

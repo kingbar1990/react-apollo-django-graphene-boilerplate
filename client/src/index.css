@@ -229,3 +229,7 @@ main {
   left: 0;
   right: 0;
 }
+
+.table {
+  text-align: center;
+}
