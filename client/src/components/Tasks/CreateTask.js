@@ -1,11 +1,12 @@
 import React from "react";
-import { Container, Button, Modal, ModalHeader } from "mdbreact";
+import { Query } from "react-apollo";
+import { getUsers } from '../../queries'
 import { Formik, Form, Field } from "formik";
 import { ReactstrapInput } from "reactstrap-formik";
 
-import TextField from '@material-ui/core/TextField';
-
-import { TaskSchema } from "./validation";
+import DatePicker from "../DatePicker";
+import { Container, Button, Modal, ModalHeader } from "mdbreact";
+import { TaskSchema } from "../../utils/validations/crateTask";
 
 const CreateTask = ({ isActive, closeModal, submitForm }) => {
   return (
@@ -16,9 +17,6 @@ const CreateTask = ({ isActive, closeModal, submitForm }) => {
           initialValues={{
             title: "",
             description: "",
-            status: '',
-            dueDate: '',
-            assignedTo: "",
             estimatedTime: 0
           }}
           validationSchema={TaskSchema}
@@ -41,25 +39,37 @@ const CreateTask = ({ isActive, closeModal, submitForm }) => {
                     label="Description"
                   />
                   <label>Status</label>
-                  <select id="statusSelect" name="status" className="browser-default custom-select">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
+                  <select
+                    id="statusSelect"
+                    name="status"
+                    className="browser-default custom-select position-relative form-group"
+                  >
+                    <option value="2">ToDo</option>
+                    <option value="1">Done</option>
+                    <option value="0">InProgress</option>
                   </select>
-                  <TextField
-                    id="date"
-                    label="Birthday"
-                    type="date"
-                    InputLabelProps={{
-                      shrink: true,
+                  <div className="position-relative form-group">
+                    <label>Due date</label>
+                    <DatePicker />
+                  </div>
+                  <Query 
+                    query={getUsers}>
+                    {({ loading, error, data }) => {
+                      if (loading) return "Loading...";
+                      if (error) return `Error! ${error.message}`;
+                      return (
+                        <select
+                          id="userId"
+                          name="status"
+                          className="browser-default custom-select position-relative form-group"
+                        >
+                          {data.users.map((user) => 
+                            <option key={user.id} value={user.id}>{user.fullName}</option>
+                          )}
+                        </select>
+                      )
                     }}
-                  />
-                  <Field
-                    name="assignedTo"
-                    type="text"
-                    component={ReactstrapInput}
-                    label="Assigned to"
-                  />
+                  </Query>
                   <Field
                     name="estimatedTime"
                     type="number"

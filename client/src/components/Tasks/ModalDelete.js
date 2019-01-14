@@ -11,10 +11,7 @@ import {
 const ModalDelete = ({ isActive, closeModal, deleteTask, id }) => {
   return (
     <Container>
-      <Modal
-        isOpen={isActive}
-        centered
-      >
+      <Modal isOpen={isActive} centered>
         <ModalHeader>Modal title</ModalHeader>
         <ModalBody>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
@@ -26,7 +23,9 @@ const ModalDelete = ({ isActive, closeModal, deleteTask, id }) => {
           <Button color="secondary" onClick={closeModal}>
             No
           </Button>
-          <Button color="primary" onClick={() => deleteTask(id)}>Yes</Button>
+          <Button color="primary" onClick={() => deleteTask(id)}>
+            Yes
+          </Button>
         </ModalFooter>
       </Modal>
     </Container>

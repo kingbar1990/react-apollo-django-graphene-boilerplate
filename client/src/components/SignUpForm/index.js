@@ -3,7 +3,7 @@ import { Formik, Form, Field } from "formik"
 import { Button } from "reactstrap";
 import { ReactstrapInput } from "reactstrap-formik";
 
-import { SignupSchema } from "./validation";
+import { SignupSchema } from "../../utils/validations/signUp";
 
 
 export const SignUpForm = (props) => {
