@@ -97,9 +97,9 @@ export const createTask = gql `
     $status: String!
     $dueDate: Date
     $assignedTo: ID
-    $estimateTime: Int!
+    $estimatedTime: Int!
   ) {
-    createTask(taskId: $taskId, name: $name, description: $description, status: $status, dueDate: $dueDate,  estimateTime: $estimateTime, assignedTo: $assignedTo) {
+    createTask(taskId: $taskId, name: $name, description: $description, status: $status, dueDate: $dueDate,  estimatedTime: $estimatedTime, assignedTo: $assignedTo) {
       error {
         __typename
         ... on ValidationErrors {

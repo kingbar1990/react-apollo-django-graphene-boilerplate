@@ -19,7 +19,7 @@ const CreateTask = ({ isActive, closeModal, submitForm }) => {
             status: '',
             dueDate: '',
             assignedTo: "",
-            estimateTime: 0
+            estimatedTime: 0
           }}
           validationSchema={TaskSchema}
           onSubmit={submitForm}
@@ -61,7 +61,7 @@ const CreateTask = ({ isActive, closeModal, submitForm }) => {
                     label="Assigned to"
                   />
                   <Field
-                    name="estimateTime"
+                    name="estimatedTime"
                     type="number"
                     component={ReactstrapInput}
                     label="Estimate Time"

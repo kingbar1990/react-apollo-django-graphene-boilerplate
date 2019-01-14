@@ -42,7 +42,7 @@ class Tasks extends React.Component {
       title,
       description,
       assignedTo,
-      estimateTime,
+      estimatedTime,
     } = values;
     try {
       const task = await this.props.taskCreate({
@@ -53,7 +53,7 @@ class Tasks extends React.Component {
           status: statusValue,
           dueDate: date,
           assignedTo: assignedTo,
-          estimateTime: estimateTime,
+          estimatedTime: estimatedTime,
         },
         refetchQueries: [{ query: getTasks }]
       });
