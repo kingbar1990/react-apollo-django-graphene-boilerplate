@@ -79,7 +79,7 @@ export const getTasks = gql `
       id
       name
       description
-      status 
+      status
       dueDate
       estimatedTime
       assignedTo {
@@ -122,7 +122,7 @@ export const createTask = gql `
       }
     }
   }
-`
+`;
 
 export const deleteTask = gql `
   mutation deleteTask($taskId: String) {
@@ -130,7 +130,7 @@ export const deleteTask = gql `
       success
     }
   }
-`
+`;
 
 export const profile = gql `
   query me {
@@ -138,4 +138,21 @@ export const profile = gql `
       fullName
     }
   }
-`
+`;
+
+export const confirmEmail = gql `
+  mutation confirmEmail($email: String!) {
+    confirmEmail(email:$email){
+      success
+      error {
+        __typename
+        ... on ValidationErrors {
+          validationErrors {
+            field
+            messages
+          }
+        }
+      }
+    }
+  }
+`;
