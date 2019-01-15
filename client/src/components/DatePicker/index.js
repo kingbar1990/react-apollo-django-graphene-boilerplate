@@ -1,28 +1,25 @@
 import React from "react";
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
 
-const styles = () => ({
-  textField: {
-    width: '100%',
-    color: 'red'
-  },
-});
+import {
+  formatDate,
+  parseDate,
+} from 'react-day-picker/moment';
 
-class ExampleDatePicker extends React.Component {
+import 'react-day-picker/lib/style.css';
+
+export default class ExampleDatePicker extends React.Component {
   render() {
-    const { classes } = this.props;
+    const FORMAT = 'YYYY-MM-DD';
     return (
-      <div className="form-control">
-        <TextField
-            id="date"
-            type="date"
-            className={classes.textField}
+      <div>
+        <DayPickerInput 
+            format={FORMAT}
+            parseDate={parseDate}
+            placeholder={`${formatDate(new Date())}`}
+            onDayChange={this.props.onDateChange} 
           />
       </div>
-    );
+    )
   }
 }
-
-
-export default withStyles(styles)(ExampleDatePicker);

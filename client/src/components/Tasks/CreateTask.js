@@ -8,7 +8,7 @@ import DatePicker from "../DatePicker";
 import { Container, Button, Modal, ModalHeader } from "mdbreact";
 import { TaskSchema } from "../../utils/validations/crateTask";
 
-const CreateTask = ({ isActive, closeModal, submitForm }) => {
+const CreateTask = ({ isActive, closeModal, changeDate, submitForm }) => {
   return (
     <Container>
       <Modal isOpen={isActive} centered>
@@ -55,7 +55,7 @@ const CreateTask = ({ isActive, closeModal, submitForm }) => {
                   </select>
                   <div className="position-relative form-group">
                     <label>Due date</label>
-                    <DatePicker />
+                    <DatePicker onDateChange={changeDate} />
                   </div>
                   <Query query={getUsers}>
                     {({ loading, error, data }) => {

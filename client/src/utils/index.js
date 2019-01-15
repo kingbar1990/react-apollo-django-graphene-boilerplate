@@ -8,10 +8,8 @@ export const loadData = key => {
       window.localStorage.removeItem("token");
       return "";
     }
-
     return data.token;
   }
-
   return "";
 };
 
@@ -19,4 +17,18 @@ export const saveData = (key, value) => {
   const timestamp = +new Date();
   const data = JSON.stringify({ token: value, timestamp });
   window.localStorage.setItem(key, data);
+};
+
+export const setCurrentDate = date => {
+  let today = date;
+  let day = today.getDate();
+  let month = today.getMonth() + 1;
+  let yyyy = today.getFullYear();
+  if (day < 10) {
+    day = "0" + day;
+  }
+  if (month < 10) {
+    month = "0" + month;
+  }
+  return (today = `${yyyy}-${month}-${day}`);
 };

@@ -6,6 +6,8 @@ import IosAddCircleOutline from 'react-ionicons/lib/IosAddCircleOutline'
 import IosRemoveCircleOutline from 'react-ionicons/lib/IosRemoveCircleOutline';
 import IosCreateOutline from 'react-ionicons/lib/IosCreateOutline';
 
+import { setCurrentDate } from '../../../utils';
+
 import Dashboard from "../../../containers/Dashboard";
 import ModalDelete from "../../../components/Tasks/ModalDelete";
 import ModalCreate from "../../../components/Tasks/CreateTask";
@@ -20,7 +22,8 @@ class Tasks extends React.Component {
     this.state = {
       modalDelete: false,
       modalCreate: false,
-      id: ""
+      id: "",
+      date: ""
     };
   }
 
@@ -44,7 +47,6 @@ class Tasks extends React.Component {
 
   handleSubmitForm = async (values, { setErrors }) => {
     const statusValue = document.getElementById("statusSelect").value;
-    const date = document.getElementById("date").value;
     const userId = document.getElementById("userId").value;
     const { title, description, estimatedTime } = values;
     try {
@@ -54,7 +56,7 @@ class Tasks extends React.Component {
           name: title,
           description: description,
           status: statusValue,
-          dueDate: date,
+          dueDate: this.state.date,
           assignedTo: userId,
           estimatedTime: estimatedTime
         },
@@ -79,6 +81,12 @@ class Tasks extends React.Component {
     });
   };
 
+  handleDateChange = date => {
+    this.setState({
+      date: setCurrentDate(date)
+    })
+  }
+
   render() {
     const { modalCreate, modalDelete, id } = this.state;
     const tasks = this.props.tasks;
@@ -93,6 +101,7 @@ class Tasks extends React.Component {
         <ModalCreate
           isActive={modalCreate}
           closeModal={this.handleSwitchModalCreate}
+          changeDate={this.handleDateChange}
           submitForm={this.handleSubmitForm}
         />
         <ReactTable
