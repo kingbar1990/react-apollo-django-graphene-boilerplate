@@ -2,22 +2,24 @@ import React from "react";
 import { Query } from "react-apollo";
 import { getUsers } from "../../queries";
 import { Formik, Form, Field } from "formik";
+import { Container, Modal, Button  } from "mdbreact";
 import { ReactstrapInput } from "reactstrap-formik";
+import IosClose from 'react-ionicons/lib/IosClose';
 
 import DatePicker from "../DatePicker";
-import { Container, Button, Modal, ModalHeader } from "mdbreact";
+
 import { TaskSchema } from "../../utils/validations/crateTask";
 
 const CreateTask = ({ isActive, closeModal, changeDate, submitForm }) => {
   return (
     <Container>
       <Modal isOpen={isActive} centered>
-        <ModalHeader>
-          Create task
-          <Button onClick={closeModal} color="secondary">
-            No
-          </Button>
-        </ModalHeader>
+        <div className="card-body">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h3>Create task</h3>
+            <IosClose onClick={closeModal} fontSize="30px" color="#007bff"/>
+          </div>
+        </div>
         <Formik
           initialValues={{
             title: "",

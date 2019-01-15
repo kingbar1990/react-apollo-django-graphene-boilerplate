@@ -45,7 +45,7 @@ class Tasks extends React.Component {
     } catch (error) {}
   };
 
-  handleSubmitForm = async (values, { setErrors }) => {
+  handleCreateTask = async (values, { setErrors }) => {
     const statusValue = document.getElementById("statusSelect").value;
     const userId = document.getElementById("userId").value;
     const { title, description, estimatedTime } = values;
@@ -56,7 +56,7 @@ class Tasks extends React.Component {
           name: title,
           description: description,
           status: statusValue,
-          dueDate: this.state.date,
+          dueDate: this.state.date || setCurrentDate(new Date()),
           assignedTo: userId,
           estimatedTime: estimatedTime
         },
@@ -102,7 +102,7 @@ class Tasks extends React.Component {
           isActive={modalCreate}
           closeModal={this.handleSwitchModalCreate}
           changeDate={this.handleDateChange}
-          submitForm={this.handleSubmitForm}
+          submitForm={this.handleCreateTask}
         />
         <ReactTable
           data={tasks.tasks}
