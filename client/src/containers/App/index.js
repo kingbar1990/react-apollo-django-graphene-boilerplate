@@ -13,6 +13,7 @@ import PrivateRoute from "../../components/PrivateRoute";
 import Tasks from "../../pages/Dashboard/Tasks";
 import Profile from "../../pages/Dashboard/Profile";
 import PageNotFound from "../../components/PageNotFound";
+import ResetPass from "../../pages/ResetPass";
 
 class App extends Component {
   render() {
@@ -40,6 +41,10 @@ class App extends Component {
             component={Profile}
             isAuth={this.props.isAuth}
           />
+          <Route
+           path="/reset-password"
+           component={ResetPass}
+         />
           <Route component={PageNotFound} />
         </Switch>
       </div>

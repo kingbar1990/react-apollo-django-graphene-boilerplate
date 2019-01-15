@@ -65,7 +65,7 @@ class Tasks extends React.Component {
       });
       this.setState({ modalCreate: false });
     } catch (error) {
-      // return setErrors(error);
+      return setErrors(error);
     }
   };
 
