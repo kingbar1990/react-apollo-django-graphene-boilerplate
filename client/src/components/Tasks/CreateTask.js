@@ -10,13 +10,13 @@ import DatePicker from "../DatePicker";
 
 import { TaskSchema } from "../../utils/validations/crateTask";
 
-const CreateTask = ({ isActive, closeModal, changeDate, submitForm }) => {
+const ModalForm = ({ isActive, title, closeModal, changeDate, submitForm }) => {
   return (
     <Container>
       <Modal isOpen={isActive} centered>
         <div className="card-body">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h3>Create task</h3>
+            <h3>{title}</h3>
             <IosClose onClick={closeModal} fontSize="30px" color="#007bff"/>
           </div>
         </div>
@@ -59,6 +59,12 @@ const CreateTask = ({ isActive, closeModal, changeDate, submitForm }) => {
                     <label>Due date</label>
                     <DatePicker onDateChange={changeDate} />
                   </div>
+                  <Field
+                    name="estimatedTime"
+                    type="number"
+                    component={ReactstrapInput}
+                    label="Estimate Time"
+                  />
                   <Query query={getUsers}>
                     {({ loading, error, data }) => {
                       if (loading) return "Loading...";
@@ -78,12 +84,6 @@ const CreateTask = ({ isActive, closeModal, changeDate, submitForm }) => {
                       );
                     }}
                   </Query>
-                  <Field
-                    name="estimatedTime"
-                    type="number"
-                    component={ReactstrapInput}
-                    label="Estimate Time"
-                  />
                   <Button color="primary" type="submit">
                     Save
                   </Button>
@@ -97,4 +97,4 @@ const CreateTask = ({ isActive, closeModal, changeDate, submitForm }) => {
   );
 };
 
-export default CreateTask;
+export default ModalForm;

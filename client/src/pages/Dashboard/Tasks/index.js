@@ -2,18 +2,18 @@ import React from "react";
 import { graphql, compose } from "react-apollo";
 import { getTasks, deleteTask, createTask } from "../../../queries";
 import ReactTable from "react-table";
-import IosAddCircleOutline from 'react-ionicons/lib/IosAddCircleOutline'
-import IosRemoveCircleOutline from 'react-ionicons/lib/IosRemoveCircleOutline';
-import IosCreateOutline from 'react-ionicons/lib/IosCreateOutline';
+import IosAddCircleOutline from "react-ionicons/lib/IosAddCircleOutline";
+import IosRemoveCircleOutline from "react-ionicons/lib/IosRemoveCircleOutline";
+import IosCreateOutline from "react-ionicons/lib/IosCreateOutline";
 
-import { setCurrentDate } from '../../../utils';
+import { setCurrentDate } from "../../../utils";
 
 import Dashboard from "../../../containers/Dashboard";
 import ModalDelete from "../../../components/Tasks/ModalDelete";
-import ModalCreate from "../../../components/Tasks/CreateTask";
+import Modal from "../../../components/Tasks/CreateTask";
 
 import "react-table/react-table.css";
-import "../../../index.css"
+import "../../../index.css";
 
 class Tasks extends React.Component {
   constructor(props) {
@@ -21,6 +21,7 @@ class Tasks extends React.Component {
 
     this.state = {
       modalDelete: false,
+      modalEdit: false,
       modalCreate: false,
       id: "",
       date: ""
@@ -64,16 +65,16 @@ class Tasks extends React.Component {
       });
       this.setState({ modalCreate: false });
     } catch (error) {
-      return setErrors(error);
+      // return setErrors(error);
     }
   };
 
-  handleSwitchModalDelete = id => {
+  handleSwitchModal = (type, id) => {
     this.setState({
-      modalDelete: !this.state.modalDelete,
-      id: id
-    });
-  };
+      [type]: !this.state[type],
+      id
+    })
+  }
 
   handleSwitchModalCreate = () => {
     this.setState({
@@ -84,23 +85,31 @@ class Tasks extends React.Component {
   handleDateChange = date => {
     this.setState({
       date: setCurrentDate(date)
-    })
-  }
+    });
+  };
 
   render() {
-    const { modalCreate, modalDelete, id } = this.state;
+    const { modalDelete, modalCreate, modalEdit, id } = this.state;
     const tasks = this.props.tasks;
     return (
       <Dashboard>
         <ModalDelete
           isActive={modalDelete}
-          closeModal={this.handleSwitchModalDelete}
+          closeModal={() => this.handleSwitchModal('modalDelete')}
           deleteTask={this.handleDeleteTask}
           id={id}
         />
-        <ModalCreate
+        <Modal
           isActive={modalCreate}
+          title="Create task"
           closeModal={this.handleSwitchModalCreate}
+          changeDate={this.handleDateChange}
+          submitForm={this.handleCreateTask}
+        />
+        <Modal
+          isActive={modalEdit}
+          title="Edit task"
+          closeModal={() => this.handleSwitchModal('modalEdit')}
           changeDate={this.handleDateChange}
           submitForm={this.handleCreateTask}
         />
@@ -150,12 +159,19 @@ class Tasks extends React.Component {
               Header: "Actions",
               Cell: row => (
                 <div>
-                  <IosCreateOutline fontSize="30px" color="#007bff"/>
-                  <IosRemoveCircleOutline 
+                  <IosCreateOutline
                     onClick={() =>
-                      this.handleSwitchModalDelete(row.original.id)
+                      this.handleSwitchModal('modalEdit', row.original.id)
                     }
-                    fontSize="30px" color="#007bff"
+                    fontSize="30px"
+                    color="#007bff"
+                  />
+                  <IosRemoveCircleOutline
+                    onClick={() =>
+                      this.handleSwitchModal('modalDelete', row.original.id)
+                    }
+                    fontSize="30px"
+                    color="#007bff"
                   />
                 </div>
               )
@@ -165,7 +181,11 @@ class Tasks extends React.Component {
           defaultPageSize={10}
           className="-striped -highlight table"
         />
-        <IosAddCircleOutline onClick={this.handleSwitchModalCreate} fontSize="30px" color="#007bff" />
+        <IosAddCircleOutline
+          onClick={this.handleSwitchModalCreate}
+          fontSize="30px"
+          color="#007bff"
+        />
       </Dashboard>
     );
   }

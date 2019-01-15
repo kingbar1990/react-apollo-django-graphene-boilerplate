@@ -7,11 +7,11 @@ from .models import Task
 from .schema import TaskType
 from .forms import TaskForm
 
+
 class TaskMutationDelete(graphene.Mutation):
     class Arguments:
         task_id = graphene.String()
     
-
     success = graphene.Boolean()
     errors = graphene.List(graphene.String)
     
@@ -39,6 +39,7 @@ class TaskCreateMutation(FormMutation):
         form_class = TaskForm
 
     task = graphene.Field(lambda: TaskType)
+    
     @classmethod
     def perform_mutate(cls, form, info):
         task = form.save()
