@@ -5,15 +5,17 @@ import { withRouter, Switch, Route } from "react-router";
 
 import * as path from '../../constants/routes';
 
+import { withAuth } from '../../hocs/PrivateRoute';
+
 import Home from "../../pages/Home";
 import SignUp from "../../pages/SignUp";
 import Login from "../../pages/Login";
 import Dashboard from "../../pages/Dashboard";
-import PrivateRoute from "../../components/PrivateRoute";
+// import PrivateRoute from "../../components/PrivateRoute";
 import Tasks from "../../pages/Dashboard/Tasks";
 import Profile from "../../pages/Dashboard/Profile";
 import PageNotFound from "../../components/PageNotFound";
-import ResetPass from "../../pages/ResetPass";
+// import ResetPass from "../../pages/ResetPass";
 
 class App extends Component {
   render() {
@@ -23,7 +25,10 @@ class App extends Component {
           <Route exact path={path.HOME} component={Home} />
           <Route exact path={path.SIGN_UP} component={SignUp} />
           <Route exact path={path.SIGN_IN} component={Login} />
-          <PrivateRoute
+          <Route exact path={path.DASHBOARD} component={withAuth(Dashboard)} />
+          <Route exact path={path.TASKS} component={withAuth(Tasks)} />
+          <Route exact path={path.PROFILE} component={withAuth(Profile)} />
+          {/* <PrivateRoute
             exact
             path={path.DASHBOARD}
             component={Dashboard}
@@ -44,7 +49,7 @@ class App extends Component {
           <Route
            path="/reset-password"
            component={ResetPass}
-         />
+         /> */}
           <Route component={PageNotFound} />
         </Switch>
       </div>

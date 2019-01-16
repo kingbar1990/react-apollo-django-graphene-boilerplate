@@ -9,15 +9,12 @@ import ApolloClient from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloProvider } from "react-apollo";
 import { setContext } from "apollo-link-context";
-import jwtDecode from "jwt-decode";
-
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 
 import App from "./containers/App";
 import { TOKEN } from "./constants";
-import { loginAction } from "./actions";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
 
@@ -50,20 +47,6 @@ const devTools =
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
 const store = createStore(rootReducer, devTools);
-const token = window.localStorage.getItem("token");
-
-let data;
-try {
-  data = token ? JSON.parse(token).token : false;
-} catch (error) {}
-
-try {
-  if (jwtDecode(data)) {
-    store.dispatch(loginAction(true));
-  } else {
-    store.dispatch(loginAction(false));
-  }
-} catch (error) {}
 
 ReactDOM.render(
   <Provider store={store}>

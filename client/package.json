@@ -10,7 +10,6 @@
     "formik": "^1.4.0",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
-    "jwt-decode": "^2.2.0",
     "material-ui": "^0.20.2",
     "mdbreact": "^4.8.5-patch.1",
     "react": "^16.6.3",
