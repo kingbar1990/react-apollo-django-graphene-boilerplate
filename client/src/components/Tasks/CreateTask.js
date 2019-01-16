@@ -65,6 +65,7 @@ const ModalForm = ({ isActive, title, closeModal, changeDate, submitForm }) => {
                     component={ReactstrapInput}
                     label="Estimate Time"
                   />
+                  <label>Assigned to</label>
                   <Query query={getUsers}>
                     {({ loading, error, data }) => {
                       if (loading) return "Loading...";

@@ -2,6 +2,7 @@ import React from "react";
 import { Query } from "react-apollo";
 import { getUsers } from "../../queries";
 import { Formik, Form, Field } from "formik";
+import DayPickerInput from "react-day-picker/DayPickerInput";
 import { Container, Modal, Button  } from "mdbreact";
 import { ReactstrapInput } from "reactstrap-formik";
 import IosClose from 'react-ionicons/lib/IosClose';
@@ -27,7 +28,7 @@ const ModalForm = (props) => {
             description: props.description,
             status: props.status,
             date: props.date,
-            estimateTime: props.estimateTime,
+            estimatedTime: props.estimatedTime,
             assignedTo: props.assignedTo
           }}
           validationSchema={TaskSchema}
@@ -60,15 +61,19 @@ const ModalForm = (props) => {
                     <option value="0">InProgress</option>
                   </select>
                   <div className="position-relative form-group">
-                      <label>Due date</label> 
-                        <DatePicker onDateChange={props.changeDate} /> 
-                      </div>
+                    <label>Due date</label>
+                    <DayPickerInput
+                      placeholder={props.date}
+                      onDayChange={props.changeDate}
+                    />
+                  </div>
                   <Field
-                    name="estimateTime"
+                    name="estimatedTime"
                     type="number"
                     component={ReactstrapInput}
                     label="Estimate Time"
                   />
+                  <label>Assigned to</label>
                   <Query query={getUsers}>
                     {({ loading, error, data }) => {
                       if (loading) return "Loading...";
@@ -78,13 +83,19 @@ const ModalForm = (props) => {
                           id="userId"
                           name="status"
                           className="browser-default custom-select position-relative form-group"
-                        > 
-                          <option>{props.assignedTo.fullName}</option>
-                          {data.users.map(user => (
-                            <option key={user.id} value={user.id}>
-                              {user.fullName} 
-                            </option>
-                          ))}
+                        >
+                          <option key={props.assignedTo.id} value={props.assignedTo.id}>
+                            {props.assignedTo.fullName}
+                          </option>
+                          {data.users.map(user => {
+                            if (user.fullName !== props.assignedTo.fullName)
+                              return (
+                                <option key={user.id} value={user.id}>
+                                  {user.fullName}
+                                </option>
+                              )
+                            })
+                          })};
                         </select>
                       );
                     }}
@@ -103,3 +114,6 @@ const ModalForm = (props) => {
 };
 
 export default ModalForm;
+
+
+// sort((a,b) => (a.fullName === props.assignedTo.fullNames) ? 1 : ((props.assignedTo.fullName !== props.assignedTo.fullNames) ? -1 : 0))
