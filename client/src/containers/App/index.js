@@ -11,11 +11,10 @@ import Home from "../../pages/Home";
 import SignUp from "../../pages/SignUp";
 import Login from "../../pages/Login";
 import Dashboard from "../../pages/Dashboard";
-// import PrivateRoute from "../../components/PrivateRoute";
 import Tasks from "../../pages/Dashboard/Tasks";
 import Profile from "../../pages/Dashboard/Profile";
 import PageNotFound from "../../components/PageNotFound";
-// import ResetPass from "../../pages/ResetPass";
+import ResetPass from "../../pages/ResetPass";
 
 class App extends Component {
   render() {
@@ -28,6 +27,7 @@ class App extends Component {
           <Route exact path={path.DASHBOARD} component={withAuth(Dashboard)} />
           <Route exact path={path.TASKS} component={withAuth(Tasks)} />
           <Route exact path={path.PROFILE} component={withAuth(Profile)} />
+          <Route exact path={path.RESET_PASS} component={withAuth(ResetPass)} />
           <Route component={PageNotFound} />
         </Switch>
       </div>
