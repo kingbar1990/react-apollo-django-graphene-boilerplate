@@ -10,7 +10,8 @@ import { setCurrentDate } from "../../../utils";
 
 import Dashboard from "../../../containers/Dashboard";
 import ModalDelete from "../../../components/Tasks/ModalDelete";
-import Modal from "../../../components/Tasks/CreateTask";
+import ModalCreate from "../../../components/Tasks/CreateTask";
+import ModalEdit from "../../../components/Tasks/EditTask";
 
 import "react-table/react-table.css";
 import "../../../index.css";
@@ -23,8 +24,16 @@ class Tasks extends React.Component {
       modalDelete: false,
       modalEdit: false,
       modalCreate: false,
+      date: "",
+      task: {
+        name: '',
+        description: '',
+        status: '',
+        dueDate: '',
+        estimatedTime: '',
+        assignedTo: '',
+      },
       id: "",
-      date: ""
     };
   }
 
@@ -34,11 +43,11 @@ class Tasks extends React.Component {
     }
   }
 
-  handleDeleteTask = async id => {
+  handleDeleteTask = async () => {
     try {
       await this.props.taskDelete({
         variables: {
-          taskId: id
+          taskId: this.state.id
         },
         refetchQueries: [{ query: getTasks }]
       });
@@ -49,17 +58,18 @@ class Tasks extends React.Component {
   handleCreateTask = async (values, { setErrors }) => {
     const statusValue = document.getElementById("statusSelect").value;
     const userId = document.getElementById("userId").value;
-    const { title, description, estimatedTime } = values;
+    const { title, description, estimatedTime, } = values;
+    console.log(estimatedTime)
     try {
       await this.props.taskCreate({
         variables: {
           taskId: 1161,
           name: title,
           description: description,
-          status: statusValue,
+          status: statusValue || 2,
           dueDate: this.state.date || setCurrentDate(new Date()),
+          estimatedTime: estimatedTime,
           assignedTo: userId,
-          estimatedTime: estimatedTime
         },
         refetchQueries: [{ query: getTasks }]
       });
@@ -69,12 +79,25 @@ class Tasks extends React.Component {
     }
   };
 
-  handleSwitchModal = (type, id) => {
+  handleSwitchModal = (type, task) => {
     this.setState({
       [type]: !this.state[type],
-      id
+      task: task,
+      id: task.id
     })
   }
+  
+  handleCloseEditModal = () => {
+    this.setState({
+      modalEdit: false
+    })
+  }
+
+  handleCloseModalDelete = () => {
+    this.setState({
+      modalDelete: false
+    });
+  };
 
   handleSwitchModalCreate = () => {
     this.setState({
@@ -89,30 +112,36 @@ class Tasks extends React.Component {
   };
 
   render() {
-    const { modalDelete, modalCreate, modalEdit, id } = this.state;
+    const { modalDelete, modalCreate, modalEdit, id, task } = this.state;
     const tasks = this.props.tasks;
     return (
       <Dashboard>
         <ModalDelete
           isActive={modalDelete}
-          closeModal={() => this.handleSwitchModal('modalDelete')}
+          closeModal={this.handleCloseModalDelete}
           deleteTask={this.handleDeleteTask}
           id={id}
         />
-        <Modal
+        <ModalCreate
           isActive={modalCreate}
           title="Create task"
           closeModal={this.handleSwitchModalCreate}
           changeDate={this.handleDateChange}
           submitForm={this.handleCreateTask}
         />
-        <Modal
-          isActive={modalEdit}
-          title="Edit task"
-          closeModal={() => this.handleSwitchModal('modalEdit')}
-          changeDate={this.handleDateChange}
-          submitForm={this.handleCreateTask}
-        />
+        <ModalEdit
+         isActive={modalEdit}
+         title="Edit task"
+         name={task.name}
+         description={task.description}
+         status={task.status}
+         date={task.dueDate}
+         estimateTime={task.estimatedTime}
+         assignedTo={task.assignedTo}
+         closeModal={this.handleCloseEditModal}
+         changeDate={this.handleDateChange}
+         submitForm={this.handleUpdateTask}
+       />
         <ReactTable
           data={tasks.tasks}
           columns={[
@@ -161,14 +190,14 @@ class Tasks extends React.Component {
                 <div>
                   <IosCreateOutline
                     onClick={() =>
-                      this.handleSwitchModal('modalEdit', row.original.id)
+                      this.handleSwitchModal('modalEdit', row.original)
                     }
                     fontSize="30px"
                     color="#007bff"
                   />
                   <IosRemoveCircleOutline
                     onClick={() =>
-                      this.handleSwitchModal('modalDelete', row.original.id)
+                      this.handleSwitchModal('modalDelete', row.original)
                     }
                     fontSize="30px"
                     color="#007bff"
