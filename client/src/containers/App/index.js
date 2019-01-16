@@ -28,28 +28,6 @@ class App extends Component {
           <Route exact path={path.DASHBOARD} component={withAuth(Dashboard)} />
           <Route exact path={path.TASKS} component={withAuth(Tasks)} />
           <Route exact path={path.PROFILE} component={withAuth(Profile)} />
-          {/* <PrivateRoute
-            exact
-            path={path.DASHBOARD}
-            component={Dashboard}
-            isAuth={this.props.isAuth}
-          />
-          <PrivateRoute
-            exact
-            path={path.TASKS}
-            component={Tasks}
-            isAuth={this.props.isAuth}
-          />
-          <PrivateRoute
-            exact
-            path={path.PROFILE}
-            component={Profile}
-            isAuth={this.props.isAuth}
-          />
-          <Route
-           path="/reset-password"
-           component={ResetPass}
-         /> */}
           <Route component={PageNotFound} />
         </Switch>
       </div>
