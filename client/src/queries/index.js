@@ -83,6 +83,8 @@ export const getTasks = gql `
       dueDate
       estimatedTime
       assignedTo {
+        id
+        email
         fullName
       }
     }
@@ -100,6 +102,41 @@ export const createTask = gql `
     $estimatedTime: Int!
   ) {
     createTask(taskId: $taskId, name: $name, description: $description, status: $status, dueDate: $dueDate,  estimatedTime: $estimatedTime, assignedTo: $assignedTo) {
+      error {
+        __typename
+        ... on ValidationErrors {
+          validationErrors {
+            field
+            messages
+          }
+        }
+      }
+      task {
+        id
+        name
+        description
+        status
+        dueDate
+        estimatedTime
+        assignedTo {
+          id
+        }
+      }
+    }
+  }
+`;
+
+export const updateTask = gql `
+  mutation updateTask(
+    $taskId: Int!
+    $name: String!
+    $description: String
+    $status: String!
+    $dueDate: Date
+    $assignedTo: ID
+    $estimatedTime: Int!
+  ) {
+    updateTask(taskId: $taskId, name: $name, description: $description, status: $status, dueDate: $dueDate,  estimatedTime: $estimatedTime, assignedTo: $assignedTo) {
       error {
         __typename
         ... on ValidationErrors {

@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql, compose } from "react-apollo";
-import { getTasks, deleteTask, createTask } from "../../../queries";
+import { getTasks, deleteTask, createTask, updateTask } from "../../../queries";
 import ReactTable from "react-table";
 import IosAddCircleOutline from "react-ionicons/lib/IosAddCircleOutline";
 import IosRemoveCircleOutline from "react-ionicons/lib/IosRemoveCircleOutline";
@@ -35,13 +35,13 @@ class Tasks extends React.Component {
       },
       id: "",
     };
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.tasks.tasks !== this.props.tasks.tasks) {
       this.props.tasks.refetch();
     }
-  }
+  };
 
   handleDeleteTask = async () => {
     try {
@@ -59,7 +59,6 @@ class Tasks extends React.Component {
     const statusValue = document.getElementById("statusSelect").value;
     const userId = document.getElementById("userId").value;
     const { title, description, estimatedTime, } = values;
-    console.log(estimatedTime)
     try {
       await this.props.taskCreate({
         variables: {
@@ -79,19 +78,42 @@ class Tasks extends React.Component {
     }
   };
 
+  handleUpdateTask = async (values, { setErrors }) => {
+    const statusValue = document.getElementById("statusSelect").value;
+    const userId = document.getElementById("userId").value;
+    const { title, description, estimatedTime, } = values;
+    try {
+      await this.props.taskUpdate({
+        variables: {
+          taskId: this.state.id,
+          name: title,
+          description: description,
+          status: statusValue || 2,
+          dueDate: this.state.date || setCurrentDate(new Date()),
+          estimatedTime: estimatedTime,
+          assignedTo: userId,
+        },
+        refetchQueries: [{ query: getTasks }]
+      });
+      this.setState({ modalEdit: false });
+    } catch (error) {
+      return setErrors(error);
+    }
+  };
+
   handleSwitchModal = (type, task) => {
     this.setState({
       [type]: !this.state[type],
       task: task,
       id: task.id
     })
-  }
-  
+  };
+
   handleCloseEditModal = () => {
     this.setState({
       modalEdit: false
     })
-  }
+  };
 
   handleCloseModalDelete = () => {
     this.setState({
@@ -136,7 +158,7 @@ class Tasks extends React.Component {
          description={task.description}
          status={task.status}
          date={task.dueDate}
-         estimateTime={task.estimatedTime}
+         estimatedTime={task.estimatedTime}
          assignedTo={task.assignedTo}
          closeModal={this.handleCloseEditModal}
          changeDate={this.handleDateChange}
@@ -230,5 +252,8 @@ export default compose(
   }),
   graphql(createTask, {
     name: "taskCreate"
+  }),
+  graphql(updateTask, {
+    name: "taskUpdate"
   })
 )(Tasks);
