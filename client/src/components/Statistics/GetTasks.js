@@ -2,21 +2,22 @@ import React from "react";
 import { MDBCard, MDBCardText } from "mdbreact";
 import { compose, graphql, Query } from "react-apollo";
 
-import { Pie } from "react-chartjs-2";
-
 import { getTasks } from "../../queries";
 
 import Loader from "../Loader";
-
+import { Pie } from "react-chartjs-2";
 class GetTasks extends React.Component {
   render() {
     const stylesOnCard = { width: "22rem", marginTop: "1rem" };
     return (
       <Query query={getTasks}>
         {({ loading, error, data }) => {
-          if (loading) return <Loader styles={stylesOnCard} />;
-          if (error) return `Error! ${error.message}`;
-
+          if (loading) {
+            return <Loader styles={stylesOnCard} />
+          }
+          if (error) {
+            return `Error! ${error.message}`
+          }
           if (data.tasks.length) {
             return (
               <MDBCard className="card-body" style={stylesOnCard}>

@@ -12,7 +12,7 @@ import {
 
 import { TOKEN } from "../../constants";
 
-class TopNavigation extends Component {
+export default class TopNavigation extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,12 +23,6 @@ class TopNavigation extends Component {
   onClick = () => {
     this.setState({
       collapse: !this.state.collapse
-    });
-  };
-
-  toggle = () => {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
     });
   };
 
@@ -108,5 +102,3 @@ class TopNavigation extends Component {
     );
   }
 }
-
-export default TopNavigation;

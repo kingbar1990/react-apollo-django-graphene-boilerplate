@@ -19,7 +19,7 @@ export const saveData = (key, value) => {
   window.localStorage.setItem(key, data);
 };
 
-export const setCurrentDate = date => {
+export const getCurrentDate = date => {
   let today = date;
   let day = today.getDate();
   let month = today.getMonth() + 1;

@@ -6,12 +6,12 @@ import IosAddCircleOutline from "react-ionicons/lib/IosAddCircleOutline";
 import IosRemoveCircleOutline from "react-ionicons/lib/IosRemoveCircleOutline";
 import IosCreateOutline from "react-ionicons/lib/IosCreateOutline";
 
-import { setCurrentDate } from "../../../utils";
+import { getCurrentDate } from "../../../utils";
 
 import Dashboard from "../../../containers/Dashboard";
 import ModalDelete from "../../../components/Tasks/ModalDelete";
-import ModalCreate from "../../../components/Tasks/CreateTask";
-import ModalEdit from "../../../components/Tasks/EditTask";
+import ModalCreate from "../../../components/Tasks/CreateTask/index";
+import ModalEdit from "../../../components/Tasks/EditTask/index";
 
 import "react-table/react-table.css";
 import "../../../index.css";
@@ -26,22 +26,22 @@ class Tasks extends React.Component {
       modalCreate: false,
       date: "",
       task: {
-        name: '',
-        description: '',
-        status: '',
-        dueDate: '',
-        estimatedTime: '',
-        assignedTo: '',
+        name: "",
+        description: "",
+        status: "",
+        dueDate: "",
+        estimatedTime: "",
+        assignedTo: ""
       },
-      id: "",
+      id: ""
     };
-  };
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.tasks.tasks !== this.props.tasks.tasks) {
       this.props.tasks.refetch();
     }
-  };
+  }
 
   handleDeleteTask = async () => {
     try {
@@ -52,13 +52,15 @@ class Tasks extends React.Component {
         refetchQueries: [{ query: getTasks }]
       });
       this.setState({ modalDelete: false });
-    } catch (error) {}
+    } catch (error) {
+      return false;
+    }
   };
 
   handleCreateTask = async (values, { setErrors }) => {
     const statusValue = document.getElementById("statusSelect").value;
     const userId = document.getElementById("userId").value;
-    const { title, description, estimatedTime, } = values;
+    const { title, description, estimatedTime } = values;
     try {
       await this.props.taskCreate({
         variables: {
@@ -66,9 +68,9 @@ class Tasks extends React.Component {
           name: title,
           description: description,
           status: statusValue || 2,
-          dueDate: this.state.date || setCurrentDate(new Date()),
+          dueDate: this.state.date || getCurrentDate(new Date()),
           estimatedTime: estimatedTime,
-          assignedTo: userId,
+          assignedTo: userId
         },
         refetchQueries: [{ query: getTasks }]
       });
@@ -81,7 +83,7 @@ class Tasks extends React.Component {
   handleUpdateTask = async (values, { setErrors }) => {
     const statusValue = document.getElementById("statusSelect").value;
     const userId = document.getElementById("userId").value;
-    const { title, description, estimatedTime, } = values;
+    const { title, description, estimatedTime } = values;
     try {
       await this.props.taskUpdate({
         variables: {
@@ -89,9 +91,9 @@ class Tasks extends React.Component {
           name: title,
           description: description,
           status: statusValue || 2,
-          dueDate: this.state.date || setCurrentDate(new Date()),
+          dueDate: this.state.date || getCurrentDate(new Date()),
           estimatedTime: estimatedTime,
-          assignedTo: userId,
+          assignedTo: userId
         },
         refetchQueries: [{ query: getTasks }]
       });
@@ -102,17 +104,17 @@ class Tasks extends React.Component {
   };
 
   handleSwitchModal = (type, task) => {
-    this.setState({
-      [type]: !this.state[type],
+    this.setState(state => ({
+      [type]: !state[type],
       task: task,
       id: task.id
-    })
+    }));
   };
 
   handleCloseEditModal = () => {
     this.setState({
       modalEdit: false
-    })
+    });
   };
 
   handleCloseModalDelete = () => {
@@ -129,7 +131,7 @@ class Tasks extends React.Component {
 
   handleDateChange = date => {
     this.setState({
-      date: setCurrentDate(date)
+      date: getCurrentDate(date)
     });
   };
 
@@ -138,32 +140,11 @@ class Tasks extends React.Component {
     const tasks = this.props.tasks;
     return (
       <Dashboard>
-        <ModalDelete
-          isActive={modalDelete}
-          closeModal={this.handleCloseModalDelete}
-          deleteTask={this.handleDeleteTask}
-          id={id}
+        <IosAddCircleOutline
+          onClick={this.handleSwitchModalCreate}
+          fontSize="30px"
+          color="#007bff"
         />
-        <ModalCreate
-          isActive={modalCreate}
-          title="Create task"
-          closeModal={this.handleSwitchModalCreate}
-          changeDate={this.handleDateChange}
-          submitForm={this.handleCreateTask}
-        />
-        <ModalEdit
-         isActive={modalEdit}
-         title="Edit task"
-         name={task.name}
-         description={task.description}
-         status={task.status}
-         date={task.dueDate}
-         estimatedTime={task.estimatedTime}
-         assignedTo={task.assignedTo}
-         closeModal={this.handleCloseEditModal}
-         changeDate={this.handleDateChange}
-         submitForm={this.handleUpdateTask}
-       />
         <ReactTable
           data={tasks.tasks}
           columns={[
@@ -212,14 +193,14 @@ class Tasks extends React.Component {
                 <div>
                   <IosCreateOutline
                     onClick={() =>
-                      this.handleSwitchModal('modalEdit', row.original)
+                      this.handleSwitchModal("modalEdit", row.original)
                     }
                     fontSize="30px"
                     color="#007bff"
                   />
                   <IosRemoveCircleOutline
                     onClick={() =>
-                      this.handleSwitchModal('modalDelete', row.original)
+                      this.handleSwitchModal("modalDelete", row.original)
                     }
                     fontSize="30px"
                     color="#007bff"
@@ -232,10 +213,29 @@ class Tasks extends React.Component {
           defaultPageSize={10}
           className="-striped -highlight table"
         />
-        <IosAddCircleOutline
-          onClick={this.handleSwitchModalCreate}
-          fontSize="30px"
-          color="#007bff"
+        <ModalDelete
+          isActive={modalDelete}
+          closeModal={this.handleCloseModalDelete}
+          deleteTask={this.handleDeleteTask}
+          id={id}
+        />
+        <ModalCreate
+          isActive={modalCreate}
+          closeModal={this.handleSwitchModalCreate}
+          changeDate={this.handleDateChange}
+          submitForm={this.handleCreateTask}
+        />
+        <ModalEdit
+          isActive={modalEdit}
+          name={task.name}
+          description={task.description}
+          status={task.status}
+          date={task.dueDate}
+          estimatedTime={task.estimatedTime}
+          assignedTo={task.assignedTo}
+          closeModal={this.handleCloseEditModal}
+          changeDate={this.handleDateChange}
+          submitForm={this.handleUpdateTask}
         />
       </Dashboard>
     );

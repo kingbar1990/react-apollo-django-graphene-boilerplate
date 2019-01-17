@@ -169,7 +169,7 @@ export const deleteTask = gql `
   }
 `;
 
-export const profile = gql `
+export const User = gql `
   query me {
     me {
       fullName

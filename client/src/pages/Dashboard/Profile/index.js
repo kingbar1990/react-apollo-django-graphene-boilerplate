@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql, compose } from "react-apollo";
 
-import { profile } from "../../../queries";
+import { User } from "../../../queries";
 
 import Dashboard from "../../../containers/Dashboard";
 
@@ -16,7 +16,7 @@ class Profile extends React.Component {
 }
 
 export default compose(
-  graphql(profile, {
-    name: 'meProfile'
+  graphql(User, {
+    name: 'user'
   })
 )(Profile);

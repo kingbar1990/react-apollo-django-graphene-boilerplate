@@ -13,9 +13,12 @@ class GetUsers extends React.Component {
     return (
       <Query query={getUsers}>
         {({ loading, error, data }) => {
-          if (loading) return <Loader styles={stylesOnCard} />;
-          if (error) return `Error! ${error.message}`;
-
+          if (loading) {
+            return <Loader styles={stylesOnCard} />
+          }
+          if (error) {
+            return `Error! ${error.message}`
+          }
           return (
             <MDBCard className="card-body" style={stylesOnCard}>
               <h3>Users: {data.users.length}</h3>
