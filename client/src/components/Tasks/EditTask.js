@@ -23,7 +23,6 @@ const ModalForm = (props) => {
         </div>
         <Formik
           initialValues={{
-            // id: props,id,
             title: props.name,
             description: props.description,
             status: props.status,

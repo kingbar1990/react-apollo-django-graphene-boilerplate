@@ -1,11 +1,8 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo'
 import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
 
 import { verifyToken } from '../queries';
-import { loginAction } from '../actions'
 
 export const withAuth = (ProtectedRoute) => {
     class PrivateRoute extends React.Component {
@@ -26,17 +23,10 @@ export const withAuth = (ProtectedRoute) => {
             return <ProtectedRoute {...this.props} />
         }
     }
-    const mapStateToProps = state => ({
-        isAuth: state.auth.isAuthenticated
-    });
-    const mapDispatchToProps = dispatch => ({
-        handleLogin: bindActionCreators(loginAction, dispatch),
-    });
     return compose(
         withRouter,
         graphql(verifyToken, {
             name: 'authorization',
         }),
-        connect(mapStateToProps, mapDispatchToProps)
     )(PrivateRoute)
 }
