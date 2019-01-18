@@ -3,7 +3,7 @@ import { graphql, compose } from "react-apollo";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import * as path from '../../constants/routes';
+import * as path from "../../constants/routes";
 import { islogin } from "../../actions";
 import { Container } from "reactstrap";
 
@@ -40,9 +40,9 @@ class SignUp extends React.Component {
           this.props.history.push(path.DASHBOARD);
         } else {
           let errors = {};
-          response.data.register.error.validationErrors.map(error => {
-            return (errors[error["field"]] = error["messages"].join(" "));
-          });
+          response.data.register.error.validationErrors.map(
+            error => (errors[error["field"]] = error["messages"].join(" "))
+          );
           setErrors(errors);
         }
       });

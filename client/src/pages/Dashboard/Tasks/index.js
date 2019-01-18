@@ -2,13 +2,13 @@ import React from "react";
 import { graphql, compose } from "react-apollo";
 import { getTasks, deleteTask, createTask, updateTask } from "../../../queries";
 import ReactTable from "react-table";
-import IosAddCircleOutline from "react-ionicons/lib/IosAddCircleOutline";
 import IosRemoveCircleOutline from "react-ionicons/lib/IosRemoveCircleOutline";
 import IosCreateOutline from "react-ionicons/lib/IosCreateOutline";
 
 import { getCurrentDate } from "../../../utils";
 
 import Dashboard from "../../../containers/Dashboard";
+import TableHeader from "../../../components/Tasks/TableHeader";
 import ModalDelete from "../../../components/Tasks/ModalDelete";
 import Modal from "../../../components/Tasks/modalForm";
 import CreateTaskForm from "../../../components/Tasks/CreateTask/CreateTaskForm";
@@ -129,11 +129,7 @@ class Tasks extends React.Component {
     const tasks = this.props.tasks;
     return (
       <Dashboard>
-        <IosAddCircleOutline
-          onClick={() => this.handleActiveModal('modalCreate')}
-          fontSize="30px"
-          color="#007bff"
-        />
+        <TableHeader title="Task List" modalCreate={() => this.handleActiveModal('modalCreate')} />
         <ReactTable
           data={tasks.tasks}
           columns={[

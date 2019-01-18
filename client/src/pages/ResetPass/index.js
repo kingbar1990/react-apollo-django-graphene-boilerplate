@@ -2,18 +2,13 @@ import React from "react";
 import { graphql, compose } from "react-apollo";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Link } from "react-router-dom";
 
-import * as path from '../../constants/routes';
+import * as path from "../../constants/routes";
 import { islogin } from "../../actions";
 import { Container } from "reactstrap";
 
 import { ConfirmEmailForm } from "../../components/ConfirmEmailForm";
 import { confirmEmail } from "../../queries";
-
-// import "./scss/App.css";
-// import "./scss/index.css";
-
 
 class ConfirmEmail extends React.Component {
   constructor() {
@@ -46,7 +41,7 @@ class ConfirmEmail extends React.Component {
           response.data.confirmEmail.error.validationErrors.map(error => {
             if (error["field"] === "__all__") {
               errors["email"] = error["messages"].join(" ");
-            } else if(error["field"] === "email"){
+            } else if (error["field"] === "email") {
               errors["email"] = error["messages"].join(" ");
             } else {
               errors[error] = error["messages"];

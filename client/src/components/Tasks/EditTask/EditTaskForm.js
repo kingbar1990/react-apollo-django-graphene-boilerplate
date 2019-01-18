@@ -90,7 +90,6 @@ const EditTaskForm = props => (
                           </option>
                         );
                     })}
-                    )};
                   </select>
                 );
               }}

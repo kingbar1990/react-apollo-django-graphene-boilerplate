@@ -9,7 +9,6 @@ import {
   NavLink,
   Fa,
   MDBPopover,
-  MDBIcon,
   MDBPopoverBody,
 } from "mdbreact";
 
