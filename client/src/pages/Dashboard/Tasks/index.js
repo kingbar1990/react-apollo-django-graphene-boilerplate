@@ -10,8 +10,9 @@ import { getCurrentDate } from "../../../utils";
 
 import Dashboard from "../../../containers/Dashboard";
 import ModalDelete from "../../../components/Tasks/ModalDelete";
-import ModalCreate from "../../../components/Tasks/CreateTask/index";
-import ModalEdit from "../../../components/Tasks/EditTask/index";
+import Modal from "../../../components/Tasks/modalForm";
+import CreateTaskForm from "../../../components/Tasks/CreateTask/CreateTaskForm";
+import EditTaskForm from "../../../components/Tasks/EditTask/EditTaskForm";
 
 import "react-table/react-table.css";
 import "../../../index.css";
@@ -111,22 +112,10 @@ class Tasks extends React.Component {
     }));
   };
 
-  handleCloseEditModal = () => {
-    this.setState({
-      modalEdit: false
-    });
-  };
-
-  handleCloseModalDelete = () => {
-    this.setState({
-      modalDelete: false
-    });
-  };
-
-  handleSwitchModalCreate = () => {
-    this.setState({
-      modalCreate: !this.state.modalCreate
-    });
+  handleActiveModal = type => {
+    this.setState(state => ({
+      [type]: !state[type],
+    }));
   };
 
   handleDateChange = date => {
@@ -136,12 +125,12 @@ class Tasks extends React.Component {
   };
 
   render() {
-    const { modalDelete, modalCreate, modalEdit, id, task } = this.state;
+    const { modalDelete, modalCreate, modalEdit, id } = this.state;
     const tasks = this.props.tasks;
     return (
       <Dashboard>
         <IosAddCircleOutline
-          onClick={this.handleSwitchModalCreate}
+          onClick={() => this.handleActiveModal('modalCreate')}
           fontSize="30px"
           color="#007bff"
         />
@@ -192,16 +181,12 @@ class Tasks extends React.Component {
               Cell: row => (
                 <div>
                   <IosCreateOutline
-                    onClick={() =>
-                      this.handleSwitchModal("modalEdit", row.original)
-                    }
+                    onClick={() => this.handleSwitchModal("modalEdit", row.original)}
                     fontSize="30px"
                     color="#007bff"
                   />
                   <IosRemoveCircleOutline
-                    onClick={() =>
-                      this.handleSwitchModal("modalDelete", row.original)
-                    }
+                    onClick={() => this.handleSwitchModal("modalDelete", row.original)}
                     fontSize="30px"
                     color="#007bff"
                   />
@@ -215,28 +200,31 @@ class Tasks extends React.Component {
         />
         <ModalDelete
           isActive={modalDelete}
-          closeModal={this.handleCloseModalDelete}
+          closeModal={() => this.handleActiveModal('modalDelete')}
           deleteTask={this.handleDeleteTask}
           id={id}
         />
-        <ModalCreate
+        <Modal
           isActive={modalCreate}
-          closeModal={this.handleSwitchModalCreate}
-          changeDate={this.handleDateChange}
-          submitForm={this.handleCreateTask}
-        />
-        <ModalEdit
+          title="Create task"
+          closeModal={() => this.handleActiveModal('modalCreate')}
+        >
+          <CreateTaskForm
+            submitForm={this.handleCreateTask}
+            changeDate={this.handleDateChange}
+          />
+        </Modal>
+        <Modal
           isActive={modalEdit}
-          name={task.name}
-          description={task.description}
-          status={task.status}
-          date={task.dueDate}
-          estimatedTime={task.estimatedTime}
-          assignedTo={task.assignedTo}
-          closeModal={this.handleCloseEditModal}
-          changeDate={this.handleDateChange}
-          submitForm={this.handleUpdateTask}
-        />
+          title="Edit task"
+          closeModal={() => this.handleActiveModal('modalEdit')}
+        >
+          <EditTaskForm
+            submitForm={this.handleUpdateTask}
+            changeDate={this.handleDateChange}
+            {...this.state.task}
+          />
+        </Modal>
       </Dashboard>
     );
   }

@@ -15,7 +15,7 @@ const EditTaskForm = props => (
       title: props.name,
       description: props.description,
       status: props.status,
-      date: props.date,
+      date: props.dueDate,
       estimatedTime: props.estimatedTime,
       assignedTo: props.assignedTo
     }}
@@ -51,7 +51,7 @@ const EditTaskForm = props => (
             <div className="position-relative form-group">
               <label>Due date</label>
               <DayPickerInput
-                placeholder={props.date}
+                placeholder={props.dueDate}
                 onDayChange={props.changeDate}
               />
             </div>
@@ -64,8 +64,12 @@ const EditTaskForm = props => (
             <label>Assigned to</label>
             <Query query={getUsers}>
               {({ loading, error, data }) => {
-                if (loading) return "Loading...";
-                if (error) return `Error! ${error.message}`;
+                if (loading) {
+                  return "Loading...";
+                }
+                if (error) {
+                  return `Error! ${error.message}`;
+                }
                 return (
                   <select
                     id="userId"

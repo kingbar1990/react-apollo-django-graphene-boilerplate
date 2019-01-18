@@ -1,23 +1,22 @@
 import React from "react";
+import { Container, Modal } from "mdbreact";
 import IosClose from 'react-ionicons/lib/IosClose';
 
-import { Container, Modal } from "mdbreact";
-import EditTaskForm from './EditTaskForm';
-
-const EditTask = (props) => {
+const ModalForm = (props) => {
+  const flex = { display: 'flex', justifyContent: 'space-between', alignItems: 'center' }
   return (
     <Container>
       <Modal isOpen={props.isActive} centered>
         <div className="card-body">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h3>Edit task</h3>
+          <div style={flex}>
+            <h3>{props.title}</h3>
             <IosClose onClick={props.closeModal} fontSize="30px" color="#007bff"/>
           </div>
         </div>
-        <EditTaskForm {...props} />
+        {props.children}
       </Modal>
     </Container>
   );
 };
 
-export default EditTask;
+export default ModalForm;
