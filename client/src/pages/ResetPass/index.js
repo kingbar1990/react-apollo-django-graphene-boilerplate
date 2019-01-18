@@ -1,48 +1,43 @@
 import React from "react";
 import { graphql, compose } from "react-apollo";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { Link } from "react-router-dom";
 
-import * as path from "../../constants/routes";
-import { islogin } from "../../actions";
+import * as path from '../../constants/routes';
 import { Container } from "reactstrap";
 
-import { ConfirmEmailForm } from "../../components/ConfirmEmailForm";
-import { confirmEmail } from "../../queries";
+import { ResetPassForm } from "../../components/ResetPassForm";
+import { resetPass } from "../../queries";
 
-class ConfirmEmail extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      email: "",
-      error: ""
-    };
-  }
+// import "./scss/App.css";
+// import "./scss/index.css";
 
-  handleInput = e => {
-    this.setState({ [e.target.id]: e.target.value });
-  };
 
-  confirmEmail = (values, { setErrors }) => {
+class ResetPass extends React.Component {
+  resetPass = (values, { setErrors }) => {
     this.props
-      .confirmEmail({
+      .resetPass({
         variables: {
-          email: values.email
+          newPassword1: values.newPassword1,
+          newPassword2: values.newPassword2,
+          confirmToken: values.confirmToken,
+          userId: values.userId,
         }
       })
       .then(response => {
-        if (!response.data.confirmEmail.error) {
-          const token = response.data.confirmEmail.token;
-
-          this.props.islogin(token, true);
-          this.props.history.push(path.DASHBOARD);
+        if (!response.data.resetPass.error.validationErrors.length) {
+          if (response.data.resetPass.success) {
+            alert("Your password has been changed successfully!")
+            this.props.history.push(path.HOME);
+          } else {
+            alert("Your account is unconfirmed.")
+          }
         } else {
           let errors = {};
-          response.data.confirmEmail.error.validationErrors.map(error => {
+          response.data.resetPass.error.validationErrors.map(error => {
             if (error["field"] === "__all__") {
-              errors["email"] = error["messages"].join(" ");
-            } else if (error["field"] === "email") {
-              errors["email"] = error["messages"].join(" ");
+              errors["new_password2"] = error["messages"].join(" ");
+            } else if(error["field"] === "new_password2"){
+              errors["newPassword2"] = error["messages"].join(" ");
             } else {
               errors[error] = error["messages"];
             }
@@ -52,15 +47,14 @@ class ConfirmEmail extends React.Component {
         }
       });
   };
-
   render() {
     return (
       <React.Fragment>
         <Container>
-          <ConfirmEmailForm
-            handleInput={this.handleInput}
-            confirmEmail={this.confirmEmail}
-            error={this.state.error}
+          <ResetPassForm
+            resetPass={this.resetPass}
+            uid={this.props.match.params.uid}
+            confirmToken={this.props.match.params.confirmToken}
           />
         </Container>
       </React.Fragment>
@@ -68,18 +62,7 @@ class ConfirmEmail extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      islogin
-    },
-    dispatch
-  );
 
 export default compose(
-  connect(
-    null,
-    mapDispatchToProps
-  ),
-  graphql(confirmEmail, { name: "confirmEmail" })
-)(ConfirmEmail);
+  graphql(resetPass, { name: "resetPass" })
+)(ResetPass);
