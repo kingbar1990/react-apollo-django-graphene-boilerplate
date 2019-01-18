@@ -1,7 +1,9 @@
 import graphene
 import graphql_jwt
-from accounts.mutations import (LoginMutation, RegisterMutation,
-                                SendConfirmationEmailMutation)
+from accounts.mutations import (
+    LoginMutation, RegisterMutation, SendConfirmationEmailMutation,
+    ResetPasswordMutation
+)
 from accounts.schema import Query as AccountsQuery
 from core.mutations import (TaskCreateMutation, TaskMutationDelete,
                             TaskUpdateMutation)
@@ -22,6 +24,7 @@ class Mutation(graphene.ObjectType):
     create_task = TaskCreateMutation.Field()
     update_task = TaskUpdateMutation.Field()
     confirm_email = SendConfirmationEmailMutation.Field()
+    reset_pass = ResetPasswordMutation.Field()
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
