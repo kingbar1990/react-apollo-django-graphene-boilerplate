@@ -14,6 +14,7 @@ import Dashboard from "../../pages/Dashboard";
 import Tasks from "../../pages/Dashboard/Tasks";
 import Profile from "../../pages/Dashboard/Profile";
 import PageNotFound from "../../components/PageNotFound";
+import ConfirmEmail from "../../pages/ConfirmEmail";
 import ResetPass from "../../pages/ResetPass";
 
 class App extends Component {
@@ -27,6 +28,7 @@ class App extends Component {
           <Route exact path={path.DASHBOARD} component={withAuth(Dashboard)} />
           <Route exact path={path.TASKS} component={withAuth(Tasks)} />
           <Route exact path={path.PROFILE} component={withAuth(Profile)} />
+          <Route exact path={path.CONFIRM_EMAIL} component={withAuth(ConfirmEmail)} />
           <Route exact path={path.RESET_PASS} component={withAuth(ResetPass)} />
           <Route component={PageNotFound} />
         </Switch>

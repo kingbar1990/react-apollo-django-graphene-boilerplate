@@ -4,4 +4,5 @@ export const SIGN_UP = '/signup';
 export const DASHBOARD = '/dashboard';
 export const TASKS = '/dashboard/tasks';
 export const PROFILE = '/dashboard/profile';
-export const RESET_PASS = '/reset-password';
+export const CONFIRM_EMAIL = '/confirm-email';
+export const RESET_PASS = '/reset-password/:uid/:confirmToken';
