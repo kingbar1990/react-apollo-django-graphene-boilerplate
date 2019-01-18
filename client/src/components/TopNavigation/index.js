@@ -7,7 +7,10 @@ import {
   Collapse,
   NavItem,
   NavLink,
-  Fa
+  Fa,
+  MDBPopover,
+  MDBIcon,
+  MDBPopoverBody,
 } from "mdbreact";
 
 import { TOKEN } from "../../constants";
@@ -86,14 +89,19 @@ export default class TopNavigation extends Component {
                 RockLab GitHub
               </a>
             </NavItem>
-            <NavItem onClick={this.handleLogout}>
+            <NavItem>
               <div
-                id="btn-logout"
-                className="border border-light rounded mr-1 nav-link Ripple-parent"
+                style={{ display: "flex", cursor: "pointer" }}
+                className="nav-link navbar-link"
                 rel="noopener noreferrer"
               >
-                <Fa icon="sign-out" className="mr-2" />
-                Log out
+                <MDBPopover placement="bottom" popoverBody={<Fa icon="user" className="mr-2" />}>
+                  <MDBPopoverBody>
+                    <div id="btn-logout" onClick={this.handleLogout}>
+                      Log out
+                    </div>
+                  </MDBPopoverBody>
+                </MDBPopover>
               </div>
             </NavItem>
           </NavbarNav>
