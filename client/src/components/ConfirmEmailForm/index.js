@@ -5,29 +5,27 @@ import { ReactstrapInput } from "reactstrap-formik";
 
 import { ConfirmEmailSchema } from "./validation";
 
-export const ConfirmEmailForm = ({ confirmEmail }) => {
-   return (
-      <Formik
-         initialValues={{ email: "" }}
-         validationSchema={ConfirmEmailSchema}
-         onSubmit={confirmEmail}
-      >
-         {() => (
-            <div className="card">
-               <div className="card-header">Reset password</div>
-               <div className="card-body">
-                  <Form>
-                     <Field
-                        name="email"
-                        type="email"
-                        component={ReactstrapInput}
-                        label="email"
-                     />
-                     <Button type="submit">Submit</Button>
-                  </Form>
-               </div>
+export const ConfirmEmailForm = ({ confirmEmail }) => (
+   <Formik
+      initialValues={{ email: "" }}
+      validationSchema={ConfirmEmailSchema}
+      onSubmit={confirmEmail}
+   >
+      {() => (
+         <div className="card">
+            <div className="card-header">Reset password</div>
+            <div className="card-body">
+               <Form>
+                  <Field
+                     name="email"
+                     type="email"
+                     component={ReactstrapInput}
+                     label="email"
+                  />
+                  <Button type="submit">Submit</Button>
+               </Form>
             </div>
-         )}
-      </Formik>
-   );
-};
+         </div>
+      )}
+   </Formik>
+);
