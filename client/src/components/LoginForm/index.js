@@ -9,7 +9,6 @@ import { LoginSchema } from "../../utils/validations/signIn";
 export const LoginForm = (props) => {
   const { login } = props;
   return (
-  <div>
     <Formik
       initialValues={{
         username: "",
@@ -33,6 +32,5 @@ export const LoginForm = (props) => {
         </div>
       )}
     </Formik>
-  </div>
   )
 };

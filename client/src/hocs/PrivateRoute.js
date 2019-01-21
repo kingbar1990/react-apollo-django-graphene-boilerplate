@@ -22,7 +22,6 @@ export const withAuth = ProtectedRoute => {
          }
       }
       render() {
-         console.log(this.props.item);
          return <ProtectedRoute {...this.props} />;
       }
    }

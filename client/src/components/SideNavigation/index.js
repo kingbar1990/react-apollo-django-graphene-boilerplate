@@ -4,8 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import logo from "../../assets/logo.svg";
 
-
-class TopNavigation extends Component {
+export default class TopNavigation extends Component {
   render() {
     return (
       <div className="sidebar-fixed position-fixed">
@@ -36,5 +35,3 @@ class TopNavigation extends Component {
     );
   }
 }
-
-export default TopNavigation;

@@ -8,7 +8,6 @@ import { ResetPassSchema } from "./validation";
 
 export const ResetPassForm = (props) => {
   return (
-  <div>
     <Formik
       initialValues={{
         newPassword1: "",
@@ -34,6 +33,5 @@ export const ResetPassForm = (props) => {
         </div>
       )}
     </Formik>
-  </div>
   )
 };

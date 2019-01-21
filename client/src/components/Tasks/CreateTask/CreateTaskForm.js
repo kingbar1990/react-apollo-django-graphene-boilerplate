@@ -79,7 +79,7 @@ const CreateTaskForm = props => (
                 );
               }}
             </Query>
-            <Button color="primary" type="submit">
+            <Button color="primary" type="submit" style={{ margin: 0 }}>
               Save
             </Button>
           </Form>

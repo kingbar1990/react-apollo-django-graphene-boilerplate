@@ -9,7 +9,6 @@ import { SignupSchema } from "../../utils/validations/signUp";
 export const SignUpForm = (props) => {
   const { register } = props;
   return (
-  <React.Fragment>
     <Formik
       initialValues={{
         fullName: "",
@@ -37,6 +36,5 @@ export const SignUpForm = (props) => {
         </div>
       )}
     </Formik>
-  </React.Fragment>
   )
 };
