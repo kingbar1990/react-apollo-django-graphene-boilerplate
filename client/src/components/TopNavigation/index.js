@@ -15,32 +15,18 @@ import {
 import { TOKEN } from "../../constants";
 
 export default class TopNavigation extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      collapse: false
-    };
-  }
-
-  onClick = () => {
-    this.setState({
-      collapse: !this.state.collapse
-    });
-  };
-
   handleLogout = () => {
     localStorage.removeItem(TOKEN);
     window.location.href = "/login";
   };
-
   render() {
     return (
       <Navbar className="flexible-navbar" light expand="md" scrolling>
         <NavbarBrand href="/">
           <strong>Landing</strong>
         </NavbarBrand>
-        <NavbarToggler onClick={this.onClick} />
-        <Collapse isOpen={this.state.collapse} navbar>
+        <NavbarToggler />
+        <Collapse navbar>
           <NavbarNav left>
             <NavItem active>
               <NavLink to="#">Home</NavLink>

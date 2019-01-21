@@ -8,10 +8,6 @@ import { Container } from "reactstrap";
 import { ResetPassForm } from "../../components/ResetPassForm";
 import { resetPass } from "../../queries";
 
-// import "./scss/App.css";
-// import "./scss/index.css";
-
-
 class ResetPass extends React.Component {
   resetPass = (values, { setErrors }) => {
     this.props
