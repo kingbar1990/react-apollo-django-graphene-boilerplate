@@ -4,18 +4,16 @@ import TopNavigation from "../../components/TopNavigation";
 import SideNavigation from "../../components/SideNavigation";
 import Footer from "../../components/Footer";
 
-import '../../index.css'
-
-class Dashboard extends Component {
+import "../../index.css";
+export default class Dashboard extends Component {
   render() {
-    const { children } = this.props;
     return (
       <div className="flexible-content">
         <SideNavigation />
         <div className="main-container">
-        <TopNavigation />
+          <TopNavigation />
           <main id="content" className="p-5">
-            {children}
+            {this.props.children}
           </main>
           <Footer />
         </div>
@@ -23,5 +21,3 @@ class Dashboard extends Component {
     );
   }
 }
-
-export default Dashboard;

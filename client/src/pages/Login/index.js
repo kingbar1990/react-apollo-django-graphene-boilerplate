@@ -3,7 +3,7 @@ import { graphql, compose } from "react-apollo";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import * as path from '../../constants/routes';
+import * as path from "../../constants/routes";
 import { islogin } from "../../actions";
 import { Container } from "reactstrap";
 
@@ -25,11 +25,12 @@ class Login extends Component {
   };
 
   login = (values, { setErrors }) => {
+    const { username, password } = values;
     this.props
       .login({
         variables: {
-          username: values.username,
-          password: values.password
+          username: username,
+          password: password
         }
       })
       .then(response => {
@@ -56,15 +57,13 @@ class Login extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <Container>
-          <LoginForm
-            handleInput={this.handleInput}
-            login={this.login}
-            error={this.state.error}
-          />
-        </Container>
-      </React.Fragment>
+      <Container>
+        <LoginForm
+          handleInput={this.handleInput}
+          login={this.login}
+          error={this.state.error}
+        />
+      </Container>
     );
   }
 }

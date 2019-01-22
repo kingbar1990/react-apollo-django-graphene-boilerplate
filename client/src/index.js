@@ -13,7 +13,7 @@ import "font-awesome/css/font-awesome.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 
-import App from "./containers/App";
+import App from "./App";
 import { TOKEN } from "./constants";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
@@ -27,9 +27,7 @@ const httpLink = new HttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
   const token = localStorage.getItem(TOKEN);
-  // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,

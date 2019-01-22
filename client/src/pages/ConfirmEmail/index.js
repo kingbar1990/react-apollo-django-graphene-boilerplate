@@ -32,7 +32,7 @@ class ConfirmEmail extends React.Component {
       })
       .then(response => {
         if (!response.data.confirmEmail.error) {
-          alert('Check your email, please!')
+          alert("Check your email, please!");
           this.props.history.push(path.HOME);
         } else {
           let errors = {};
@@ -53,15 +53,13 @@ class ConfirmEmail extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
-        <Container>
-          <ConfirmEmailForm
-            handleInput={this.handleInput}
-            confirmEmail={this.confirmEmail}
-            error={this.state.error}
-          />
-        </Container>
-      </React.Fragment>
+      <Container>
+        <ConfirmEmailForm
+          handleInput={this.handleInput}
+          confirmEmail={this.confirmEmail}
+          error={this.state.error}
+        />
+      </Container>
     );
   }
 }

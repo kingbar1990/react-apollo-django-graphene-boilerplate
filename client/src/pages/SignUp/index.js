@@ -22,14 +22,19 @@ class SignUp extends React.Component {
     };
   }
 
+  handleInput = e => {
+    this.setState({ [e.target.id]: e.target.value });
+  };
+
   register = (values, { setErrors }) => {
+    const { fullName, email, password1, password2 } = values;
     this.props
       .register({
         variables: {
-          fullName: values.fullName,
-          email: values.email,
-          password1: values.password1,
-          password2: values.password2
+          fullName: fullName,
+          email: email,
+          password1: password1,
+          password2: password2
         }
       })
       .then(response => {
@@ -46,10 +51,6 @@ class SignUp extends React.Component {
           setErrors(errors);
         }
       });
-  };
-
-  handleInput = e => {
-    this.setState({ [e.target.id]: e.target.value });
   };
 
   render() {

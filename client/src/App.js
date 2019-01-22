@@ -2,19 +2,19 @@ import React, { Component } from "react";
 import { compose } from "redux";
 import { withRouter, Switch, Route } from "react-router";
 
-import * as path from '../../constants/routes';
+import * as path from './constants/routes';
 
-import { withAuth } from '../../hocs/PrivateRoute';
+import { withAuth } from './hocs/PrivateRoute';
 
-import Home from "../../pages/Home";
-import SignUp from "../../pages/SignUp";
-import Login from "../../pages/Login";
-import Dashboard from "../../pages/Dashboard";
-import Tasks from "../../pages/Dashboard/Tasks";
-import Profile from "../../pages/Dashboard/Profile";
-import PageNotFound from "../../components/PageNotFound";
-import ConfirmEmail from "../../pages/ConfirmEmail";
-import ResetPass from "../../pages/ResetPass";
+import Home from "./pages/Home";
+import SignUp from "./pages/SignUp";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Tasks from "./pages/Dashboard/Tasks";
+import Profile from "./pages/Dashboard/Profile";
+import PageNotFound from "./components/PageNotFound";
+import ConfirmEmail from "./pages/ConfirmEmail";
+import ResetPass from "./pages/ResetPass";
 
 class App extends Component {
   render() {
