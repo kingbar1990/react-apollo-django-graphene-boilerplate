@@ -27,11 +27,15 @@ const httpLink = new HttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = JSON.parse(localStorage.getItem(TOKEN)).token;
+  let data = "";
+  try {
+    const token = localStorage.getItem(TOKEN);
+    data = token ? JSON.parse(token).token : "";
+  } catch (error) {}
   return {
     headers: {
       ...headers,
-      Authorization: token ? `Bearer ${token}` : ""
+      Authorization: `Bearer ${data}`
     }
   };
 });
