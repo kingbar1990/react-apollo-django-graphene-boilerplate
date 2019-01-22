@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { ListGroup, ListGroupItem, Fa } from "mdbreact";
 import { NavLink } from "react-router-dom";
 import { DASHBOARD, PROFILE, TASKS } from "../../constants/routes";

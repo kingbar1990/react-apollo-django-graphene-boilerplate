@@ -1,6 +1,5 @@
 import React from "react";
 import { graphql, compose } from "react-apollo";
-import { Link } from "react-router-dom";
 
 import * as path from "../../constants/routes";
 import { Container } from "reactstrap";

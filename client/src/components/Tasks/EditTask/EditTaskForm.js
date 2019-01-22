@@ -82,6 +82,7 @@ const EditTaskForm = props => (
                     >
                       {props.assignedTo.fullName}
                     </option>
+                    {/* eslint-disable-next-line */}
                     {data.users.map(user => {
                       if (user.fullName !== props.assignedTo.fullName)
                         return (

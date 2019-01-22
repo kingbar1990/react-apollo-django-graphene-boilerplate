@@ -27,3 +27,9 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
 
         return self._create_user(email, password, **extra_fields)
+
+    def get_by_natural_key(self, username):
+        # Int user_id
+        if isinstance(username, int):
+            return self.get(**{'id': username})
+        return self.get(**{self.model.USERNAME_FIELD: username})
