@@ -6,7 +6,7 @@ from server.tasks import reset_password_email
 
 from .forms import SendConfirmationEmailForm, UserForm, SetNewPasswordForm
 from .schema import UserType
-from .utils import obtain_jwt
+from graphql_jwt.shortcuts import get_token
 from .tokens import account_activation_token
 from .models import User
 
@@ -21,7 +21,7 @@ class RegisterMutation(FormMutation):
     @classmethod
     def perform_mutate(cls, form, info):
         user = form.save()
-        token = obtain_jwt(user.id)
+        token = get_token(user)
         return cls(
             error=ValidationErrors(validation_errors=[]),
             user=user, token=token, success=True
@@ -38,7 +38,7 @@ class LoginMutation(FormMutation):
     @classmethod
     def perform_mutate(cls, form, info):
         user = form.get_user()
-        token = obtain_jwt(user.id)
+        token = get_token(user)
         return cls(user=user, token=token)
 
 

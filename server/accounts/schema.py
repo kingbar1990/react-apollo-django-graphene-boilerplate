@@ -17,4 +17,8 @@ class Query:
         return User.objects.all()
 
     def resolve_me(self, info):
-        return info.context.user
+        user = info.context.user
+        if user.is_anonymous:
+            raise Exception('Not logged in!')
+
+        return user
