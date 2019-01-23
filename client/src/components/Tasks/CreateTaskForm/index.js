@@ -1,13 +1,12 @@
 import React from "react";
-import { Query } from "react-apollo";
 import { Formik, Form, Field } from "formik";
 import { Button  } from "mdbreact";
 import { ReactstrapInput } from "reactstrap-formik";
 
 import DatePicker from "../../DatePicker";
+import GetUsers from "../SelectUsers";
 
 import { TaskSchema } from "../../../utils/validations/crateTask";
-import { getUsers } from "../../../queries";
 
 const CreateTaskForm = props => (
   <Formik
@@ -56,29 +55,7 @@ const CreateTaskForm = props => (
               label="Estimate Time"
             />
             <label>Assigned to</label>
-            <Query query={getUsers}>
-              {({ loading, error, data }) => {
-                if (loading) {
-                    return "Loading...";
-                }
-                if (error) {
-                    return `Error! ${error.message}`;
-                }
-                return (
-                  <select
-                    id="userId"
-                    name="status"
-                    className="browser-default custom-select position-relative form-group"
-                  >
-                    {data.users.map(user => (
-                      <option key={user.id} value={user.id}>
-                        {user.fullName}
-                      </option>
-                    ))}
-                  </select>
-                );
-              }}
-            </Query>
+            <GetUsers assignedTo={props.assignedTo} user={false} />
             <Button color="primary" type="submit" style={{ margin: 0 }}>
               Save
             </Button>

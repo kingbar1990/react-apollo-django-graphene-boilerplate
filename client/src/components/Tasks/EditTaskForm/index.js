@@ -1,12 +1,11 @@
 import React from "react";
-import { Query } from "react-apollo";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 
 import { Formik, Form, Field } from "formik";
 import { Button } from "mdbreact";
 import { ReactstrapInput } from "reactstrap-formik";
+import GetUsers from "../SelectUsers"; 
 
-import { getUsers } from "../../../queries";
 import { TaskSchema } from "../../../utils/validations/crateTask";
 
 const EditTaskForm = props => (
@@ -62,39 +61,7 @@ const EditTaskForm = props => (
               label="Estimate Time"
             />
             <label>Assigned to</label>
-            <Query query={getUsers}>
-              {({ loading, error, data }) => {
-                if (loading) {
-                  return "Loading...";
-                }
-                if (error) {
-                  return `Error! ${error.message}`;
-                }
-                return (
-                  <select
-                    id="userId"
-                    name="status"
-                    className="browser-default custom-select position-relative form-group"
-                  >
-                    <option
-                      key={props.assignedTo.id}
-                      value={props.assignedTo.id}
-                    >
-                      {props.assignedTo.fullName}
-                    </option>
-                    {/* eslint-disable-next-line */}
-                    {data.users.map(user => {
-                      if (user.fullName !== props.assignedTo.fullName)
-                        return (
-                          <option key={user.id} value={user.id}>
-                            {user.fullName}
-                          </option>
-                        );
-                    })}
-                  </select>
-                );
-              }}
-            </Query>
+            <GetUsers assignedTo={props.assignedTo} user={true} />
             <Button color="primary" type="submit" style={{ margin: 0 }}>
               Save
             </Button>
