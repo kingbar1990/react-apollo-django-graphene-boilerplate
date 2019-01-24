@@ -4,12 +4,18 @@ import { graphql, compose } from "react-apollo";
 import { User } from "../../../queries";
 
 import Dashboard from "../../../containers/Dashboard";
+import UserInfoCard from "../../../components/UserInfoCard";
 
 class Profile extends React.Component {
   render() {
+    const user = this.props.user.me ? this.props.user.me : this.props.user;
     return (
       <Dashboard>
-        <h1>Profile page</h1>
+        <div className="row">
+          <div className="col-lg-3 col-xlg-3 col-md-5">
+            <UserInfoCard profile={user} />
+          </div>
+        </div>
       </Dashboard>
     );
   }

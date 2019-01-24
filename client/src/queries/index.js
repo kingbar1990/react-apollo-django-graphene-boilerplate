@@ -172,6 +172,8 @@ export const deleteTask = gql `
 export const User = gql `
   query me {
     me {
+      id
+      email
       fullName
     }
   }
