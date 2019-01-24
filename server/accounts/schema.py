@@ -1,5 +1,6 @@
 import graphene
 from graphene_django.types import DjangoObjectType
+from graphql_jwt.decorators import login_required
 
 from .models import User
 
@@ -16,9 +17,6 @@ class Query:
     def resolve_users(self, info):
         return User.objects.all()
 
+    @login_required
     def resolve_me(self, info):
-        user = info.context.user
-        if user.is_anonymous:
-            raise Exception('Not logged in!')
-
-        return user
+        return info.context.user
