@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import * as path from "../../constants/routes";
+import { withAuth } from '../../hocs/PrivateRoute';
 import { islogin } from "../../actions";
 import { Container } from "reactstrap";
 
@@ -73,6 +74,7 @@ const mapDispatchToProps = dispatch =>
   );
 
 export default compose(
+  withAuth,
   connect(
     null,
     mapDispatchToProps

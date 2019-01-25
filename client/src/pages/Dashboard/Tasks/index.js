@@ -2,6 +2,7 @@ import React from "react";
 import { graphql, compose } from "react-apollo";
 import { getTasks, deleteTask, createTask, updateTask } from "../../../queries";
 
+import { withAuth } from '../../../hocs/PrivateRoute';
 import { getCurrentDate } from "../../../utils";
 
 import Dashboard from "../../../containers/Dashboard";
@@ -145,6 +146,7 @@ class Tasks extends React.Component {
 }
 
 export default compose(
+  withAuth,
   graphql(getTasks, {
     options: { fetchPolicy: "no-cache" },
     name: "tasks"

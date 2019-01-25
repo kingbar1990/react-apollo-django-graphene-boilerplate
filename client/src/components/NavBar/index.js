@@ -1,31 +1,41 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import {
   Navbar,
   NavbarBrand,
   NavbarNav,
-  NavbarToggler,
   Collapse,
   NavItem,
   NavLink,
-  Fa,
-  MDBPopover,
-  MDBPopoverBody,
+  Fa
 } from "mdbreact";
+import Popover from "react-simple-popover";
 
 import { TOKEN } from "../../constants";
+export default class NavBar extends Component {
+  state = {
+    open: false
+  };
 
-export default class TopNavigation extends Component {
+  handleClick = () => {
+    this.setState({ open: !this.state.open });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
   handleLogout = () => {
     localStorage.removeItem(TOKEN);
     window.location.href = "/login";
   };
+
   render() {
     return (
       <Navbar className="flexible-navbar" light expand="md" scrolling>
         <NavbarBrand href="/">
           <strong>Landing</strong>
         </NavbarBrand>
-        <NavbarToggler />
         <Collapse navbar>
           <NavbarNav left>
             <NavItem active>
@@ -80,13 +90,25 @@ export default class TopNavigation extends Component {
                 className="nav-link navbar-link"
                 rel="noopener noreferrer"
               >
-                <MDBPopover placement="bottom" popoverBody={<Fa icon="user" className="mr-2" />}>
-                  <MDBPopoverBody>
-                    <div id="btn-logout" onClick={this.handleLogout}>
-                      Log out
+                <div className="button" ref="target" onClick={this.handleClick}>
+                  <Fa icon="user" className="mr-2" />
+                </div>
+                <Popover
+                  placement="bottom"
+                  container={this}
+                  target={this.refs.target}
+                  show={this.state.open}
+                  onHide={this.handleClose}
+                >
+                  <div className="popover-items">
+                    <div>
+                      <Link to="/dashboard/profile" onClick={this.handleLogout}>Log out</Link>
                     </div>
-                  </MDBPopoverBody>
-                </MDBPopover>
+                    <div>
+                      <Link to="/dashboard/profile" >Profile</Link>
+                    </div>
+                  </div>
+                </Popover>
               </div>
             </NavItem>
           </NavbarNav>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import TopNavigation from "../../components/TopNavigation";
+import NavBar from "../../components/NavBar";
 import SideNavigation from "../../components/SideNavigation";
 import Footer from "../../components/Footer";
 
@@ -11,7 +11,7 @@ export default class Dashboard extends Component {
       <div className="flexible-content">
         <SideNavigation />
         <div className="main-container">
-          <TopNavigation />
+          <NavBar />
           <main id="content" className="p-5">
             {this.props.children}
           </main>

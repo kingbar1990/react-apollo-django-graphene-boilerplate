@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql, compose } from "react-apollo";
 
+import { withAuth } from '../../../hocs/PrivateRoute';
 import { User } from "../../../queries";
 
 import Dashboard from "../../../containers/Dashboard";
@@ -8,7 +9,7 @@ import UserInfoCard from "../../../components/UserInfoCard";
 
 class Profile extends React.Component {
   render() {
-    const user = this.props.user.me ? this.props.user.me : this.props.user;
+    const user = this.props.user.me || this.props.user;
     return (
       <Dashboard>
         <div className="row">
@@ -22,6 +23,7 @@ class Profile extends React.Component {
 }
 
 export default compose(
+  withAuth,
   graphql(User, {
     name: 'user'
   })
