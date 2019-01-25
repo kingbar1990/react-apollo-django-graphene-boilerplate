@@ -32,3 +32,19 @@ export const getCurrentDate = date => {
   }
   return (today = `${yyyy}-${month}-${day}`);
 };
+
+export const getBase64 = file =>
+ new Promise((resolve) => {
+   try {
+     const reader = new FileReader() // eslint-disable-line
+     reader.readAsDataURL(file)
+     reader.onload = function () { // eslint-disable-line
+       resolve(reader.result)
+     }
+     reader.onerror = function (error) { // eslint-disable-line
+       console.log("Error: ", error)
+     }
+   } catch (e) {
+     resolve(null)
+   } // eslint-disable-line
+ })

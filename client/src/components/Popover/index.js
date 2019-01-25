@@ -3,7 +3,6 @@ import Popover from "react-simple-popover";
 
 export default class PopoverWrapp extends React.Component {
     render() {
-        console.log(this.props)
         return (
             <Popover
                 placement={this.props.placement}

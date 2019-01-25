@@ -55,6 +55,32 @@ export const login = gql `
   }
 `;
 
+export const editUser = gql `
+  mutation editUser(
+    $fullName: String!
+    $email: String!
+    $avatar: String!
+  ) {
+    editUser(fullName: $fullName, email: $email, avatar: $avatar) {
+      error {
+        __typename
+        ... on ValidationErrors {
+          validationErrors {
+            field
+            messages
+          }
+        }
+      }
+      user {
+        id
+        fullName
+        email
+        avatar
+      }
+    }
+  }
+`;
+
 export const verifyToken = gql `
   mutation verifyToken($token: String!) {
     verifyToken(token: $token) {
@@ -175,6 +201,7 @@ export const User = gql `
       id
       email
       fullName
+      avatar
     }
   }
 `;

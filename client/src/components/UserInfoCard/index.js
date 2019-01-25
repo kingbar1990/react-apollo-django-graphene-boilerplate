@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { BACKEND_URL } from "../../constants";
 
 
-const UserInfo = ({ profile }) => (
+const UserInfo = ({ profile }) => {
+  return(
   <div className="card">
     <div className="card-body">
       <center className="m-t-30">
         <img
-          src="https://banner2.kisspng.com/20171207/0f0/geometric-wolf-avatar-5a28f8c7ac1535.1800768515126345677049.jpg"
+          src={`${BACKEND_URL}/media/${profile.avatar}`}
           alt="avatar"
           className="card-img-top"
         />
@@ -22,7 +24,7 @@ const UserInfo = ({ profile }) => (
       <h6>{profile.email}</h6>
     </div>
   </div>
-)
+)}
 
 UserInfo.propTypes = {
   profile: PropTypes.shape({
