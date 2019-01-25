@@ -2,13 +2,14 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import { Button } from "mdbreact";
 import { ReactstrapInput } from "reactstrap-formik";
-import { BACKEND_URL } from "../../constants";
 
+import { UserFormValidate } from './validation'
 
 const UserEditForm = props => {
   return (
   <Formik
     initialValues={props.initialValues}
+    validationSchema={UserFormValidate}
     onSubmit={props.handleEditUser}
   >
     {() => (
@@ -33,10 +34,10 @@ const UserEditForm = props => {
               type="file"
               className="form-control-file mb-3"
               accept='image/*'
-              // component={ReactstrapInput}
               onChange={props.handleImageChange}
               label="Avatar"
             />
+            {props.error && <p style={{ color: 'red' }} >{props.error}</p>}
             <Button color="primary" type="submit" style={{ margin: 0 }}>
               Save
             </Button>
