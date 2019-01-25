@@ -2,7 +2,7 @@ import graphene
 import graphql_jwt
 from accounts.mutations import (
     LoginMutation, RegisterMutation, SendConfirmationEmailMutation,
-    ResetPasswordMutation
+    ResetPasswordMutation, UserEditMutation
 )
 from accounts.schema import Query as AccountsQuery
 from core.mutations import (TaskCreateMutation, TaskMutationDelete,
@@ -20,6 +20,7 @@ class Mutation(graphene.ObjectType):
     refresh_token = graphql_jwt.Refresh.Field()
     register = RegisterMutation.Field()
     login = LoginMutation.Field()
+    edit_user = UserEditMutation.Field()
     delete_task = TaskMutationDelete.Field()
     create_task = TaskCreateMutation.Field()
     update_task = TaskUpdateMutation.Field()

@@ -1,10 +1,14 @@
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.files.base import ContentFile
+import base64
 
 import graphene
 from serious_django_graphene import FormMutation, ValidationErrors
 from server.tasks import reset_password_email
 
-from .forms import SendConfirmationEmailForm, UserForm, SetNewPasswordForm
+from .forms import (
+    SendConfirmationEmailForm, UserForm, SetNewPasswordForm, UserEditForm
+)
 from .schema import UserType
 from graphql_jwt.shortcuts import get_token
 from .tokens import account_activation_token
@@ -40,6 +44,29 @@ class LoginMutation(FormMutation):
         user = form.get_user()
         token = get_token(user)
         return cls(user=user, token=token)
+
+
+class UserEditMutation(FormMutation):
+    class Meta:
+        form_class = UserEditForm
+
+    user = graphene.Field(lambda: UserType)
+
+    @classmethod
+    def perform_mutate(cls, form, info):
+        user = User.objects.get(email=form.cleaned_data['email'])
+        if form.cleaned_data['avatar']:
+            img_format, img_str = form.cleaned_data.pop('avatar').split(';base64,')
+            ext = img_format.split('/')[-1]
+            avatar = ContentFile(
+                base64.b64decode(img_str), name=str(user.id) + ext
+            )
+
+            user.avatar = avatar
+        for key, value in form.cleaned_data.items():
+            setattr(user, key, value)
+        user.save()
+        return cls(user=user)
 
 
 class SendConfirmationEmailMutation(FormMutation):
