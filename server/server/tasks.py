@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import EmailMessage
 
@@ -23,7 +24,7 @@ def reset_password_email(email):
         Click here to reset your password:
         {site_url}/reset-password/{user_id}/{token}
     """.format(
-        site_url="http://localhost:3000", user_id=user.id, token=token
+        site_url=settings.SITE_URL, user_id=user.id, token=token
     )
 
     email = EmailMessage('title', body, to=[email])
