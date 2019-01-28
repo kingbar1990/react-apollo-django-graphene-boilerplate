@@ -36,15 +36,11 @@ export const getCurrentDate = date => {
 export const getBase64 = file =>
  new Promise((resolve) => {
    try {
-     const reader = new FileReader() // eslint-disable-line
+     const reader = new FileReader()
      reader.readAsDataURL(file)
-     reader.onload = function () { // eslint-disable-line
-       resolve(reader.result)
-     }
-     reader.onerror = function (error) { // eslint-disable-line
-       console.log("Error: ", error)
-     }
+     reader.onload = () => resolve(reader.result)
+     reader.onerror = (error) => console.log("Error: ", error)
    } catch (e) {
      resolve(null)
-   } // eslint-disable-line
+   }
  })

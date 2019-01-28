@@ -5,7 +5,7 @@ import * as path from "../../constants/routes";
 import { withAuth } from '../../hocs/PrivateRoute';
 import { Container } from "reactstrap";
 
-import { ResetPassForm } from "../../components/ResetPassForm";
+import { ResetPassForm } from "../../components/Forms/ResetPassForm";
 import { resetPass } from "../../queries";
 
 class ResetPass extends React.Component {

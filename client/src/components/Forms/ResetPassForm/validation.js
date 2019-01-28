@@ -1,5 +1,5 @@
 import Yup from "yup";
-import { MIN_PASSWORD_LENGTH } from "../../constants";
+import { MIN_PASSWORD_LENGTH } from "../../../constants";
 
 
 export const ResetPassSchema = Yup.object().shape({

@@ -7,7 +7,7 @@ import { User, editUser } from "../../../queries";
 import Dashboard from "../../../containers/Dashboard";
 import Loader from "../../../components/Loader";
 import UserInfoCard from "../../../components/UserInfoCard";
-import UserEditForm from "../../../components/UserEditForm";
+import UserEditForm from "../../../components/Forms/UserEditForm";
 import { getBase64 } from "../../../utils";
 
 class EditUser extends React.Component {
@@ -15,7 +15,7 @@ class EditUser extends React.Component {
     super();
     this.state = {
       avatar: "",
-      error: null
+      imageError: null
     };
   }
 
@@ -26,17 +26,15 @@ class EditUser extends React.Component {
     let file = e.target.files[0];
     if (file.size <= 1048576) {
       getBase64(file)
-        .then(image => {
-          file = image;
-        })
-        .then(() => this.setState({ avatar: file, error: null }));
+        .then(image => (file = image))
+        .then(() => this.setState({ avatar: file, imageError: null }));
     }
-    return this.setState({ error: "Max size 1MB" });
+    return this.setState({ imageError: "Max size 1MB" });
   };
 
   handleEditUser = async (values, { setErrors }) => {
     let { fullName, email } = values;
-    if (!this.state.error) {
+    if (!this.state.imageError) {
       try {
         await this.props.edit({
           variables: {
@@ -64,17 +62,13 @@ class EditUser extends React.Component {
     return (
       <Dashboard>
         <div className="row">
-          <div className="col-lg-3 col-xlg-3 col-md-5">
-            <UserInfoCard profile={user} />
-          </div>
-          <div className="col-lg-7 col-xlg-9 col-md-7">
-            <UserEditForm
-              initialValues={user}
-              handleEditUser={this.handleEditUser}
-              handleImageChange={this.handleImageChange}
-              error={this.state.error}
-            />
-          </div>
+          <UserInfoCard profile={user} />
+          <UserEditForm
+            initialValues={user}
+            handleEditUser={this.handleEditUser}
+            handleImageChange={this.handleImageChange}
+            error={this.state.imageError}
+          />
         </div>
       </Dashboard>
     );

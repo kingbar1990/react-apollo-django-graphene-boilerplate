@@ -8,7 +8,7 @@ import { withAuth } from '../../hocs/PrivateRoute';
 import { islogin } from "../../actions";
 import { Container } from "reactstrap";
 
-import { ConfirmEmailForm } from "../../components/ConfirmEmailForm";
+import { ConfirmEmailForm } from "../../components/Forms/ConfirmEmailForm";
 import { confirmEmail } from "../../queries";
 
 class ConfirmEmail extends React.Component {

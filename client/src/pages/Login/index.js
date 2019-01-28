@@ -7,7 +7,7 @@ import * as path from "../../constants/routes";
 import { islogin } from "../../actions";
 import { Container } from "reactstrap";
 
-import { LoginForm } from "../../components/LoginForm";
+import { LoginForm } from "../../components/Forms/LoginForm";
 import { login } from "../../queries";
 
 class Login extends Component {
