@@ -3,9 +3,9 @@ import { Formik, Form, Field } from "formik";
 import { Button } from "reactstrap";
 import { ReactstrapInput } from "reactstrap-formik";
 
-import { ResetPassSchema } from "./validation";
+import { ResetPasswordSchema } from "./validation";
 
-export const ResetPassForm = ({ uid, confirmToken, resetPass }) => (
+export const ResetPasswordForm = ({ uid, confirmToken, resetPassword }) => (
   <Formik
     initialValues={{
       newPassword1: "",
@@ -13,8 +13,8 @@ export const ResetPassForm = ({ uid, confirmToken, resetPass }) => (
       userId: uid,
       confirmToken: confirmToken
     }}
-    validationSchema={ResetPassSchema}
-    onSubmit={resetPass}
+    validationSchema={ResetPasswordSchema}
+    onSubmit={resetPassword}
   >
     {() => (
       <div className="card">

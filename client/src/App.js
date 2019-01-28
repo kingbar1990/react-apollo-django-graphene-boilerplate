@@ -11,7 +11,7 @@ import Tasks from "./pages/Dashboard/Tasks";
 import Profile from "./pages/Dashboard/Profile";
 import PageNotFound from "./components/PageNotFound";
 import ConfirmEmail from "./pages/ConfirmEmail";
-import ResetPass from "./pages/ResetPass";
+import ResetPassword from "./pages/ResetPassword";
 
 class App extends Component {
   render() {
@@ -24,7 +24,7 @@ class App extends Component {
         <Route exact path={path.TASKS} component={Tasks} />
         <Route exact path={path.PROFILE} component={Profile} />
         <Route exact path={path.CONFIRM_EMAIL} component={ConfirmEmail} />
-        <Route exact path={path.RESET_PASS} component={ResetPass} />
+        <Route exact path={path.RESET_PASSWORD} component={ResetPassword} />
         <Route component={PageNotFound} />
       </Switch>
     );

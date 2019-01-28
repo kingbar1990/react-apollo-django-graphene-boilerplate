@@ -25,7 +25,7 @@ class Mutation(graphene.ObjectType):
     create_task = TaskCreateMutation.Field()
     update_task = TaskUpdateMutation.Field()
     confirm_email = SendConfirmationEmailMutation.Field()
-    reset_pass = ResetPasswordMutation.Field()
+    reset_password = ResetPasswordMutation.Field()
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)

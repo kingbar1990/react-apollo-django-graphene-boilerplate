@@ -223,9 +223,9 @@ export const confirmEmail = gql `
   }
 `;
 
-export const resetPass = gql `
-  mutation resetPass($newPassword1: String!, $newPassword2: String!, $confirmToken: String!, $userId: Int!) {
-    resetPass(newPassword1: $newPassword1, newPassword2: $newPassword2, confirmToken: $confirmToken, userId: $userId){
+export const resetPassword = gql `
+  mutation resetPassword($newPassword1: String!, $newPassword2: String!, $confirmToken: String!, $userId: Int!) {
+    resetPassword(newPassword1: $newPassword1, newPassword2: $newPassword2, confirmToken: $confirmToken, userId: $userId){
       success
       error {
         __typename
