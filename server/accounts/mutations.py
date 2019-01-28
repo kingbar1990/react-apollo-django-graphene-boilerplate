@@ -56,17 +56,21 @@ class UserEditMutation(FormMutation):
     def perform_mutate(cls, form, info):
         user = User.objects.get(email=form.cleaned_data['email'])
         if form.cleaned_data['avatar']:
-            img_format, img_str = form.cleaned_data.pop('avatar').split(';base64,')
+            img_format, img_str = form.cleaned_data.pop(
+                'avatar'
+            ).split(';base64,')
             ext = img_format.split('/')[-1]
             avatar = ContentFile(
                 base64.b64decode(img_str), name=str(user.id) + ext
             )
-
             user.avatar = avatar
+        else:
+            form.cleaned_data.pop('avatar')
+
         for key, value in form.cleaned_data.items():
             setattr(user, key, value)
         user.save()
-        return cls(user=user)
+        return cls(user=user, error=ValidationErrors(validation_errors=[]),)
 
 
 class SendConfirmationEmailMutation(FormMutation):

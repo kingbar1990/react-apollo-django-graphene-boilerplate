@@ -29,25 +29,33 @@ class EditUser extends React.Component {
         .then(image => (file = image))
         .then(() => this.setState({ avatar: file, imageError: null }));
     }
-    return this.setState({ imageError: "Max size 1MB" });
+    return this.setState({ imageError: "max size 1MB" });
   };
 
   handleEditUser = async (values, { setErrors }) => {
     let { fullName, email } = values;
-    if (!this.state.imageError) {
-      try {
-        await this.props.edit({
-          variables: {
-            fullName: fullName,
-            email: email,
-            avatar: this.state.avatar
-          },
-          refetchQueries: [{ query: User }]
+    this.props.edit({
+      variables: {
+        fullName: fullName || this.props.user.me.fullName,
+        email: email,
+        avatar: this.state.avatar
+      },
+      refetchQueries: [{ query: User }]
+    })
+    .then(response => {
+      if (response.data.editUser.error.validationErrors.length) {
+        let errors = {};
+        response.data.editUser.error.validationErrors.map(error => {
+          if (error["field"] === "email") {
+            errors["email"] = error["messages"].join(" ");
+          } else {
+            errors[error] = error["messages"];
+          }
+          return null;
         });
-      } catch (error) {
-        return setErrors(error);
+        setErrors(errors);
       }
-    }
+    });
   };
 
   render() {

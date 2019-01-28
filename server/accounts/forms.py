@@ -36,9 +36,9 @@ class UserForm(UserCreationForm):
 
 
 class UserEditForm(forms.Form):
-    full_name = forms.CharField(max_length=64)
+    full_name = forms.CharField(max_length=64, required=False)
     email = forms.EmailField()
-    avatar = LongCharField(widget=TextInput)
+    avatar = LongCharField(widget=TextInput, required=False)
 
     def clean_email(self):
         email = self.cleaned_data['email']

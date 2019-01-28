@@ -57,9 +57,9 @@ export const login = gql `
 
 export const editUser = gql `
   mutation editUser(
-    $fullName: String!
+    $fullName: String
     $email: String!
-    $avatar: String!
+    $avatar: String
   ) {
     editUser(fullName: $fullName, email: $email, avatar: $avatar) {
       error {

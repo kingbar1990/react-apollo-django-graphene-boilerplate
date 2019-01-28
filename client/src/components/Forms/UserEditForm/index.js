@@ -29,16 +29,18 @@ const UserEditForm = props => {
                   component={ReactstrapInput}
                   label="Email"
                 />
-                <label>Avatar</label>
-                <input
-                  name="avatar"
-                  type="file"
-                  className="form-control-file mb-3"
-                  accept="image/*"
-                  onChange={props.handleImageChange}
-                  label="Avatar"
-                />
-                {props.error && <p style={{ color: "red" }}>{props.error}</p>}
+                <div className="position-relative form-group">
+                  <label>Avatar</label>
+                  <input
+                    name="avatar"
+                    type="file"
+                    className="form-control-file"
+                    accept='image/*'
+                    onChange={props.handleImageChange}
+                    label="Avatar"
+                  />
+                  {props.error && <div className="invalid-feedback d-block" >{props.error}</div>}
+                </div>
                 <Button color="primary" type="submit" style={{ margin: 0 }}>
                   Save
                 </Button>
