@@ -1,2 +1,2 @@
-CREATE USER tinder WITH SUPERUSER PASSWORD 'tinder';
-CREATE DATABASE tinder WITH OWNER tinder;
+CREATE USER boilerplate WITH SUPERUSER PASSWORD 'boilerplate';
+CREATE DATABASE boilerplate WITH OWNER boilerplate;

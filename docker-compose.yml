@@ -6,17 +6,16 @@ services:
       container_name: server
       working_dir: /var/www/server
       ports:
-          - 8000:8000
+          - $SERVER_PORT:$SERVER_PORT
       volumes:
           - ./server/:/var/www/server
           - ./client/:/var/www/client/
-      command: python manage.py runserver 0.0.0.0:8000
-      environment:
-          - DJANGO_SETTINGS_MODULE=server.settings.dev
-          - PGHOST=database
-          - REDIS_HOST=redis
+      command: python manage.py runserver $HOST:$SERVER_PORT
       env_file:
-          - .env
+        - .env
+      environment:
+          - DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+          - PGHOST=$DATABASE_HOST
       depends_on:
           - database
           - redis
@@ -34,7 +33,7 @@ services:
       working_dir: /var/www/client/
       command: yarn start
       ports:
-          - 3000:3000
+          - $CLIENT_PORT:$CLIENT_PORT
       volumes:
           - ./server/:/var/www/server
           - ./client/:/var/www/client/
@@ -43,27 +42,28 @@ services:
       image: redis:latest
       container_name: redis
       ports:
-        - '6379:6379'
+        - '$REDIS_PORT:$REDIS_PORT'
       privileged: true
       sysctls:
         net.core.somaxconn: '511'
 
   celery:
-        build:
-            context: ./server/
-            dockerfile: Dockerfile
-        container_name: celery
-        working_dir: /var/www/server
-        volumes:
-            - ./server/:/var/www/server
-        command: /bin/bash -c "celery -A server worker --loglevel=info"
-        depends_on:
-            - redis
-            - database
-        environment:
-            - DJANGO_SETTINGS_MODULE=server.settings.dev
-            - PGHOST=database
-            - REDIS_HOST=redis
+      build:
+          context: ./server/
+          dockerfile: Dockerfile
+      container_name: celery
+      working_dir: /var/www/server
+      volumes:
+          - ./server/:/var/www/server
+      command: /bin/bash -c "celery -A server worker --loglevel=info"
+      depends_on:
+          - redis
+          - database
+      env_file:
+          - .env
+      environment:
+          - DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+          - PGHOST=$DATABASE_HOST
 
   monitor:
     build:
@@ -73,11 +73,11 @@ services:
     working_dir: /var/www/server
     volumes:
       - ./server/:/var/www/server
-    command:  /bin/bash -c "flower -A server --port=5555"
+    command:  /bin/bash -c "flower -A server --port=$FLOWER_PORT"
     env_file:
       - .env
     depends_on:
       - celery
       - redis
     ports:
-      - 5555:5555
+      - $FLOWER_PORT:$FLOWER_PORT
