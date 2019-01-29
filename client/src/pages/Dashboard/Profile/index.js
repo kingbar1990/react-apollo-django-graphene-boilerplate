@@ -4,7 +4,7 @@ import { graphql, compose } from "react-apollo";
 import { withAuth } from "../../../hocs/PrivateRoute";
 import { User, editUser } from "../../../queries";
 
-import Dashboard from "../../../containers/Dashboard";
+import Dashboard from "../../../components/Dashboard";
 import Loader from "../../../components/Loader";
 import UserInfoCard from "../../../components/UserInfoCard";
 import UserEditForm from "../../../components/Forms/UserEditForm";
@@ -32,34 +32,35 @@ class EditUser extends React.Component {
     return this.setState({ imageError: "max size 1MB" });
   };
 
-  handleEditUser = async (values, { setErrors }) => {
+  handleEditUser = (values, { setErrors }) => {
     let { fullName, email } = values;
-    this.props.edit({
-      variables: {
-        fullName: fullName || this.props.user.me.fullName,
-        email: email,
-        avatar: this.state.avatar
-      },
-      refetchQueries: [{ query: User }]
-    })
-    .then(response => {
-      if (response.data.editUser.error.validationErrors.length) {
-        let errors = {};
-        response.data.editUser.error.validationErrors.map(error => {
-          if (error["field"] === "email") {
-            errors["email"] = error["messages"].join(" ");
-          } else {
-            errors[error] = error["messages"];
-          }
-          return null;
-        });
-        setErrors(errors);
-      }
-    });
+    this.props
+      .edit({
+        variables: {
+          fullName: fullName || this.props.user.me.fullName,
+          email: email,
+          avatar: this.state.avatar
+        },
+        refetchQueries: [{ query: User }]
+      })
+      .then(response => {
+        if (response.data.editUser.error.validationErrors.length) {
+          let errors = {};
+          response.data.editUser.error.validationErrors.map(error => {
+            if (error["field"] === "email") {
+              errors["email"] = error["messages"].join(" ");
+            } else {
+              errors[error] = error["messages"];
+            }
+            return null;
+          });
+          setErrors(errors);
+        }
+      });
   };
 
   render() {
-    const user = this.props.user.me || this.props.user;
+    const user = this.props.user.me;
     if (this.props.user.loading) {
       return (
         <Dashboard>

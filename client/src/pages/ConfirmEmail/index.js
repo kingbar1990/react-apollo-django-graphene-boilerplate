@@ -1,11 +1,8 @@
 import React from "react";
 import { graphql, compose } from "react-apollo";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 
 import * as path from "../../constants/routes";
 import { withAuth } from '../../hocs/PrivateRoute';
-import { islogin } from "../../actions";
 import { Container } from "reactstrap";
 
 import { ConfirmEmailForm } from "../../components/Forms/ConfirmEmailForm";
@@ -65,19 +62,7 @@ class ConfirmEmail extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      islogin
-    },
-    dispatch
-  );
-
 export default compose(
   withAuth,
-  connect(
-    null,
-    mapDispatchToProps
-  ),
   graphql(confirmEmail, { name: "confirmEmail" })
 )(ConfirmEmail);

@@ -34,13 +34,9 @@ export const getCurrentDate = date => {
 };
 
 export const getBase64 = file =>
- new Promise((resolve) => {
-   try {
+ new Promise((resolve, reject) => {
      const reader = new FileReader()
      reader.readAsDataURL(file)
      reader.onload = () => resolve(reader.result)
-     reader.onerror = (error) => console.log("Error: ", error)
-   } catch (e) {
-     resolve(null)
-   }
+     reader.onerror = (error) => reject(error);
  })

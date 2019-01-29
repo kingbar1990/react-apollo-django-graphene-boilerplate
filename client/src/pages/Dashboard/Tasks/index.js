@@ -5,7 +5,7 @@ import { getTasks, deleteTask, createTask, updateTask } from "../../../queries";
 import { withAuth } from '../../../hocs/PrivateRoute';
 import { getCurrentDate } from "../../../utils";
 
-import Dashboard from "../../../containers/Dashboard";
+import Dashboard from "../../../components/Dashboard";
 import TaskTable from "../../../components/Tasks/TaskTable";
 import Modals from "../../../components/Tasks/Modals";
 

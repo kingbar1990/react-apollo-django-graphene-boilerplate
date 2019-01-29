@@ -2,7 +2,7 @@ import React from "react";
 
 import { withAuth } from '../../hocs/PrivateRoute';
 
-import Dashboard from "../../containers/Dashboard";
+import Dashboard from "../../components/Dashboard";
 import GetTasks from "../../components/Statistics/GetTasks";
 import GetUsers from "../../components/Statistics/GetUsers";
 

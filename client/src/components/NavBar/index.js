@@ -1,20 +1,24 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import {
   Navbar,
   NavbarBrand,
+  MDBNavbarToggler,
+  MDBNavItem,
+  MDBNavLink,
+  MDBCollapse,
+  MDBNavbarNav,
   NavbarNav,
   Collapse,
   NavItem,
-  NavLink,
   Fa
 } from "mdbreact";
 import Popover from "react-simple-popover";
 
-import { TOKEN } from "../../constants";
+import { DASHBOARD, PROFILE, TASKS } from "../../constants/routes";
 export default class NavBar extends Component {
   state = {
-    open: false
+    open: false,
+    collapseID: ""
   };
 
   handleClick = () => {
@@ -25,33 +29,51 @@ export default class NavBar extends Component {
     this.setState({ open: false });
   };
 
+  toggleCollapse = collapseID => () => {
+    this.setState(state => {
+      if (state.collapseID !== collapseID) {
+        return { collapseID: collapseID };
+      }
+      return { collapseID: "" };
+    });
+  };
+
   handleLogout = () => {
-    localStorage.removeItem(TOKEN);
+    localStorage.removeItem("token");
     window.location.href = "/login";
   };
 
   render() {
     return (
       <Navbar className="flexible-navbar" light expand="md" scrolling>
-        <NavbarBrand href="/">
-          <strong>Landing</strong>
-        </NavbarBrand>
+        <NavbarBrand href="/">Landing</NavbarBrand>
+        <MDBNavbarToggler onClick={this.toggleCollapse("navbarCollapse13")} />
+        <MDBCollapse id="navbarCollapse13" isOpen={this.state.collapseID} navbar>
+          <MDBNavbarNav left>
+            <MDBNavItem>
+              <MDBNavLink to={DASHBOARD}>Home</MDBNavLink>
+            </MDBNavItem>
+            <MDBNavItem>
+              <MDBNavLink to={PROFILE}>Profile</MDBNavLink>
+            </MDBNavItem>
+            <MDBNavItem>
+              <MDBNavLink to={TASKS}>Tasks</MDBNavLink>
+            </MDBNavItem>
+            <NavbarNav>
+              <NavItem>
+                <a
+                  rel="noopener noreferrer"
+                  className="nav-link Ripple-parent"
+                  href="https://www.rocklab.io"
+                  target="_blank"
+                >
+                  About <b>RockLab company</b>
+                </a>
+              </NavItem>
+            </NavbarNav>
+          </MDBNavbarNav>
+        </MDBCollapse>
         <Collapse navbar>
-          <NavbarNav left>
-            <NavItem active>
-              <NavLink to="#">Home</NavLink>
-            </NavItem>
-            <NavItem>
-              <a
-                rel="noopener noreferrer"
-                className="nav-link Ripple-parent"
-                href="https://www.rocklab.io"
-                target="_blank"
-              >
-                About <b>RockLab company</b>
-              </a>
-            </NavItem>
-          </NavbarNav>
           <NavbarNav right>
             <NavItem>
               <a
@@ -101,12 +123,8 @@ export default class NavBar extends Component {
                   onHide={this.handleClose}
                 >
                   <div className="popover-items">
-                    <div>
-                      <Link to="/dashboard/profile" onClick={this.handleLogout}>Log out</Link>
-                    </div>
-                    <div>
-                      <Link to="/dashboard/profile" >Profile</Link>
-                    </div>
+                    <MDBNavLink to={TASKS}>Tasks</MDBNavLink>
+                    <MDBNavLink to={PROFILE} onClick={this.handleLogout}>Log out</MDBNavLink>
                   </div>
                 </Popover>
               </div>
