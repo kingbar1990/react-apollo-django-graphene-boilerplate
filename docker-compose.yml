@@ -6,16 +6,16 @@ services:
       container_name: server
       working_dir: /var/www/server
       ports:
-          - $SERVER_PORT:$SERVER_PORT
+          - '$SERVER_PORT:$SERVER_PORT'
       volumes:
           - ./server/:/var/www/server
           - ./client/:/var/www/client/
-      command: python manage.py runserver $HOST:$SERVER_PORT
-      env_file:
-        - .env
+      command: python manage.py runserver 0.0.0.0:$SERVER_PORT
       environment:
           - DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
           - PGHOST=$DATABASE_HOST
+      env_file:
+          - .env
       depends_on:
           - database
           - redis
@@ -33,7 +33,7 @@ services:
       working_dir: /var/www/client/
       command: yarn start
       ports:
-          - $CLIENT_PORT:$CLIENT_PORT
+          - '$CLIENT_PORT:$CLIENT_PORT'
       volumes:
           - ./server/:/var/www/server
           - ./client/:/var/www/client/
@@ -80,4 +80,4 @@ services:
       - celery
       - redis
     ports:
-      - $FLOWER_PORT:$FLOWER_PORT
+      - '$FLOWER_PORT:$FLOWER_PORT'

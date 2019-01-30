@@ -11,7 +11,7 @@ services:
       - ./server/:/var/www/server
       - ./client/:/var/www/client/
       - ./config/nginx:/etc/nginx/conf.d
-      # - /etc/letsencrypt:/etc/letsencrypt
+      - /etc/letsencrypt:/etc/letsencrypt
     links:
       - server
       - client
@@ -25,7 +25,7 @@ services:
       volumes:
           - ./server/:/var/www/server
           - ./client/:/var/www/client/
-      command: python manage.py runserver $HOST:$SERVER_PORT
+      command: python manage.py runserver 0.0.0.0:$SERVER_PORT
       env_file:
         - .env
       environment:
