@@ -101,17 +101,23 @@ export const getUsers = gql `
 
 export const getTasks = gql `
   query getTasks {
-    tasks {
-      id
-      name
-      description
-      status
-      dueDate
-      estimatedTime
-      assignedTo {
+    tasks(page:1) {
+      page
+      pages
+      hasNext
+      hasPrev
+      objects {
         id
-        email
-        fullName
+        name
+        description
+        status
+        dueDate
+        estimatedTime
+        assignedTo {
+          id
+          email
+          fullName
+        }
       }
     }
   }

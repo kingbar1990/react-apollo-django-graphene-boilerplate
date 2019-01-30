@@ -20,7 +20,7 @@ export default class TaskTabe extends Component {
           modalCreate={() => this.props.modalCreate("modalCreate")}
         />
         <ReactTable
-          data={this.props.tasks.tasks}
+          data={this.props.tasks}
           columns={[
             {
               Header: "General",

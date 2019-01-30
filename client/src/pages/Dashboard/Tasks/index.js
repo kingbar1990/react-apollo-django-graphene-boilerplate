@@ -59,12 +59,12 @@ class Tasks extends React.Component {
     });
   };
 
-  handleCreateTask = async (values, { setErrors }) => {
+  handleCreateTask = (values, { setErrors }) => {
     const statusValue = document.getElementById("statusSelect").value;
     const userId = document.getElementById("userId").value;
     const { title, description, estimatedTime } = values;
     try {
-      await this.props.taskCreate({
+      this.props.taskCreate({
         variables: {
           taskId: 1161,
           name: title,
@@ -82,12 +82,12 @@ class Tasks extends React.Component {
     }
   };
 
-  handleUpdateTask = async (values, { setErrors }) => {
+  handleUpdateTask = (values, { setErrors }) => {
     const statusValue = document.getElementById("statusSelect").value;
     const userId = document.getElementById("userId").value;
     const { title, description, estimatedTime } = values;
     try {
-      await this.props.taskUpdate({
+      this.props.taskUpdate({
         variables: {
           taskId: this.state.id,
           name: title,
@@ -111,7 +111,7 @@ class Tasks extends React.Component {
         variables: {
           taskId: this.state.id
         },
-        refetchQueries: [{ query: getTasks }]
+        // refetchQueries: [{ query: getTasks }]
       });
       this.setState({ modalDelete: false });
     } catch (error) {
@@ -121,17 +121,20 @@ class Tasks extends React.Component {
 
   render() {
     const { modalCreate, modalEdit, modalDelete, task, id } = this.state;
+    if (!this.props.tasks.tasks){
+      return null;
+    }
     return (
       <Dashboard>
-        <TaskTable 
-          tasks={this.props.tasks} 
+        <TaskTable
+          tasks={this.props.tasks.tasks.objects}
           modal={this.handleSwitchModal}
           modalCreate={this.handleActiveModal}
         />
-        <Modals 
+        <Modals
           modalCreate={modalCreate}
           modalEdit={modalEdit}
-          modalDelete={modalDelete}  
+          modalDelete={modalDelete}
           handleActiveModal={this.handleActiveModal}
           handleCreateTask={this.handleCreateTask}
           handleUpdateTask={this.handleUpdateTask}

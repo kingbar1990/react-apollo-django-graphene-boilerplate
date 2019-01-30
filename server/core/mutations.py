@@ -1,6 +1,5 @@
 import graphene
-from serious_django_graphene import (FailableMutation, FormMutation,
-                                     ValidationErrors)
+from serious_django_graphene import FormMutation
 
 from .forms import TaskForm
 from .models import Task
