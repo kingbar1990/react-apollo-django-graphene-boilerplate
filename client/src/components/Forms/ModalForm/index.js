@@ -6,7 +6,7 @@ const ModalForm = (props) => {
   const flex = { display: 'flex', justifyContent: 'space-between', alignItems: 'center' }
   return (
     <Container>
-      <Modal isOpen={props.isActive}>
+      <Modal isOpen={props.isActive} toggle={props.closeModal}>
         <div className="card-body">
           <div style={flex}>
             <h3>{props.title}</h3>

@@ -6,7 +6,7 @@ import "./style.css";
 
 const ModalDelete = ({ isActive, closeModal, deleteTask, id }) => (
    <Container>
-      <Modal isOpen={isActive} centered>
+      <Modal isOpen={isActive} toggle={closeModal} >
          <div className="wrapp-modal">
             <IosCloseCircleOutline
                onClick={() => deleteTask(id)}

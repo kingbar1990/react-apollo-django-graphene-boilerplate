@@ -1,8 +1,7 @@
 import React from "react";
-import { graphql, compose } from "react-apollo";
+import { graphql } from "react-apollo";
 
 import * as path from "../../constants/routes";
-import { withAuth } from '../../hocs/PrivateRoute';
 import { Container } from "reactstrap";
 
 import { ResetPasswordForm } from "../../components/Forms/ResetPasswordForm";
@@ -57,7 +56,4 @@ class ResetPassword extends React.Component {
   }
 }
 
-export default compose(
-  withAuth,
-  graphql(resetPassword, { name: "resetPassword" })
-)(ResetPassword);
+export default graphql(resetPassword, { name: "resetPassword" })(ResetPassword);

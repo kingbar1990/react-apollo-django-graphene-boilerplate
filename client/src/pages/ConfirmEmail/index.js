@@ -2,7 +2,6 @@ import React from "react";
 import { graphql, compose } from "react-apollo";
 
 import * as path from "../../constants/routes";
-import { withAuth } from '../../hocs/PrivateRoute';
 import { Container } from "reactstrap";
 
 import { ConfirmEmailForm } from "../../components/Forms/ConfirmEmailForm";
@@ -63,6 +62,5 @@ class ConfirmEmail extends React.Component {
 }
 
 export default compose(
-  withAuth,
   graphql(confirmEmail, { name: "confirmEmail" })
 )(ConfirmEmail);

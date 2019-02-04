@@ -1,12 +1,13 @@
 import React from "react";
-import DayPickerInput from "react-day-picker/DayPickerInput";
+import { Query } from 'react-apollo';
 
+import DayPickerInput from "react-day-picker/DayPickerInput";
 import { Formik, Form, Field } from "formik";
 import { Button } from "mdbreact";
 import { ReactstrapInput } from "reactstrap-formik";
-import GetUsers from "../SelectUsers"; 
 
-import { TaskSchema } from "../../../utils/validations/crateTask";
+import { getUsers } from '../../../queries';
+import { TaskSchema } from "../CreateTaskForm/validation";
 
 const EditTaskForm = props => (
   <Formik
@@ -49,10 +50,7 @@ const EditTaskForm = props => (
             </select>
             <div className="position-relative form-group">
               <label>Due date</label>
-              <DayPickerInput
-                placeholder={props.dueDate}
-                onDayChange={props.changeDate}
-              />
+              <DayPickerInput placeholder={props.dueDate} onDayChange={props.changeDate} />
             </div>
             <Field
               name="estimatedTime"
@@ -61,9 +59,35 @@ const EditTaskForm = props => (
               label="Estimate Time"
             />
             <label>Assigned to</label>
-            <GetUsers assignedTo={props.assignedTo} user={true} />
+            <Query query={getUsers}>
+              {({ loading, error, data }) => {
+                if (loading) return <p>Loading...</p>
+                if (error) return <p>{`Error! ${error.message}`}</p>;
+                return (
+                  <select
+                    id="userId"
+                    name="status"
+                    className="browser-default custom-select position-relative form-group" 
+                  > 
+                    <option key={props.assignedTo.id} value={props.assignedTo.id}>
+                      {props.assignedTo.fullName}
+                    </option>
+                    {data.users.map(user => {
+                      if (user.fullName !== props.assignedTo.fullName) {
+                        return (
+                          <option key={user.id} value={user.id}>
+                            {user.fullName}
+                          </option>
+                        );
+                      }
+                      return null
+                    })}
+                  </select>
+                );
+              }}
+            </Query>
             <Button color="primary" type="submit" style={{ margin: 0 }}>
-              Save
+              Save 
             </Button>
           </Form>
         </div>

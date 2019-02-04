@@ -1,11 +1,10 @@
 import React from "react";
 import { graphql, compose } from "react-apollo";
-import { getTasks, deleteTask, createTask, updateTask } from "../../../queries";
 
-import { withAuth } from '../../../hocs/PrivateRoute';
+import { createTask, getTasks, deleteTask, updateTask } from "../../../queries";
 import { getCurrentDate } from "../../../utils";
 
-import Dashboard from "../../../components/Dashboard";
+import TableHeader from "../../../components/Tasks/TaskTable/TableHeader";
 import TaskTable from "../../../components/Tasks/TaskTable";
 import Modals from "../../../components/Tasks/Modals";
 
@@ -20,6 +19,7 @@ class Tasks extends React.Component {
       modalDelete: false,
       modalEdit: false,
       modalCreate: false,
+      page: 1,
       date: "",
       task: {
         name: "",
@@ -33,12 +33,6 @@ class Tasks extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.tasks.tasks !== this.props.tasks.tasks) {
-      this.props.tasks.refetch();
-    }
-  }
-
   handleSwitchModal = (type, task) => {
     this.setState(state => ({
       [type]: !state[type],
@@ -49,7 +43,7 @@ class Tasks extends React.Component {
 
   handleActiveModal = type => {
     this.setState(state => ({
-      [type]: !state[type],
+      [type]: !state[type]
     }));
   };
 
@@ -63,6 +57,7 @@ class Tasks extends React.Component {
     const statusValue = document.getElementById("statusSelect").value;
     const userId = document.getElementById("userId").value;
     const { title, description, estimatedTime } = values;
+    const { date, page } = this.state;
     try {
       this.props.taskCreate({
         variables: {
@@ -70,11 +65,11 @@ class Tasks extends React.Component {
           name: title,
           description: description,
           status: statusValue || 2,
-          dueDate: this.state.date || getCurrentDate(new Date()),
+          dueDate: date || getCurrentDate(new Date()),
           estimatedTime: estimatedTime,
           assignedTo: userId
         },
-        refetchQueries: [{ query: getTasks }]
+        refetchQueries: [{ query: getTasks, variables: { page: page } }]
       });
       this.setState({ modalCreate: false });
     } catch (error) {
@@ -86,18 +81,19 @@ class Tasks extends React.Component {
     const statusValue = document.getElementById("statusSelect").value;
     const userId = document.getElementById("userId").value;
     const { title, description, estimatedTime } = values;
+    const { id, date, page } = this.state;
     try {
       this.props.taskUpdate({
         variables: {
-          taskId: this.state.id,
+          taskId: id,
           name: title,
           description: description,
           status: statusValue || 2,
-          dueDate: this.state.date || getCurrentDate(new Date()),
+          dueDate: date || getCurrentDate(new Date()),
           estimatedTime: estimatedTime,
           assignedTo: userId
         },
-        refetchQueries: [{ query: getTasks }]
+        refetchQueries: [{ query: getTasks, variables: { page: page } }]
       });
       this.setState({ modalEdit: false });
     } catch (error) {
@@ -106,12 +102,13 @@ class Tasks extends React.Component {
   };
 
   handleDeleteTask = async () => {
+    const { id, page } = this.state;
     try {
       await this.props.taskDelete({
         variables: {
-          taskId: this.state.id
+          taskId: id
         },
-        // refetchQueries: [{ query: getTasks }]
+        refetchQueries: [{ query: getTasks, variables: { page: page } }]
       });
       this.setState({ modalDelete: false });
     } catch (error) {
@@ -119,17 +116,25 @@ class Tasks extends React.Component {
     }
   };
 
+  fetchData = item => {
+    const page = this.state.page;
+    this.setState({
+      page: item === "prev" ? page - 1 : page + 1
+    });
+  };
+
   render() {
-    const { modalCreate, modalEdit, modalDelete, task, id } = this.state;
-    if (!this.props.tasks.tasks){
-      return null;
-    }
+    const { modalCreate, modalEdit, modalDelete, page, task, id } = this.state;
     return (
-      <Dashboard>
+      <div>
+        <TableHeader
+          title="Task list"
+          modalCreate={() => this.handleActiveModal("modalCreate")}
+        />
         <TaskTable
-          tasks={this.props.tasks.tasks.objects}
+          fetchData={this.fetchData}
+          page={page}
           modal={this.handleSwitchModal}
-          modalCreate={this.handleActiveModal}
         />
         <Modals
           modalCreate={modalCreate}
@@ -143,17 +148,12 @@ class Tasks extends React.Component {
           task={task}
           id={id}
         />
-      </Dashboard>
+      </div>
     );
   }
 }
 
 export default compose(
-  withAuth,
-  graphql(getTasks, {
-    options: { fetchPolicy: "no-cache" },
-    name: "tasks"
-  }),
   graphql(createTask, {
     name: "taskCreate"
   }),

@@ -100,8 +100,8 @@ export const getUsers = gql `
 `;
 
 export const getTasks = gql `
-  query getTasks {
-    tasks(page:1) {
+  query getTasks($page: Int) {
+    tasks(page: $page) {
       page
       pages
       hasNext

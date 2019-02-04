@@ -1,20 +1,13 @@
-import React from "react";
+import React, { Fragment } from "react";
 
-import { withAuth } from '../../hocs/PrivateRoute';
-
-import Dashboard from "../../components/Dashboard";
 import GetTasks from "../../components/Statistics/GetTasks";
 import GetUsers from "../../components/Statistics/GetUsers";
 
-class Main extends React.Component {
-  render() {
-    return (
-      <Dashboard>
-        <GetUsers />
-        <GetTasks />
-      </Dashboard>
-    );
-  }
-}
+const Main = () => (
+  <Fragment>
+    <GetUsers />
+    <GetTasks />
+  </Fragment>
+);
 
-export default withAuth(Main);
+export default Main;

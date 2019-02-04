@@ -3,7 +3,7 @@ import DayPickerInput from "react-day-picker/DayPickerInput";
 
 import { formatDate, parseDate } from "react-day-picker/moment";
 
-import "./index.css";
+import "./style.css";
 
 const ExampleDatePicker = ({ onDateChange }) => (
    <div>

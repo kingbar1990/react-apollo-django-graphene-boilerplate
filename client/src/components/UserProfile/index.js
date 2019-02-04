@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { BACKEND_URL } from "../../constants";
 
 const UserInfo = ({ profile }) => {
@@ -26,13 +25,6 @@ const UserInfo = ({ profile }) => {
       </div>
     </div>
   );
-};
-
-UserInfo.propTypes = {
-  profile: PropTypes.shape({
-    fullName: PropTypes.string,
-    email: PropTypes.string
-  }).isRequired
 };
 
 export default UserInfo;

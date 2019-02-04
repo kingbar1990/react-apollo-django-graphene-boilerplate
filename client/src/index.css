@@ -232,6 +232,7 @@ main {
 
 .table {
   text-align: center;
+  margin: 0 !important;
 }
 
 .sc-bdVaJa {

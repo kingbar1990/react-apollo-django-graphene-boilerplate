@@ -1,12 +1,9 @@
 import React from "react";
 import { graphql, compose } from "react-apollo";
 
-import { withAuth } from "../../../hocs/PrivateRoute";
 import { User, editUser } from "../../../queries";
 
-import Dashboard from "../../../components/Dashboard";
-import Loader from "../../../components/Loader";
-import UserInfoCard from "../../../components/UserInfoCard";
+import UserProfile from "../../../components/UserProfile";
 import UserEditForm from "../../../components/Forms/UserEditForm";
 import { getBase64 } from "../../../utils";
 
@@ -61,31 +58,22 @@ class EditUser extends React.Component {
 
   render() {
     const user = this.props.user.me;
-    if (this.props.user.loading) {
-      return (
-        <Dashboard>
-          <Loader />
-        </Dashboard>
-      );
-    }
+    if (this.props.user.loading) return null;
     return (
-      <Dashboard>
-        <div className="row">
-          <UserInfoCard profile={user} />
-          <UserEditForm
-            initialValues={user}
-            handleEditUser={this.handleEditUser}
-            handleImageChange={this.handleImageChange}
-            error={this.state.imageError}
-          />
-        </div>
-      </Dashboard>
+      <div className="row">
+        <UserProfile profile={user} />
+        <UserEditForm
+          initialValues={user}
+          handleEditUser={this.handleEditUser}
+          handleImageChange={this.handleImageChange}
+          error={this.state.imageError}
+        />
+      </div>
     );
   }
 }
 
 export default compose(
-  withAuth,
   graphql(editUser, { name: "edit" }),
   graphql(User, { name: "user" })
 )(EditUser);

@@ -1,27 +1,23 @@
 import React from "react";
 import { MDBCard, MDBCardText } from "mdbreact";
-import { compose, graphql, Query } from "react-apollo";
+import { graphql, Query } from "react-apollo";
 
 import { getTasks } from "../../queries";
 
-import Loader from "../Loader";
 import { Pie } from "react-chartjs-2";
 class GetTasks extends React.Component {
   render() {
     const stylesOnCard = { width: "22rem", marginTop: "1rem" };
     return (
-      <Query query={getTasks}>
+      <Query query={getTasks} variables={{ page: 1 }}>
         {({ loading, error, data }) => {
-          if (loading) {
-            return <Loader styles={stylesOnCard} />
-          }
-          if (error) {
-            return `Error! ${error.message}`
-          }
-          if (data.tasks.length) {
+          if (loading) return null
+          if (error) return `Error! ${error.message}`
+          const tasks = data.tasks.objects;
+          if (tasks.length) {
             return (
               <MDBCard className="card-body" style={stylesOnCard}>
-                <h3>Tasks: {data.tasks.length}</h3>
+                <h3>Tasks: {tasks.length}</h3>
                 <MDBCardText>
                   <Pie
                     data={{
@@ -29,9 +25,9 @@ class GetTasks extends React.Component {
                       datasets: [
                         {
                           data: [
-                            data.tasks.filter(task => task.status === 0).length,
-                            data.tasks.filter(task => task.status === 1).length,
-                            data.tasks.filter(task => task.status === 2).length
+                            tasks.filter(task => task.status === 0).length,
+                            tasks.filter(task => task.status === 1).length,
+                            tasks.filter(task => task.status === 2).length
                           ],
                           backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C"],
                           hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870"]
@@ -46,7 +42,7 @@ class GetTasks extends React.Component {
           }
           return (
             <MDBCard className="card-body" style={stylesOnCard}>
-              <h3>Tasks: {data.tasks.length}</h3>
+              <h3>Tasks: {tasks.length}</h3>
             </MDBCard>
           )
         }}
@@ -55,9 +51,4 @@ class GetTasks extends React.Component {
   }
 }
 
-export default compose(
-  graphql(getTasks, {
-    name: "tasks",
-    options: { fetchPolicy: "no-cache" }
-  })
-)(GetTasks);
+export default graphql(getTasks, {options: { fetchPolicy: "no-cache" }})(GetTasks);

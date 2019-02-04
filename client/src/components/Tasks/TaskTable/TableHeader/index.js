@@ -1,6 +1,8 @@
 import React from "react";
 import IosAddCircleOutline from "react-ionicons/lib/IosAddCircleOutline";
 
+import './style.css'
+
 const TableHeader = ({ title, modalCreate }) => (
    <div className="table-header">
       <h4>{title}</h4>
