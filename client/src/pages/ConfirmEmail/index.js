@@ -19,7 +19,7 @@ const ConfirmEmail = props => {
       .then(response => {
         if (!response.data.confirmEmail.error) {
           alert("Check your email, please!");
-          props.history.push(path.SCHEDULE);
+          props.history.push(path.DASHBOARD);
         } else {
           let errors = {};
           response.data.confirmEmail.error.validationErrors.map(error => {
