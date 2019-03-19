@@ -1,27 +1,16 @@
-import React from "react";
-import { graphql, compose } from "react-apollo";
+import React, { useState, useCallback } from "react";
+import { graphql } from "react-apollo";
+
+import { Container } from "reactstrap";
+import { ConfirmEmailForm } from "../../components/Forms/ConfirmEmailForm";
 
 import * as path from "../../constants/routes";
-import { Container } from "reactstrap";
-
-import { ConfirmEmailForm } from "../../components/Forms/ConfirmEmailForm";
 import { confirmEmail } from "../../queries";
 
-class ConfirmEmail extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      email: "",
-      error: ""
-    };
-  }
-
-  handleInput = e => {
-    this.setState({ [e.target.id]: e.target.value });
-  };
-
-  confirmEmail = (values, { setErrors }) => {
-    this.props
+const ConfirmEmail = props => {
+  const [state] = useState({ error: "" });
+  const confirmEmail = useCallback((values, { setErrors }) => {
+    props
       .confirmEmail({
         variables: {
           email: values.email
@@ -30,7 +19,7 @@ class ConfirmEmail extends React.Component {
       .then(response => {
         if (!response.data.confirmEmail.error) {
           alert("Check your email, please!");
-          this.props.history.push(path.HOME);
+          props.history.push(path.SCHEDULE);
         } else {
           let errors = {};
           response.data.confirmEmail.error.validationErrors.map(error => {
@@ -46,21 +35,12 @@ class ConfirmEmail extends React.Component {
           setErrors(errors);
         }
       });
-  };
+  });
+  return (
+    <Container>
+      <ConfirmEmailForm onfirmEmail={confirmEmail} error={state.error} />
+    </Container>
+  );
+};
 
-  render() {
-    return (
-      <Container>
-        <ConfirmEmailForm
-          handleInput={this.handleInput}
-          confirmEmail={this.confirmEmail}
-          error={this.state.error}
-        />
-      </Container>
-    );
-  }
-}
-
-export default compose(
-  graphql(confirmEmail, { name: "confirmEmail" })
-)(ConfirmEmail);
+export default graphql(confirmEmail, { name: "confirmEmail" })(ConfirmEmail);
