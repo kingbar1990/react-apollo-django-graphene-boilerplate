@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useCallback } from "react";
 import { graphql, compose } from "react-apollo";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -10,23 +10,11 @@ import { Container } from "reactstrap";
 import { LoginForm } from "../../components/Forms/LoginForm";
 import { login } from "../../queries";
 
-class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      username: "",
-      password: "",
-      error: ""
-    };
-  }
-
-  handleInput = e => {
-    this.setState({ [e.target.id]: e.target.value });
-  };
-
-  login = (values, { setErrors }) => {
+const Login = props => {
+  const [state] = useState({ error: "" });
+  const login = useCallback((values, { setErrors }) => {
     const { username, password } = values;
-    this.props
+    props
       .login({
         variables: {
           username: username,
@@ -37,8 +25,8 @@ class Login extends Component {
         if (!response.data.login.error) {
           const token = response.data.login.token;
 
-          this.props.islogin(token, true);
-          this.props.history.push(path.DASHBOARD);
+          props.islogin(token, true);
+          props.history.push(path.DASHBOARD);
         } else {
           let errors = {};
           response.data.login.error.validationErrors.map(error => {
@@ -53,20 +41,14 @@ class Login extends Component {
           setErrors(errors);
         }
       });
-  };
+  });
 
-  render() {
-    return (
-      <Container>
-        <LoginForm
-          handleInput={this.handleInput}
-          login={this.login}
-          error={this.state.error}
-        />
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <LoginForm login={login} error={state.error} />
+    </Container>
+  );
+};
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
