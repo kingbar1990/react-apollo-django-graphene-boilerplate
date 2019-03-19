@@ -1,37 +1,23 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import { graphql, compose } from "react-apollo";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import * as path from "../../constants/routes";
+import { SignUpForm } from "../../components/Forms/SignUpForm";
 import { islogin } from "../../actions";
 import { Container } from "reactstrap";
 
-import { SignUpForm } from "../../components/Forms/SignUpForm";
+import * as path from "../../constants/routes";
 import { register } from "../../queries";
 
-class SignUp extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      fullName: "",
-      email: "",
-      password1: "",
-      password2: "",
-      error: ""
-    };
-  }
-
-  handleInput = e => {
-    this.setState({ [e.target.id]: e.target.value });
-  };
-
-  register = (values, { setErrors }) => {
+const SignUp = props => {
+  const [state] = useState({ error: "" });
+  const register = useCallback((values, { setErrors }) => {
     const { fullName, email, password1, password2 } = values;
-    this.props
+    props
       .register({
         variables: {
-          fullName: fullName,
+          fullName,
           email: email,
           password1: password1,
           password2: password2
@@ -41,8 +27,8 @@ class SignUp extends React.Component {
         if (response.data.register.success) {
           const token = response.data.register.token;
 
-          this.props.islogin(token, true);
-          this.props.history.push(path.DASHBOARD);
+          props.islogin(token, true);
+          props.history.push(path.DASHBOARD);
         } else {
           let errors = {};
           response.data.register.error.validationErrors.map(
@@ -51,20 +37,13 @@ class SignUp extends React.Component {
           setErrors(errors);
         }
       });
-  };
-
-  render() {
-    return (
-      <Container>
-        <SignUpForm
-          handleInput={this.handleInput}
-          register={this.register}
-          error={this.state.error}
-        />
-      </Container>
-    );
-  }
-}
+  }, []);
+  return (
+    <Container>
+      <SignUpForm register={register} error={state.error} />
+    </Container>
+  );
+};
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
