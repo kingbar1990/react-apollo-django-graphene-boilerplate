@@ -17,7 +17,7 @@ class Task(models.Model):
         get_user_model(),
         related_name="tasks",
         null=True, blank=True,
-        on_delete=models.CASCADE
+        on_delete=models.SET_NULL
     )
 
     def __str__(self):
