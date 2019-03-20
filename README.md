@@ -17,5 +17,8 @@
   - `docker-compose up`
 
 - ### Create superuser
-  - `docker-compose run django python manage.py createsuperuser`
 
+  - `docker-compose run server python manage.py createsuperuser`
+
+- ### Formatting python code
+  - `docker-compose run server black server/`

@@ -1,12 +1,14 @@
 import graphene
 import graphql_jwt
 from accounts.mutations import (
-    LoginMutation, RegisterMutation, SendConfirmationEmailMutation,
-    ResetPasswordMutation, UserEditMutation
+    LoginMutation,
+    RegisterMutation,
+    SendConfirmationEmailMutation,
+    ResetPasswordMutation,
+    UserEditMutation,
 )
 from accounts.schema import Query as AccountsQuery
-from core.mutations import (TaskCreateMutation, TaskMutationDelete,
-                            TaskUpdateMutation)
+from core.mutations import TaskCreateMutation, TaskMutationDelete, TaskUpdateMutation
 from core.schema import Query as CoreQuery
 
 
