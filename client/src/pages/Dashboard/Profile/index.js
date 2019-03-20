@@ -25,7 +25,7 @@ const EditUser = props => {
           .then(image => (file = image))
           .then(() => setState({ avatar: file, imageError: null }));
       }
-      setState({ imageError: "max size 1MB" });
+      setState({ ...state, imageError: "max size 1MB" });
     } catch (error) {}
   };
 

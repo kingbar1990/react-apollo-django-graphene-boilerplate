@@ -15,10 +15,11 @@ import {
   NavItem,
   Fa
 } from "mdbreact";
+import Links from "./Links";
 
 import { DASHBOARD, PROFILE, TASKS } from "../../constants/routes";
 
-const NavBar = () => {
+export default () => {
   const [collapse, handleClick] = useState("");
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -66,17 +67,7 @@ const NavBar = () => {
               </a>
             </NavItem>
           </NavbarNav>
-          {width <= 768 ? (
-            <Fragment>
-              <li className="nav-item">
-                <a className="nav-link" href="/login" onClick={handleLogout}>
-                  Logout
-                </a>
-              </li>
-            </Fragment>
-          ) : (
-            ""
-          )}
+          {width <= 768 ? <Links handleLogout={handleLogout} /> : ""}
         </MDBNavbarNav>
       </MDBCollapse>
       <Collapse navbar>
@@ -114,7 +105,7 @@ const NavBar = () => {
           </NavItem>
           <MDBDropdown>
             <MDBDropdownToggle nav>
-              <Fa icon="user" className="mr-2" />
+              <Fa icon="user" className="mr-2" style={{ color: '#000' }} />
             </MDBDropdownToggle>
             <MDBDropdownMenu className="dropdown-default" right>
               <MDBNavLink to="#" onClick={handleLogout}>
@@ -128,4 +119,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+// export default NavBar;
