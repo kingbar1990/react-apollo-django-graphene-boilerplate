@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, Fragment } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -118,5 +118,3 @@ export default () => {
     </Navbar>
   );
 };
-
-// export default NavBar;

@@ -1,14 +1,13 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import { graphql, compose } from "react-apollo";
 
 import Profile from "../../../components/UserProfile";
 import UserEditForm from "../../../components/Forms/UserEditForm";
 
 import { getBase64 } from "../../../utils";
-import { withAuth } from "../../../hocs/PrivateRoute";
 import { User, editUser } from "../../../queries";
 
-const EditUser = props => {
+const EditUser = ({ edit, user }) => {
   const [state, setState] = useState({
     avatar: "",
     imageError: null
@@ -30,50 +29,46 @@ const EditUser = props => {
   };
 
   const handleEditUser = (values, { setErrors }) => {
-    let { firstName, email } = values;
-    props
-      .edit({
-        variables: {
-          firstName: firstName || props.user.me.firstName,
-          email: email,
-          avatar: state.avatar
-        },
-        refetchQueries: [{ query: User }]
-      })
-      .then(response => {
-        if (response.data.editUser.error.validationErrors.length) {
-          let errors = {};
-          response.data.editUser.error.validationErrors.map(error => {
-            if (error["field"] === "email") {
-              errors["email"] = error["messages"].join(" ");
-            } else {
-              errors[error] = error["messages"];
-            }
-            return null;
-          });
-          setErrors(errors);
-        }
-      });
+    const { fullName, email } = values;
+    edit({
+      variables: {
+        fullName: fullName || user.me.firstName,
+        email: email,
+        avatar: state.avatar
+      },
+      refetchQueries: [{ query: User }]
+    }).then(response => {
+      if (response.data.editUser.error.validationErrors.length) {
+        let errors = {};
+        response.data.editUser.error.validationErrors.map(error => {
+          if (error["field"] === "email") {
+            errors["email"] = error["messages"].join(" ");
+          } else {
+            errors[error] = error["messages"];
+          }
+          return null;
+        });
+        setErrors(errors);
+      }
+    });
   };
 
-  if (props.user.loading) return null;
-  const user = props.user.me;
+  if (user.loading) return null;
+  const userProfile = user.me;
   return (
-    <Fragment>
-      <div className="row p-5">
-        <Profile profile={user} />
-        <UserEditForm
-          initialValues={user}
-          handleEditUser={handleEditUser}
-          handleImageChange={handleImageChange}
-          error={state.imageError}
-        />
-      </div>
-    </Fragment>
+    <div className="row p-5">
+      <Profile profile={userProfile} />
+      <UserEditForm
+        initialValues={userProfile}
+        handleEditUser={handleEditUser}
+        handleImageChange={handleImageChange}
+        error={state.imageError}
+      />
+    </div>
   );
 };
 
 export default compose(
   graphql(editUser, { name: "edit" }),
   graphql(User, { name: "user" })
-)(withAuth(EditUser));
+)(EditUser);

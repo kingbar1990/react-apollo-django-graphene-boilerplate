@@ -23,12 +23,14 @@ export default () => (
     <Route exact path={path.SIGN_IN} component={Login} />
     <Main>
       <Suspense fallback={<Loader />}>
-        <Route exact path={path.DASHBOARD} render={(props) => <Dashboard {...props} />} />
-        <Route exact path={path.TASKS} render={(props) => <Tasks {...props} />} />
-        <Route exact path={path.PROFILE} render={(props) => <Profile {...props} />} />
-        <Route exact path={path.CONFIRM_EMAIL} render={(props) => <ConfirmEmail {...props} />} />
-        <Route exact path={path.RESET_PASSWORD} render={(props) => <ResetPassword {...props} />} /> 
-        <Route exact render={props => <PageNotFound {...props} />} />
+        <Switch>
+          <Route exact path={path.DASHBOARD} render={(props) => <Dashboard {...props} />} />
+          <Route exact path={path.TASKS} render={(props) => <Tasks {...props} />} />
+          <Route exact path={path.PROFILE} render={(props) => <Profile {...props} />} />
+          <Route exact path={path.CONFIRM_EMAIL} render={(props) => <ConfirmEmail {...props} />} />
+          <Route exact path={path.RESET_PASSWORD} render={(props) => <ResetPassword {...props} />} /> 
+          <Route render={props => <PageNotFound {...props} />} />
+        </Switch>
       </Suspense>
     </Main>
   </Switch>
