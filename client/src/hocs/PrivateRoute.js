@@ -1,5 +1,6 @@
 import React from "react";
 import { graphql, compose } from "react-apollo";
+import { withRouter } from "react-router";
 import { connect } from "react-redux";
 
 import { logout } from "../actions";
@@ -35,5 +36,5 @@ export const withAuth = ProtectedRoute => {
             isLogout: logout
          }
       )
-   )(PrivateRoute);
+   )(withRouter(PrivateRoute));
 };

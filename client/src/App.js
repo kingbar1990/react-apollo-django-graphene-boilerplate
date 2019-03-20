@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import { withRouter, Switch, Route } from "react-router";
+import { Switch, Route } from "react-router";
 
 import * as path from "./constants/routes";
 
@@ -16,7 +16,7 @@ const Profile = lazy(() => import('./pages/Dashboard/Profile'));
 const ConfirmEmail = lazy(() => import('./pages/ConfirmEmail'));
 const ResetPassword = lazy(() => import('./pages/ResetPassword'));
 
-const App = () => (
+export default () => (
   <Switch>
     <Route exact path={path.HOME} component={Home} />
     <Route exact path={path.SIGN_UP} component={SignUp} />
@@ -33,5 +33,3 @@ const App = () => (
     <Route exact component={PageNotFound} />
   </Switch>
 );
-
-export default withRouter(App);
