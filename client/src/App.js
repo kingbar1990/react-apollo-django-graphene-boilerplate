@@ -1,4 +1,4 @@
-import React, { Component, lazy, Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import { withRouter, Switch, Route } from "react-router";
 
 import * as path from "./constants/routes";
@@ -16,26 +16,22 @@ const Profile = lazy(() => import('./pages/Dashboard/Profile'));
 const ConfirmEmail = lazy(() => import('./pages/ConfirmEmail'));
 const ResetPassword = lazy(() => import('./pages/ResetPassword'));
 
-class App extends Component {
-  render() {
-    return (
-      <Switch>
-        <Route exact path={path.HOME} component={Home} />
-        <Route exact path={path.SIGN_UP} component={SignUp} />
-        <Route exact path={path.SIGN_IN} component={Login} />
-        <Main {...this.props}>
-            <Suspense fallback={<Loader />}>
-              <Route exact path={path.DASHBOARD} render={(props) => <Dashboard {...props} />} />
-              <Route exact path={path.TASKS} render={(props) => <Tasks {...props} />} />
-              <Route exact path={path.PROFILE} render={(props) => <Profile {...props} />} />
-              <Route exact path={path.CONFIRM_EMAIL} render={(props) => <ConfirmEmail {...props} />} />
-              <Route exact path={path.RESET_PASSWORD} render={(props) => <ResetPassword {...props} />} /> 
-            </Suspense>
-        </Main>
-        <Route exact component={PageNotFound} />
-      </Switch>
-    );
-  }
-}
+const App = () => (
+  <Switch>
+    <Route exact path={path.HOME} component={Home} />
+    <Route exact path={path.SIGN_UP} component={SignUp} />
+    <Route exact path={path.SIGN_IN} component={Login} />
+    <Main>
+      <Suspense fallback={<Loader />}>
+        <Route exact path={path.DASHBOARD} render={(props) => <Dashboard {...props} />} />
+        <Route exact path={path.TASKS} render={(props) => <Tasks {...props} />} />
+        <Route exact path={path.PROFILE} render={(props) => <Profile {...props} />} />
+        <Route exact path={path.CONFIRM_EMAIL} render={(props) => <ConfirmEmail {...props} />} />
+        <Route exact path={path.RESET_PASSWORD} render={(props) => <ResetPassword {...props} />} /> 
+      </Suspense>
+    </Main>
+    <Route exact component={PageNotFound} />
+  </Switch>
+);
 
 export default withRouter(App);
