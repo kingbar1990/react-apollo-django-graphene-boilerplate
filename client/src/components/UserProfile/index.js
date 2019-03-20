@@ -1,5 +1,9 @@
-import React from "react";
-import { BACKEND_URL } from "../../constants";
+import React, { lazy, Suspense } from "react";
+
+import withoutAvatar from "../../assets/user.png";
+import Loader from '../Loader';
+
+const UserImage = lazy(() => import("./UserImage"));
 
 const UserInfo = ({ profile }) => {
   return (
@@ -7,12 +11,14 @@ const UserInfo = ({ profile }) => {
       <div className="card">
         <div className="card-body">
           <center className="m-t-30">
-            <img
-              src={`${BACKEND_URL}/media/${profile.avatar}`}
-              alt="avatar"
-              className="card-img-top"
-            />
-            <h4 className="card-title m-t-10">{profile.fullName}</h4>
+            {profile.avatar ? (
+              <Suspense fallback={<Loader/>}>
+                <UserImage path={profile.avatar} />
+              </Suspense>
+            ) : (
+              <img src={withoutAvatar} alt="" className="card-img-top" />
+            )}
+            <h4 className="card-title m-t-10">{profile.firstName}</h4>
           </center>
         </div>
         <div>
