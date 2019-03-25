@@ -2,7 +2,7 @@
 
 - ### Build docker
 
-  1.  `docker-compose build`
+  - `docker-compose build`
 
 - ### Install node modules
 
