@@ -1,14 +1,12 @@
 import React, { useState, useCallback } from "react";
-import { graphql, compose } from "react-apollo";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { graphql } from "react-apollo";
 
 import * as path from "../../constants/routes";
-import { islogin } from "../../actions";
 import { Container } from "reactstrap";
 
 import { LoginForm } from "../../components/Forms/LoginForm";
 import { login } from "../../queries";
+import { saveData } from '../../utils';
 
 const Login = props => {
   const [state] = useState({ error: "" });
@@ -25,7 +23,7 @@ const Login = props => {
         if (!response.data.login.error) {
           const token = response.data.login.token;
 
-          props.islogin(token, true);
+          saveData('token', token)
           props.history.push(path.DASHBOARD);
         } else {
           let errors = {};
@@ -50,18 +48,4 @@ const Login = props => {
   );
 };
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      islogin
-    },
-    dispatch
-  );
-
-export default compose(
-  connect(
-    null,
-    mapDispatchToProps
-  ),
-  graphql(login, { name: "login" })
-)(Login);
+export default graphql(login, { name: "login" })(Login);

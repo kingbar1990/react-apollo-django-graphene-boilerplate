@@ -1,14 +1,12 @@
 import React, { useState, useCallback } from "react";
-import { graphql, compose } from "react-apollo";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { graphql } from "react-apollo";
 
 import { SignUpForm } from "../../components/Forms/SignUpForm";
-import { islogin } from "../../actions";
 import { Container } from "reactstrap";
 
 import * as path from "../../constants/routes";
 import { register } from "../../queries";
+import { saveData } from '../../utils';
 
 const SignUp = props => {
   const [state] = useState({ error: "" });
@@ -27,7 +25,7 @@ const SignUp = props => {
         if (response.data.register.success) {
           const token = response.data.register.token;
 
-          props.islogin(token, true);
+          saveData('token', token)
           props.history.push(path.DASHBOARD);
         } else {
           let errors = {};
@@ -45,18 +43,4 @@ const SignUp = props => {
   );
 };
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      islogin
-    },
-    dispatch
-  );
-
-export default compose(
-  connect(
-    null,
-    mapDispatchToProps
-  ),
-  graphql(register, { name: "register" })
-)(SignUp);
+export default graphql(register, { name: "register" })(SignUp);

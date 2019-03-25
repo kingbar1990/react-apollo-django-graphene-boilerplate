@@ -1,9 +1,7 @@
 import React from "react";
 import { graphql, compose } from "react-apollo";
 import { withRouter } from "react-router";
-import { connect } from "react-redux";
 
-import { logout } from "../actions";
 import { verifyToken } from "../queries";
 
 export const withAuth = ProtectedRoute => {
@@ -18,7 +16,7 @@ export const withAuth = ProtectedRoute => {
             });
             return auth;
          } catch (error) {
-            this.props.isLogout();
+            window.localStorage.removeItem('token');
             return this.props.history.push("/login");
          }
       }
@@ -29,12 +27,6 @@ export const withAuth = ProtectedRoute => {
    return compose(
       graphql(verifyToken, {
          name: "authorization"
-      }),
-      connect(
-         null,
-         {
-            isLogout: logout
-         }
-      )
+      })
    )(withRouter(PrivateRoute));
 };

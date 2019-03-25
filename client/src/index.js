@@ -1,8 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore } from "redux";
-import rootReducer from "./rootReducer";
-import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { HttpLink } from "apollo-link-http";
 import ApolloClient from "apollo-client";
@@ -45,19 +42,13 @@ const client = new ApolloClient({
   cache: cache.restore(window.__APOLLO_STATE__ || {})
 });
 
-const devTools =
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
-
-const store = createStore(rootReducer, devTools);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ApolloProvider client={client}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ApolloProvider>
-  </Provider>,
+  <ApolloProvider client={client}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </ApolloProvider>,
   document.getElementById("root")
 );
 
