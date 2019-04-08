@@ -3,6 +3,7 @@ import { graphql, Query } from "react-apollo";
 
 import { MDBCard } from "mdbreact";
 
+import i18n from "../../i18n";
 import { getUsers } from "../../queries";
 
 const GetUsers = () => {
@@ -14,7 +15,9 @@ const GetUsers = () => {
         if (error) return `Error! ${error.message}`;
         return (
           <MDBCard className="card-body" style={stylesOnCard}>
-            <h3>Users: {data.users.length}</h3>
+            <h3>
+              {i18n.t("Users")}: {data.users.length}
+            </h3>
           </MDBCard>
         );
       }}

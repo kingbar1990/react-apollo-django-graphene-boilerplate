@@ -17,9 +17,11 @@ import {
 } from "mdbreact";
 import Links from "./Links";
 
+import i18n from "../../i18n";
+
 import { DASHBOARD, PROFILE, TASKS } from "../../constants/routes";
 
-export default () => {
+export default props => {
   const [collapse, handleClick] = useState("");
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -47,7 +49,7 @@ export default () => {
       <MDBCollapse id="navbarCollapse13" isOpen={collapse} navbar>
         <MDBNavbarNav left>
           <MDBNavItem>
-            <MDBNavLink to={DASHBOARD}>Home</MDBNavLink>
+            <MDBNavLink to={DASHBOARD}>{i18n.t("Home")}</MDBNavLink>
           </MDBNavItem>
           <MDBNavItem>
             <MDBNavLink to={PROFILE}>Profile</MDBNavLink>
@@ -72,6 +74,16 @@ export default () => {
       </MDBCollapse>
       <Collapse navbar>
         <NavbarNav right>
+          <NavItem>
+            <select
+              className="browser-default custom-select"
+              onChange={props.handleLanguageChange}
+            >
+              <option>Select language</option>
+              <option value="en">EN</option>
+              <option value="ru">RU</option>
+            </select>
+          </NavItem>
           <NavItem>
             <a
               className="nav-link navbar-link"
@@ -105,7 +117,7 @@ export default () => {
           </NavItem>
           <MDBDropdown>
             <MDBDropdownToggle nav>
-              <Fa icon="user" className="mr-2" style={{ color: '#000' }} />
+              <Fa icon="user" className="mr-2" style={{ color: "#000" }} />
             </MDBDropdownToggle>
             <MDBDropdownMenu className="dropdown-default" right>
               <MDBNavLink to="#" onClick={handleLogout}>

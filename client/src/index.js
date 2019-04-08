@@ -6,6 +6,8 @@ import ApolloClient from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloProvider } from "react-apollo";
 import { setContext } from "apollo-link-context";
+import { I18nextProvider } from "react-i18next";
+
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
@@ -14,6 +16,7 @@ import App from "./App";
 import { TOKEN } from "./constants";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
+import i18n from "./i18n";
 
 const cache = new InMemoryCache({
   dataIdFromObject: o => `${o.__typename}-${o.id}`
@@ -41,12 +44,12 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: cache.restore(window.__APOLLO_STATE__ || {})
 });
-
-
 ReactDOM.render(
   <ApolloProvider client={client}>
     <BrowserRouter>
-      <App />
+      <I18nextProvider i18n={i18n}>
+        <App />
+      </I18nextProvider>
     </BrowserRouter>
   </ApolloProvider>,
   document.getElementById("root")
