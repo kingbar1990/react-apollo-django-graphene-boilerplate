@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from "react";
 
+import i18n from "../../i18n";
 import withoutAvatar from "../../assets/user.png";
 import Loader from "../Loader";
 
@@ -24,7 +25,7 @@ const UserInfo = ({ profile }) => (
         <hr />
       </div>
       <div className="card-body">
-        <small className="text-muted">Email address </small>
+        <small className="text-muted">{i18n.t("Email address")} </small>
         <h6>{profile.email}</h6>
       </div>
     </div>

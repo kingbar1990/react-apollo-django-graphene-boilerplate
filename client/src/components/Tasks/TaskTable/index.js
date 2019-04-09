@@ -3,54 +3,54 @@ import ReactTable from "react-table";
 import { Query } from "react-apollo";
 import { getTasks } from "../../../queries";
 
+import i18n from "../../../i18n";
 import IosRemoveCircleOutline from "react-ionicons/lib/IosRemoveCircleOutline";
 import IosCreateOutline from "react-ionicons/lib/IosCreateOutline";
 import Pagination from "./PaginateTable";
 
-
 const TaskTable = ({ modal, page, fetchData }) => {
   const columns = [
     {
-      Header: "General",
+      Header: i18n.t("General"),
       columns: [
         {
-          Header: "Title",
+          Header: i18n.t("Title"),
           accessor: "name"
         },
         {
-          Header: "Description",
+          Header: i18n.t("Description"),
           accessor: "description"
         }
       ]
     },
     {
-      Header: "Info",
+      Header: i18n.t("Info"),
       columns: [
         {
-          Header: "Status",
+          Header: i18n.t("Status"),
           accessor: "status"
         },
         {
-          Header: "Due date",
+          Header: i18n.t("Due date"),
           accessor: "dueDate"
         },
         {
-          Header: "Estimated time",
+          Header: i18n.t("Estimated time"),
           accessor: "estimatedTime"
         }
       ]
     },
     {
-      Header: "Responsibility",
+      Header: i18n.t("Responsibility"),
       columns: [
         {
-          Header: "Assigned to",
+          Header: i18n.t("Assigned to"),
           Cell: row => row.original.assignedTo.fullName
         }
       ]
     },
     {
-      Header: "Actions",
+      Header: i18n.t("Actions"),
       Cell: row => (
         <div>
           <IosCreateOutline
@@ -88,12 +88,12 @@ const TaskTable = ({ modal, page, fetchData }) => {
               defaultPageSize={10}
               className="-striped -highlight table"
             />
-            <Pagination fetchData={fetchData} page={page} pages={pages}/>
+            <Pagination fetchData={fetchData} page={page} pages={pages} />
           </Fragment>
         );
       }}
     </Query>
   );
-}
+};
 
-  export default TaskTable
+export default TaskTable;

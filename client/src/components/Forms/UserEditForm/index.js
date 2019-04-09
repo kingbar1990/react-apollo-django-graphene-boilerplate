@@ -3,6 +3,7 @@ import { Formik, Form, Field } from "formik";
 import { Button } from "mdbreact";
 import { ReactstrapInput } from "reactstrap-formik";
 
+import i18n from "../../../i18n";
 import { UserFormValidate } from "./validation";
 
 const UserEditForm = props => (
@@ -23,23 +24,23 @@ const UserEditForm = props => (
                 name="fullName"
                 type="text"
                 component={ReactstrapInput}
-                label="Full name"
+                label={i18n.t("Full name")}
               />
               <Field
                 name="email"
                 type="text"
                 component={ReactstrapInput}
-                label="Email"
+                label={i18n.t("Email")}
               />
               <div className="position-relative form-group">
-                <label>Avatar</label>
+                <label>{i18n.t("Avatar")}</label>
                 <input
                   name="avatar"
                   type="file"
                   className="form-control-file"
                   accept="image/*"
                   onChange={props.handleImageChange}
-                  label="Avatar"
+                  label={i18n.t("Avatar")}
                 />
                 {props.error && (
                   <div className="invalid-feedback d-block">{props.error}</div>

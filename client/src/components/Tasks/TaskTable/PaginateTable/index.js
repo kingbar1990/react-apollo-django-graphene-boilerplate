@@ -1,27 +1,26 @@
-import React from 'react';
+import React from "react";
 
-import './style.css'
+import i18n from "../../../../i18n";
+import "./style.css";
 
 const Pagination = ({ fetchData, page, pages }) => (
   <div className="pagination ">
     <div className="previous">
-      <button 
-        onClick={() => fetchData('prev')} 
-        disabled={page <= 1}>
-        Previous
+      <button onClick={() => fetchData("prev")} disabled={page <= 1}>
+        {i18n.t("Previous")}
       </button>
     </div>
     <div className="center">
-      <p>Page {page} of {pages}</p>
+      <p>
+        {i18n.t("Page")} {page} of {pages}
+      </p>
     </div>
     <div className="next">
-      <button 
-        onClick={() => fetchData('next')} 
-        disabled={page === pages}>
-        Next
+      <button onClick={() => fetchData("next")} disabled={page === pages}>
+        {i18n.t("Next")}
       </button>
     </div>
   </div>
-)
+);
 
 export default Pagination;

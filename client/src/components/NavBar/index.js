@@ -44,7 +44,7 @@ export default props => {
 
   return (
     <Navbar className="flexible-navbar" light expand="md" scrolling>
-      <NavbarBrand href="/">Landing</NavbarBrand>
+      <NavbarBrand href="/">{i18n.t("Landing")}</NavbarBrand>
       <MDBNavbarToggler onClick={toggleCollapse("navbarCollapse13")} />
       <MDBCollapse id="navbarCollapse13" isOpen={collapse} navbar>
         <MDBNavbarNav left>
@@ -52,10 +52,10 @@ export default props => {
             <MDBNavLink to={DASHBOARD}>{i18n.t("Home")}</MDBNavLink>
           </MDBNavItem>
           <MDBNavItem>
-            <MDBNavLink to={PROFILE}>Profile</MDBNavLink>
+            <MDBNavLink to={PROFILE}>{i18n.t("Profile")}</MDBNavLink>
           </MDBNavItem>
           <MDBNavItem>
-            <MDBNavLink to={TASKS}>Tasks</MDBNavLink>
+            <MDBNavLink to={TASKS}>{i18n.t("Tasks")}</MDBNavLink>
           </MDBNavItem>
           <NavbarNav>
             <NavItem>
@@ -65,7 +65,7 @@ export default props => {
                 href="https://www.rocklab.io"
                 target="_blank"
               >
-                About <b>RockLab company</b>
+                {i18n.t("About")}About <b>RockLab company</b>
               </a>
             </NavItem>
           </NavbarNav>
@@ -79,7 +79,6 @@ export default props => {
               className="browser-default custom-select"
               onChange={props.handleLanguageChange}
             >
-              <option>Select language</option>
               <option value="en">EN</option>
               <option value="ru">RU</option>
             </select>

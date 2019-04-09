@@ -4,6 +4,7 @@ import { graphql, Query } from "react-apollo";
 import { MDBCard, MDBCardText } from "mdbreact";
 import { Pie } from "react-chartjs-2";
 
+import i18n from "../../i18n";
 import { getTasks } from "../../queries";
 
 const GetTasks = () => {
@@ -17,7 +18,9 @@ const GetTasks = () => {
         if (tasks.length) {
           return (
             <MDBCard className="card-body" style={stylesOnCard}>
-              <h3>Tasks: {tasks.length}</h3>
+              <h3>
+                {i18n.t("Tasks")}: {tasks.length}
+              </h3>
               <MDBCardText>
                 <Pie
                   data={{
@@ -42,7 +45,9 @@ const GetTasks = () => {
         }
         return (
           <MDBCard className="card-body" style={stylesOnCard}>
-            <h3>Tasks: {tasks.length}</h3>
+            <h3>
+              {i18n.t("Tasks")}: {tasks.length}
+            </h3>
           </MDBCard>
         );
       }}

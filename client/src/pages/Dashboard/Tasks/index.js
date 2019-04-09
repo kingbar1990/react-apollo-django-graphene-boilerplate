@@ -8,6 +8,7 @@ import TableHeader from "../../../components/Tasks/TaskTable/TableHeader";
 import TaskTable from "../../../components/Tasks/TaskTable";
 import Modals from "../../../components/Tasks/Modals";
 
+import i18n from "../../../i18n";
 import "react-table/react-table.css";
 import "../../../index.css";
 
@@ -90,7 +91,7 @@ const Tasks = ({ taskCreate, taskUpdate, taskDelete }) => {
     } catch (error) {
       return false;
     }
-  };  
+  };
 
   const handleActiveModal = type => {
     setState(state => ({
@@ -125,8 +126,15 @@ const Tasks = ({ taskCreate, taskUpdate, taskDelete }) => {
 
   return (
     <Fragment>
-      <TableHeader title="Task list" modalCreate={() => handleActiveModal("modalCreate")} />
-      <TaskTable fetchData={fetchData} page={state.page} modal={handleSwitchModal} />
+      <TableHeader
+        title={i18n.t("Task list")}
+        modalCreate={() => handleActiveModal("modalCreate")}
+      />
+      <TaskTable
+        fetchData={fetchData}
+        page={state.page}
+        modal={handleSwitchModal}
+      />
       <Modals
         modalCreate={state.modalCreate}
         modalEdit={state.modalEdit}
