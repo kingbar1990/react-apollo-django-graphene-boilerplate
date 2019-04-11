@@ -1,5 +1,9 @@
 # Development server
 
+- ### Set environment variables
+
+  - `cp .env.example .env`
+
 - ### Build docker
 
   - `docker-compose build`
