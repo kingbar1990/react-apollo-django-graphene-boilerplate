@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { graphql, compose } from "react-apollo";
-
+import { graphql } from "react-apollo";
+import _ from "lodash";
 import Profile from "../../../components/UserProfile";
 import UserEditForm from "../../../components/Forms/UserEditForm";
 
@@ -68,7 +68,7 @@ const EditUser = ({ edit, user }) => {
   );
 };
 
-export default compose(
+export default _.flowRight(
   graphql(editUser, { name: "edit" }),
   graphql(User, { name: "user" })
 )(EditUser);

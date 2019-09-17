@@ -1,5 +1,6 @@
 import React from "react";
-import { graphql, compose } from "react-apollo";
+import { graphql } from "react-apollo";
+import _ from "lodash";
 import { withRouter } from "react-router";
 
 import { verifyToken } from "../queries";
@@ -24,7 +25,7 @@ export const withAuth = ProtectedRoute => {
          return <ProtectedRoute {...this.props} />;
       }
    }
-   return compose(
+   return _.flowRight(
       graphql(verifyToken, {
          name: "authorization"
       })

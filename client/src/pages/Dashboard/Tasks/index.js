@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from "react";
-import { graphql, compose } from "react-apollo";
-
+import { graphql } from "react-apollo";
+import _ from "lodash";
 import { createTask, getTasks, deleteTask, updateTask } from "../../../queries";
 import { getCurrentDate } from "../../../utils";
 
@@ -151,7 +151,7 @@ const Tasks = ({ taskCreate, taskUpdate, taskDelete }) => {
   );
 };
 
-export default compose(
+export default _.flowRight(
   graphql(createTask, {
     name: "taskCreate"
   }),

@@ -8,7 +8,7 @@ import { ApolloProvider } from "react-apollo";
 import { setContext } from "apollo-link-context";
 import { I18nextProvider } from "react-i18next";
 
-import "font-awesome/css/font-awesome.min.css";
+// import "font-awesome/css/font-awesome.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 
