@@ -1,4 +1,5 @@
-import Yup from "yup";
+import * as Yup from 'yup'
+
 
 
 export const TaskSchema= Yup.object().shape({

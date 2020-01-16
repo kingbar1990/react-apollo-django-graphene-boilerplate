@@ -1,4 +1,5 @@
-import Yup from "yup";
+import * as Yup from 'yup'
+
 import { MIN_PASSWORD_LENGTH } from "../../../constants";
 
 
