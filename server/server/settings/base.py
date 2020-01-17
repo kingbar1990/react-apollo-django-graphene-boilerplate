@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "graphene_django",
     "corsheaders",
+    'djmoney',
     "serious_django_graphene",
 ]
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from djmoney.models.fields import MoneyField
 
 
 class Task(models.Model):
@@ -22,3 +23,15 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Project(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(null=True, blank=True)
+    budget = models.IntegerField()
+    deadline = models.DateField(null=True, blank=True)
+    developer = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+

@@ -65,7 +65,7 @@ export default props => {
                 href="https://www.rocklab.io"
                 target="_blank"
               >
-                {i18n.t("About")}About <b>RockLab company</b>
+                {i18n.t("About")} <b>RockLab company</b>
               </a>
             </NavItem>
           </NavbarNav>

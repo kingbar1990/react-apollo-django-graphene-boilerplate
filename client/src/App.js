@@ -17,6 +17,7 @@ const Profile = lazy(() => import("./pages/Dashboard/Profile"));
 const ConfirmEmail = lazy(() => import("./pages/ConfirmEmail"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const PageNotFound = lazy(() => import("./components/PageNotFound"));
+const Projects = lazy(() => import("./pages/Dashboard/Projects"));
 
 export default () => {
   const [language, setLanguage] = useState("en");
@@ -59,6 +60,11 @@ export default () => {
               exact
               path={path.RESET_PASSWORD}
               render={props => <ResetPassword {...props} />}
+            />
+            <Route
+              exact
+              path={path.PROJECTS}
+              render={props => <Projects {...props} />}
             />
             <Route render={props => <PageNotFound {...props} />} />
           </Switch>

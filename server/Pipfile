@@ -76,6 +76,7 @@ Pillow = "==7.0.0"
 Pygments = "==2.5.2"
 PyJWT = "==1.7.1"
 Rx = "==1.6.1"
+django-money = "==1.0"
 
 [requires]
 python_version = "3.8"

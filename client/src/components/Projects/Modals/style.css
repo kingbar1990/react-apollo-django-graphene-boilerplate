@@ -1,0 +1,13 @@
+.wrapp-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px 0;}
+    .wrapp-modal h3 {
+        margin: 20px 0;}
+    .modal-foot {
+        padding: 20px;
+        text-align: center;
+        border-top: 1px solid #e9ecef;}

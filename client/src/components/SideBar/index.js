@@ -1,7 +1,7 @@
 import React from "react";
 import { ListGroup, ListGroupItem, Fa } from "mdbreact";
 import { NavLink } from "react-router-dom";
-import { DASHBOARD, PROFILE, TASKS } from "../../constants/routes";
+import { DASHBOARD, PROFILE, TASKS, PROJECTS } from "../../constants/routes";
 
 import i18n from "../../i18n";
 import logo from "../../assets/logo.svg";
@@ -28,6 +28,12 @@ const Sidebar = () => (
         <ListGroupItem>
           <Fa icon="table" className="mr-3" />
           {i18n.t("Tasks")}
+        </ListGroupItem>
+      </NavLink>
+      <NavLink to={PROJECTS} activeClassName="activeClass">
+        <ListGroupItem>
+          <Fa icon="table" className="mr-3" />
+          {i18n.t("Projects")}
         </ListGroupItem>
       </NavLink>
     </ListGroup>

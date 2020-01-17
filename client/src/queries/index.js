@@ -245,3 +245,100 @@ export const resetPassword = gql `
     }
   }
 `;
+
+export const createProject = gql `
+  mutation createProject(
+    $name: String!
+    $description: String
+    $budget: Int!
+    $deadline: Date 
+    $developer: ID!
+  ) {
+    createProject(name: $name, deadline: $deadline, description: $description, budget: $budget, developer: $developer){
+      error{
+        __typename
+        ... on ValidationErrors{
+          validationErrors{
+            field
+            messages
+          }
+        }
+      }
+      project{
+        id
+        name
+        description
+        budget
+        deadline
+        developer {
+          id
+        }
+      }
+    }
+  }
+`;
+
+export const updateProject = gql `
+  mutation updateProject (
+    $projectId: Int!
+    $name: String!
+    $deadline: Date
+    $description: String
+    $budget: Int!
+    $developer: ID!
+  )
+  {
+    updateProject(projectId: $projectId, name: $name, description: $description, deadline: $deadline, budget: $budget, developer: $developer){
+      error{
+        __typename
+        ... on ValidationErrors{
+          validationErrors{
+            field
+            messages
+          }
+        }
+      }
+      project{
+        id
+        name
+        description
+        budget
+        deadline
+        developer{
+          id
+        }
+      }
+    }
+  }
+`;
+
+export const deleteProject = gql `
+  mutation deleteProject($projectId: String){
+    deleteProject(projectId: $projectId){
+      success
+    }
+  }
+`;
+
+export const getProjects = gql `
+  query getProjects($page: Int){
+    projects(page: $page){
+      page
+      pages
+      hasNext
+      hasPrev
+      objects{
+        id
+        name
+        description
+        budget
+        deadline
+        developer {
+          id
+          email
+          fullName
+        }
+      }
+    }
+  }
+`;

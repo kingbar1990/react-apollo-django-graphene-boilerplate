@@ -31,7 +31,13 @@ i18n.use(LanguageDetector).init({
         Actions: "Actions",
         Previous: "Previous",
         Page: "Page",
-        Next: "Next"
+        Next: "Next",
+        Projects: "Projects",
+        Budget: "Budget",
+        Deadline: "Deadline",
+        Developer: "Developer",
+        Project: "Project",
+        "Project list": "Project list"
       }
     },
 
@@ -62,7 +68,13 @@ i18n.use(LanguageDetector).init({
         Actions: "Действия",
         Previous: "Предыдущая",
         Page: "Страница",
-        Next: "Следующая"
+        Next: "Следующая",
+        Projects: "Проекты",
+        Budget: "Бюджет",
+        Deadline: "Окончание проекта",
+        Developer: "Разработчик",
+        Project: "Проект",
+        "Project list": "Список проектов"
       }
     }
   },

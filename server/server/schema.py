@@ -8,7 +8,14 @@ from accounts.mutations import (
     UserEditMutation,
 )
 from accounts.schema import Query as AccountsQuery
-from core.mutations import TaskCreateMutation, TaskMutationDelete, TaskUpdateMutation
+from core.mutations import (
+    TaskCreateMutation, 
+    TaskMutationDelete, 
+    TaskUpdateMutation,
+    ProjectCreateMutation,
+    ProjectUpdateMutation,
+    ProjectMutationDelete
+    )
 from core.schema import Query as CoreQuery
 
 
@@ -28,6 +35,8 @@ class Mutation(graphene.ObjectType):
     update_task = TaskUpdateMutation.Field()
     confirm_email = SendConfirmationEmailMutation.Field()
     reset_password = ResetPasswordMutation.Field()
-
+    create_project = ProjectCreateMutation.Field()
+    update_project = ProjectUpdateMutation.Field()
+    delete_project = ProjectMutationDelete.Field()
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
