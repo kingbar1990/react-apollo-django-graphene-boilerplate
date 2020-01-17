@@ -118,6 +118,10 @@ export const getTasks = gql `
           email
           fullName
         }
+        project {
+          id
+          name
+        }
       }
     }
   }
@@ -132,8 +136,9 @@ export const createTask = gql `
     $dueDate: Date
     $assignedTo: ID
     $estimatedTime: Int!
+    $project: ID
   ) {
-    createTask(taskId: $taskId, name: $name, description: $description, status: $status, dueDate: $dueDate,  estimatedTime: $estimatedTime, assignedTo: $assignedTo) {
+    createTask(taskId: $taskId, project: $project, name: $name, description: $description, status: $status, dueDate: $dueDate,  estimatedTime: $estimatedTime, assignedTo: $assignedTo) {
       error {
         __typename
         ... on ValidationErrors {
@@ -153,6 +158,9 @@ export const createTask = gql `
         assignedTo {
           id
         }
+        project {
+          id
+        }
       }
     }
   }
@@ -167,8 +175,9 @@ export const updateTask = gql `
     $dueDate: Date
     $assignedTo: ID
     $estimatedTime: Int!
+    $project: ID
   ) {
-    updateTask(taskId: $taskId, name: $name, description: $description, status: $status, dueDate: $dueDate,  estimatedTime: $estimatedTime, assignedTo: $assignedTo) {
+    updateTask(taskId: $taskId, project: $project, name: $name, description: $description, status: $status, dueDate: $dueDate,  estimatedTime: $estimatedTime, assignedTo: $assignedTo) {
       error {
         __typename
         ... on ValidationErrors {
@@ -186,6 +195,9 @@ export const updateTask = gql `
         dueDate
         estimatedTime
         assignedTo {
+          id
+        }
+        project {
           id
         }
       }

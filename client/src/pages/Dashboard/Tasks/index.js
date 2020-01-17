@@ -25,7 +25,8 @@ const Tasks = ({ taskCreate, taskUpdate, taskDelete }) => {
       status: "",
       dueDate: "",
       estimatedTime: "",
-      assignedTo: ""
+      assignedTo: "",
+      project: ""
     },
     id: ""
   });
@@ -33,6 +34,7 @@ const Tasks = ({ taskCreate, taskUpdate, taskDelete }) => {
   const handleCreateTask = (values, { setErrors }) => {
     const statusValue = document.getElementById("statusSelect").value;
     const userId = document.getElementById("userId").value;
+    const projectId = document.getElementById("projectId").value;
     const { title, description, estimatedTime } = values;
     const { date, page } = state;
     try {
@@ -44,7 +46,8 @@ const Tasks = ({ taskCreate, taskUpdate, taskDelete }) => {
           status: statusValue || 2,
           dueDate: date || getCurrentDate(new Date()),
           estimatedTime: estimatedTime,
-          assignedTo: userId
+          assignedTo: userId,
+          project: projectId
         },
         refetchQueries: [{ query: getTasks, variables: { page: page } }]
       });
@@ -57,6 +60,7 @@ const Tasks = ({ taskCreate, taskUpdate, taskDelete }) => {
   const handleUpdateTask = (values, { setErrors }) => {
     const statusValue = document.getElementById("statusSelect").value;
     const userId = document.getElementById("userId").value;
+    const projectId = document.getElementById("projectId").value;
     const { title, description, estimatedTime } = values;
     const { id, date, page } = state;
     try {
@@ -68,7 +72,8 @@ const Tasks = ({ taskCreate, taskUpdate, taskDelete }) => {
           status: statusValue || 2,
           dueDate: date || getCurrentDate(new Date()),
           estimatedTime: estimatedTime,
-          assignedTo: userId
+          assignedTo: userId,
+          project: projectId
         },
         refetchQueries: [{ query: getTasks, variables: { page: page } }]
       });

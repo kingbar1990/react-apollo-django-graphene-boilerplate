@@ -6,7 +6,7 @@ import { Formik, Form, Field } from "formik";
 import { Button } from "mdbreact";
 import { ReactstrapInput } from "reactstrap-formik";
 
-import { getUsers } from '../../../queries';
+import { getUsers, getProjects } from '../../../queries';
 import { TaskSchema } from "../CreateTaskForm/validation";
 
 const EditTaskForm = props => (
@@ -17,7 +17,8 @@ const EditTaskForm = props => (
       status: props.status,
       date: props.dueDate,
       estimatedTime: props.estimatedTime,
-      assignedTo: props.assignedTo
+      assignedTo: props.assignedTo,
+      project: props.project
     }}
     validationSchema={TaskSchema}
     onSubmit={props.submitForm}
@@ -81,6 +82,37 @@ const EditTaskForm = props => (
                         );
                       }
                       return null
+                    })}
+                  </select>
+                );
+              }}
+            </Query>
+            <Query 
+              query={getProjects}
+              variables={{page: 1}}
+            >
+              {({loading, error, data}) => {
+                console.log(data);
+                if (loading) return <p>Loading...</p>
+                if (error) return <p>{`Error! ${error.message}`}</p>;
+                return (
+                  <select
+                    id="projectId"
+                    name="project"
+                    className="browser-defauld custom-select position-relative form-group"
+                  >
+                    <option key={props.project.id} value={props.project.id}>
+                      {props.project.name}
+                    </option>
+                    {data.projects.objects.map(project => {
+                      if (project.name !== props.project.name){
+                        return (
+                          <option key={project.id} value={project.id}>
+                            {project.name}
+                          </option>
+                        );
+                      }
+                      return null;
                     })}
                   </select>
                 );

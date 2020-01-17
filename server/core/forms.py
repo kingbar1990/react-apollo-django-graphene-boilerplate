@@ -12,12 +12,13 @@ class TaskForm(ModelForm):
         model = Task
         fields = [
           'task_id', 'name', 'description', 'status', 'due_date',
-          'assigned_to', 'estimated_time'
+          'assigned_to', 'estimated_time', 'project'
         ]
 
 
 class ProjectForm(ModelForm):
   project_id = forms.IntegerField(required=False)
+  
   class Meta:
     model = Project
     fields = [

@@ -3,6 +3,17 @@ from django.contrib.auth import get_user_model
 from djmoney.models.fields import MoneyField
 
 
+class Project(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(null=True, blank=True)
+    budget = models.IntegerField()
+    deadline = models.DateField(null=True, blank=True)
+    developer = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Task(models.Model):
     STATUS_CHOICES = (
         (0, 'ToDo'),
@@ -20,18 +31,12 @@ class Task(models.Model):
         null=True, blank=True,
         on_delete=models.SET_NULL
     )
-
+    project = models.ForeignKey(
+        Project,
+        related_name="tasks",
+        null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
+    
     def __str__(self):
         return self.name
-
-
-class Project(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField(null=True, blank=True)
-    budget = models.IntegerField()
-    deadline = models.DateField(null=True, blank=True)
-    developer = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True)
-
-    def __str__(self):
-        return self.name
-

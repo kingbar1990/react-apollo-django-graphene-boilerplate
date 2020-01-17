@@ -14,6 +14,10 @@ const TaskTable = ({ modal, page, fetchData }) => {
       Header: i18n.t("General"),
       columns: [
         {
+          Header: "ID",
+          Cell: row => '#' + row.original.id
+        },
+        {
           Header: i18n.t("Title"),
           accessor: "name"
         },
@@ -37,6 +41,10 @@ const TaskTable = ({ modal, page, fetchData }) => {
         {
           Header: i18n.t("Estimated time"),
           accessor: "estimatedTime"
+        },
+        {
+          Header: i18n.t('Project'),
+          accessor: "project.name"
         }
       ]
     },
