@@ -14,9 +14,11 @@ const Dashboard = props => {
       <SideBar />
       <div className="main-container">
         <NavBar handleLanguageChange={props.handleLanguageChange} />
-        <main id="content" className="p-5">
-          {props.children}
-        </main>
+        <div className="m-5">
+          <main id="content" className="p-2 card">
+            {props.children}
+          </main>
+        </div>
         <Footer />
       </div>
     </div>
