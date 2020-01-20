@@ -27,6 +27,10 @@ const ProjectTable = ({ modal, page, fetchData }) => {
       Header: i18n.t("Info"),
       columns: [
         {
+          Header: i18n.t("Tasks"),
+          Cell:  row => row.original.tasks.reduce(function(str, current){if (typeof(str) !== "string") {str = `#${str.id}`} return str + "," + " #" + current.id})
+        },
+        {
           Header: i18n.t("Budget"),
           accessor: "budget"
         },

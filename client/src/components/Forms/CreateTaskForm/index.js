@@ -84,7 +84,6 @@ const CreateTaskForm = props => (
               {({loading, error, data}) => {
                 if (loading) return <p>Loading...</p>
                 if (error) return <p>{`Error! ${error.message}`}</p>;
-                console.log(data);
                 return (
                   <select
                     id="projectId"

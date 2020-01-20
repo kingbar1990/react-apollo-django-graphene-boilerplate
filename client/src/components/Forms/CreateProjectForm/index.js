@@ -1,6 +1,6 @@
 import React from "react";
 import { Query } from 'react-apollo';
-import { getUsers, getTasks } from '../../../queries';
+import { getUsers, getAllTasks } from '../../../queries';
 
 import { Formik, Form, Field } from "formik";
 import { Button  } from "mdbreact";
@@ -14,6 +14,7 @@ const CreateProjectForm = props => (
       name: "",
       developer: "",
       budget: "",
+      tasks: ""
     }}
     validationSchema={ProjectSchema}
     onSubmit={props.submitForm}
@@ -65,6 +66,29 @@ const CreateProjectForm = props => (
                         </option>
                       );
                     })}
+                  </select>
+                );
+              }}
+            </Query>
+            <label>Tasks</label>
+            <Query query={getAllTasks}>
+              {({ loading, error, data}) => {
+                if (loading) return <p>Loading...</p>
+                if (error) return <p>{`Error! ${error.message}`}</p>
+                return (
+                  <select
+                    id="tasksId"
+                    name="tasks"
+                    multiple
+                    className="browser-default custom-select position-relative form-group"
+                  >
+                    {data.allTasks.map(task => {
+                      return (
+                        <option key={task.id} value={task.id}>
+                          {task.name}
+                        </option>
+                      );
+        })}
                   </select>
                 );
               }}

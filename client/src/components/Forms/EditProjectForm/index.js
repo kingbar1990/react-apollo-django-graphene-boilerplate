@@ -6,7 +6,7 @@ import { Formik, Form, Field } from "formik";
 import { Button } from "mdbreact";
 import { ReactstrapInput } from "reactstrap-formik";
 
-import { getUsers } from '../../../queries';
+import { getUsers, getAllTasks } from '../../../queries';
 import { ProjectSchema } from "../CreateProjectForm/validation";
 
 const EditProjectForm = props => (
@@ -73,6 +73,28 @@ const EditProjectForm = props => (
                         );
                       }
                       return null
+                    })}
+                  </select>
+                );
+              }}
+            </Query>
+            <Query query={getAllTasks}>
+              {({loading, error, data}) => {
+                if (loading) return <p>Loading...</p>
+                if (error) return <p>{`Error ${error.message}`}</p>
+                return (
+                  <select
+                    id="tasksId"
+                    name="tasks"
+                    multiple
+                    className="browser-default custom-select position-relative form-group"
+                  >
+                    {data.allTasks.map(task => {
+                      return (
+                        <option key={task.id} value={task.id}>
+                          {task.name}
+                        </option>
+                      );
                     })}
                   </select>
                 );

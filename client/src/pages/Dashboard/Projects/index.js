@@ -22,14 +22,30 @@ const Projects = ({ projectCreate, projectUpdate, projectDelete }) => {
       description: "",
       budget: "",
       deadline: "",
-      developer: ""
+      developer: "",
     },
     id: ""
   });
 
+  function getSelectValues(select) {
+    var result = [];
+    var options = select && select.options;
+    var opt;
+  
+    for (var i=0, iLen=options.length; i<iLen; i++) {
+      opt = options[i];
+  
+      if (opt.selected) {
+        result.push(opt.value || opt.text);
+      }
+    }
+    return result;
+  }
+
   const handleCreateProject = (values, { setErrors }) => {
     const userId = document.getElementById("userId").value;
-    const { name, description, deadline, budget } = values;
+    const tasks = getSelectValues(document.getElementById("tasksId")).join();
+    const { name, description, deadline, budget} = values;
     const { page } = state;
     try {
       const response =  projectCreate({
@@ -38,7 +54,8 @@ const Projects = ({ projectCreate, projectUpdate, projectDelete }) => {
           description: description,
           deadline: deadline,
           budget: budget,
-          developer: userId
+          developer: userId,
+          tasks: tasks
         },
         refetchQueries: [{ query: getProjects, variables: { page: page } }]
 
@@ -51,6 +68,7 @@ const Projects = ({ projectCreate, projectUpdate, projectDelete }) => {
 
   const handleUpdateProject = (values, { setErrors }) => {
     const userId = document.getElementById("userId").value;
+    const tasks = getSelectValues(document.getElementById("tasksId")).join();
     const { name, description, budget, deadline } = values;
     const { id, page } = state;
     try {
@@ -61,7 +79,8 @@ const Projects = ({ projectCreate, projectUpdate, projectDelete }) => {
           description: description,
           deadline: deadline,
           budget: budget,
-          developer: userId
+          developer: userId,
+          tasks: tasks
         },
         refetchQueries: [{ query: getProjects, variables: { page: page } }]
       });

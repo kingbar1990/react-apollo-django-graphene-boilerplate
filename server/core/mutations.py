@@ -98,6 +98,8 @@ class ProjectUpdateMutation(FormMutation):
     def perform_mutate(cls, form, info):
         project = Project.objects.get(id=form.cleaned_data.pop('project_id'))
         for key, value in form.cleaned_data.items():
+            if(key) == 'tasks':
+                continue
             setattr(project, key, value)
         project.save()
         return cls(project=project)

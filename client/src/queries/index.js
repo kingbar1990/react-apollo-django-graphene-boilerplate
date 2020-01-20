@@ -265,8 +265,10 @@ export const createProject = gql `
     $budget: Int!
     $deadline: Date 
     $developer: ID!
+    $projectId: Int
+    $tasks: String
   ) {
-    createProject(name: $name, deadline: $deadline, description: $description, budget: $budget, developer: $developer){
+    createProject(name: $name, deadline: $deadline, description: $description, tasks: $tasks, projectId: $projectId, budget: $budget, developer: $developer){
       error{
         __typename
         ... on ValidationErrors{
@@ -298,9 +300,10 @@ export const updateProject = gql `
     $description: String
     $budget: Int!
     $developer: ID!
+    $tasks: String
   )
   {
-    updateProject(projectId: $projectId, name: $name, description: $description, deadline: $deadline, budget: $budget, developer: $developer){
+    updateProject(projectId: $projectId, name: $name, description: $description, deadline: $deadline, tasks: $tasks, budget: $budget, developer: $developer){
       error{
         __typename
         ... on ValidationErrors{
@@ -349,6 +352,10 @@ export const getProjects = gql `
           id
           email
           fullName
+        }
+        tasks{
+          id
+          name
         }
       }
     }
