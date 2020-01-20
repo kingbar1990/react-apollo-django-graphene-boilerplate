@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import ReactTable from "react-table";
 import { Query } from "react-apollo";
 import { getProjects } from "../../../queries";
-
+import { TASKS } from "../../../constants/routes"
 import i18n from "../../../i18n";
 import IosRemoveCircleOutline from "react-ionicons/lib/IosRemoveCircleOutline";
 import IosCreateOutline from "react-ionicons/lib/IosCreateOutline";
@@ -28,7 +28,7 @@ const ProjectTable = ({ modal, page, fetchData }) => {
       columns: [
         {
           Header: i18n.t("Tasks"),
-          Cell:  row => row.original.tasks.reduce(function(str, current){if (typeof(str) !== "string") {str = `#${str.id}`} return str + "," + " #" + current.id})
+          Cell:  row => <a href={TASKS}> {row.original.tasks.reduce(function(str, current){if (typeof(str) !== "string") {str = `#${str.id}`} return str + "," + " #" + current.id})} </a>
         },
         {
           Header: i18n.t("Budget"),
