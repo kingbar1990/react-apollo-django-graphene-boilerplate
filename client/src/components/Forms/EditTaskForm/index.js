@@ -6,7 +6,7 @@ import { Formik, Form, Field } from "formik";
 import { Button } from "mdbreact";
 import { ReactstrapInput } from "reactstrap-formik";
 
-import { getUsers, getProjects } from '../../../queries';
+import { getUsers, getAllProjects } from '../../../queries';
 import { TaskSchema } from "../CreateTaskForm/validation";
 
 const EditTaskForm = props => (
@@ -88,8 +88,7 @@ const EditTaskForm = props => (
               }}
             </Query>
             <Query 
-              query={getProjects}
-              variables={{page: 1}}
+              query={getAllProjects}
             >
               {({loading, error, data}) => {
                 console.log(data);
@@ -104,7 +103,7 @@ const EditTaskForm = props => (
                     <option key={props.project.id} value={props.project.id}>
                       {props.project.name}
                     </option>
-                    {data.projects.objects.map(project => {
+                    {data.allProjects.map(project => {
                       if (project.name !== props.project.name){
                         return (
                           <option key={project.id} value={project.id}>

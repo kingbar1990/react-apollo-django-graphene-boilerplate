@@ -1,6 +1,6 @@
 import React from "react";
 import { Query } from 'react-apollo';
-import { getUsers, getProjects } from '../../../queries';
+import { getUsers, getAllProjects } from '../../../queries';
 
 import { Formik, Form, Field } from "formik";
 import { Button  } from "mdbreact";
@@ -79,19 +79,19 @@ const CreateTaskForm = props => (
               }}
             </Query>
             <Query 
-              query={getProjects}
-              variables={{page: 1}}
+              query={getAllProjects}
             >
               {({loading, error, data}) => {
                 if (loading) return <p>Loading...</p>
                 if (error) return <p>{`Error! ${error.message}`}</p>;
+                console.log(data);
                 return (
                   <select
                     id="projectId"
                     name="project"
                     className="browser-defauld custom-select position-relative form-group"
                   >
-                    {data.projects.objects.map(project => {
+                    {data.allProjects.map(project => {
                       return (
                         <option key={project.id} value={project.id}>
                           {project.name}

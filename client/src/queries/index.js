@@ -354,3 +354,39 @@ export const getProjects = gql `
     }
   }
 `;
+
+export const getAllProjects = gql `
+  query getAllProjects{
+    allProjects{
+        id
+        name
+        description
+        budget
+        deadline
+        developer {
+          id
+          email
+          fullName
+        }
+    }
+  }
+`
+
+export const getAllTasks = gql `
+  query getAllTasks{
+    allTasks{
+      id
+        name
+        description
+        status
+        dueDate
+        estimatedTime
+        assignedTo {
+          id
+        }
+        project {
+          id
+        }
+    }
+  }
+`

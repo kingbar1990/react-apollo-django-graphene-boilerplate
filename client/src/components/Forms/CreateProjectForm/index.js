@@ -1,6 +1,6 @@
 import React from "react";
 import { Query } from 'react-apollo';
-import { getUsers } from '../../../queries';
+import { getUsers, getTasks } from '../../../queries';
 
 import { Formik, Form, Field } from "formik";
 import { Button  } from "mdbreact";
