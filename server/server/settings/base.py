@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     "corsheaders",
     'djmoney',
     "serious_django_graphene",
+    'channels',
+
 ]
 
 MIDDLEWARE = [
@@ -149,9 +151,11 @@ AUTHENTICATION_BACKENDS = [
     "graphql_jwt.backends.JSONWebTokenBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
-
+CHANNEL_LAYERS = {"default": {
+    "BACKEND": "channels.layers.InMemoryChannelLayer"}}
 GRAPHQL_JWT = {
     "JWT_EXPIRATION_DELTA": datetime.timedelta(minutes=5),
     "JWT_REFRESH_EXPIRATION_DELTA": datetime.timedelta(days=7),
     "JWT_AUTH_HEADER_PREFIX": "Bearer",
 }
+ASGI_APPLICATION = "core.routing.application"

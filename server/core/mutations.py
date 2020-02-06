@@ -4,6 +4,7 @@ from serious_django_graphene import FormMutation
 from .forms import TaskForm, ProjectForm
 from .models import Task, Project
 from .schema import TaskType, ProjectType
+from .subscriptions import OnNewProject
 
 
 class TaskMutationDelete(graphene.Mutation):
@@ -67,7 +68,7 @@ class ProjectMutationDelete(graphene.Mutation):
 
     success = graphene.Boolean()
     errors = graphene.List(graphene.String)
-    
+
     @staticmethod
     def mutate(root, info, **args):
         project_id = args.get('project_id')
@@ -116,6 +117,6 @@ class ProjectCreateMutation(FormMutation):
         project = form.save()
         project_id = project.id
         project = Project.objects.get(id=project_id)
-        return cls(project=project)
+        OnNewProject.new_chat_message(data=Project.objects.all().count())
 
-    
+        return cls(project=project)

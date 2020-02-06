@@ -21,11 +21,11 @@ services:
     container_name: server
     working_dir: /var/www/server
     ports:
-      - $SERVER_PORT:$SERVER_PORT
+      - 8000:8000
     volumes:
       - ./server/:/var/www/server
       - ./client/:/var/www/client/
-    command: gunicorn server.wsgi -c gunicorn.conf
+    command: daphne -b 0.0.0.0 -p 8000 server.asgi:application
     env_file:
       - .env
     environment:
