@@ -31,7 +31,7 @@
     "react-table": "6.10.3",
     "reactstrap": "^8.0.1",
     "reactstrap-formik": "^1.0.9",
-    "yarn": "^1.17.3",
+    "yarn": "^1.22.0",
     "yup": "0.28.0"
   },
   "scripts": {
